@@ -32,4 +32,4 @@ def text_display(request):
 
 def trello_board(request):
     tasks = Task.objects.all()
-    return render(request, 'text-entry.html', {'tasks': tasks})
+    return render(request, 'registration/trello.html', {'tasks': tasks})
