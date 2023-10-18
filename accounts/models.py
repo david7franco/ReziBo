@@ -7,6 +7,10 @@ class TextEntry(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)  
 
+class Task(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    status = models.IntegerField(choices=[(1, 'To Do'), (2, 'In Progress'), (3, 'Done')])
 
     def __str__(self):
         return self.content

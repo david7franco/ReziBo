@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from .models import TextEntry
 from .forms import TextEntryForm
 from django.contrib.auth.decorators import login_required
+from .models import Task
 
 
 class SignUpView(generic.CreateView):
@@ -28,3 +29,7 @@ def text_entry(request):
 def text_display(request):
     entries = TextEntry.objects.all()
     return render(request, 'registration/text-display.html', {'entries': entries})
+
+def trello_board(request):
+    tasks = Task.objects.all()
+    return render(request, 'text-entry.html', {'tasks': tasks})
