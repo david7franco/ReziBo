@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Entry</title>
+</head>
+<body>
+    <h1>Enter Text</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <a href="{% url 'text_display' %}">View Stored Text</a>
+    <a href="{% url 'logout' %}">Sign Out</a>
+</body>
+</html>
