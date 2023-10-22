@@ -1,31 +1,10 @@
-<style>
-    .container {
-        display: flex;
-    }
-    .task-list {
-        display: none;
-    }
+{% load static %}
+<!doctype html>
+<meta charset="UTF-8">
 
- 
-    .column {
-        flex: 1;
-        margin: 10px;
-    }
- 
- 
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
- 
- 
-    li {
-        margin-bottom: 10px;
-    }
- </style>
- 
- 
- <div class="container">
+<link rel="stylesheet" type="text/css" href="{% static "accounts/trello.css" %}">
+
+<div class="container">
     <div class="column">
         <h2 class="status-heading" data-target="todo-tasks">
             To Do <button class="toggle-button">Toggle</button>
