@@ -1,8 +1,14 @@
+{% extends 'base.html' %}
 {% load static %}
+{% block content %}
 <!doctype html>
 <meta charset="UTF-8">
 
 <link rel="stylesheet" type="text/css" href="{% static "accounts/trello.css" %}">
+
+<div class="header">
+    <h1>ReziBo</h1>
+</div>
 
 <div class="container">
     <div class="column">
@@ -81,7 +87,7 @@
         </ul>
     </div>
  </div>
- 
+ {% endblock %}
  <script>
     document.addEventListener('DOMContentLoaded', function() {
         const buttons = document.querySelectorAll('.toggle-button');

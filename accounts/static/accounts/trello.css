@@ -18,3 +18,14 @@
  li {
     margin-bottom: 10px;
 }
+.header {
+    background-color: #f8f9fa; 
+    padding: 10px 0; 
+    text-align: center; 
+    border-bottom: 1px solid #e1e4e8; /* Faint line at the bottom */
+}
+
+h1 {
+    margin: 0; 
+    font-family: Arial, sans-serif; 
+}
