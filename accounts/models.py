@@ -11,6 +11,6 @@ class Task(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     status = models.IntegerField(choices=[(1, 'To Do'), (2, 'In Progress'), (3, 'On Hold'),  (4, 'Done')])
-
+   
     def __str__(self):
-        return self.content
+        return self.title

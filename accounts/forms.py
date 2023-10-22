@@ -1,5 +1,6 @@
 from django import forms
 from .models import TextEntry
+from .models import Task
 
 class TextEntryForm(forms.ModelForm):
     class Meta:
@@ -12,3 +13,9 @@ class TextEntryForm(forms.ModelForm):
         if user:
             self.fields['user'].initial = user
             self.fields['user'].widget = forms.HiddenInput()
+
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['title', 'description', 'status']
