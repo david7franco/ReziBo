@@ -58,6 +58,8 @@
                     <strong>Description:</strong> {{ task.description }}
                 </li>
                 {% endif %}
+                {% empty %}
+                    <li>No tasks found for this category.</li>
             {% endfor %}
         </ul>
     </div>
@@ -75,6 +77,8 @@
                     <strong>Description:</strong> {{ task.description }}
                 </li>
                 {% endif %}
+                {% empty %}
+                    <li>No tasks found for this category.</li>
             {% endfor %}
         </ul>
     </div>
@@ -92,6 +96,8 @@
                     <strong>Description:</strong> {{ task.description }}
                 </li>
                 {% endif %}
+                {% empty %}
+                    <li>No tasks found for this category.</li>
             {% endfor %}
         </ul>
     </div>
