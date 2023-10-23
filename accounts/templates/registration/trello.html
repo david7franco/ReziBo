@@ -2,108 +2,177 @@
 {% load static %}
 {% block content %}
 <!doctype html>
-<meta charset="UTF-8">
-
-<link rel="stylesheet" type="text/css" href="{% static "accounts/trello.css" %}">
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ReziBo Dashbard</title>
+    <link rel="stylesheet" type="text/css" href="{% static "accounts/trello.css" %}">
+</head>
+<body>
 <div class="header">
-    <h1>ReziBo</h1>
+    <h1>ReziBo Dashbard</h1>
 </div>
 
 <div class="container">
     <div class="column columnborders">
-        <h2 class="status-heading" data-target="todo-tasks">
-            To Do <button class="toggle-button">Toggle</button>
+        <h2 class="status-heading">
+            To Do
         </h2>
         <ul id="todo-tasks" class="task-list">
+            
             {% for task in tasks %}
+            
                 {% if task.status == 1 %}
-                    <li class="taskborders">
-                     <strong>Title:</strong> {{ task.title }}<br>
-                     <strong>Description:</strong> {{ task.description }}
+                    <div class="dropdown">
+                        <button class="dropbtn">Move to...</button>
+                        <div class="dropdown-content">
+                            <button class="move-task" data-task-id="{{ task.id }}" data-new-status="2">In Progress</button>
+                            <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
+                            <button class="move-task" data-task-id="{{ task.id }}" data-new-status="4">Done</button>
+                        </div>
+                    </div>                
+                    <li id="task-{{ task.id }}" class="taskborders">
+                        <strong>Title:</strong> {{ task.title }}<br>
+                        <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
+                        <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
                     </li>
                 {% endif %}
-                {% empty %}
-                    <li>No tasks found for this category.</li>
+            {% empty %}
+                <li>No tasks found for this category.</li>
             {% endfor %}
-
         </ul>
     </div>
- 
- 
+
     <div class="column columnborders">
-        <h2 class="status-heading" data-target="in-progress">
-            In Progress <button class="toggle-button">Toggle</button>
+        <h2 class="status-heading">
+            In Progress
         </h2>
         <ul id="in-progress" class="task-list">
             {% for task in tasks %}
                 {% if task.status == 2 %}
-                <li class="taskborders">
-                    <strong>Title:</strong> {{ task.title }}<br>
-                    <strong>Description:</strong> {{ task.description }}
-                </li>
+                <div class="dropdown">
+                    <button class="dropbtn">Move to...</button>
+                    <div class="dropdown-content">
+                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
+                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
+                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="4">Done</button>
+                    </div>
+                </div>
+                    <li id="task-{{ task.id }}" class="taskborders">
+                        <strong>Title:</strong> {{ task.title }}<br>
+                        <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
+                        <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
+                    </li>
                 {% endif %}
-                {% empty %}
-                    <li>No tasks found for this category.</li>
+            {% empty %}
+                <li>No tasks found for this category.</li>
             {% endfor %}
         </ul>
     </div>
- 
- 
+
     <div class="column columnborders">
-        <h2 class="status-heading" data-target="on-hold">
-            On Hold <button class="toggle-button">Toggle</button>
+        <h2 class="status-heading">
+            On Hold
         </h2>
         <ul id="on-hold" class="task-list">
             {% for task in tasks %}
                 {% if task.status == 3 %}
-                <li class="taskborders">
-                    <strong>Title:</strong> {{ task.title }}<br>
-                    <strong>Description:</strong> {{ task.description }}
-                </li>
+                <div class="dropdown">
+                    <button class="dropbtn">Move to...</button>
+                    <div class="dropdown-content">
+                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
+                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="2">In Progress</button>
+                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="4">Done</button>
+                    </div>
+                </div>
+                    <li id="task-{{ task.id }}" class="taskborders">
+                        <strong>Title:</strong> {{ task.title }}<br>
+                        <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
+                        <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
+                    </li>
                 {% endif %}
-                {% empty %}
-                    <li>No tasks found for this category.</li>
+            {% empty %}
+                <li>No tasks found for this category.</li>
             {% endfor %}
         </ul>
     </div>
- 
- 
+
     <div class="column columnborders">
-        <h2 class="status-heading" data-target="done">
-            Done <button class="toggle-button">Toggle</button>
+        <h2 class="status-heading">
+            Done
         </h2>
         <ul id="done" class="task-list">
             {% for task in tasks %}
                 {% if task.status == 4 %}
-                <li class="taskborders">
-                    <strong>Title:</strong> {{ task.title }}<br>
-                    <strong>Description:</strong> {{ task.description }}
-                </li>
+                <div class="dropdown">
+                    <button class="dropbtn">Move to...</button>
+                    <div class="dropdown-content">
+                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
+                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="2">In Progress</button>
+                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
+                    </div>
+                </div>
+                    <li id="task-{{ task.id }}" class="taskborders">
+                        <strong>Title:</strong> {{ task.title }}<br>
+                        <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
+                        <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
+                    </li>
                 {% endif %}
-                {% empty %}
-                    <li>No tasks found for this category.</li>
+            {% empty %}
+                <li>No tasks found for this category.</li>
             {% endfor %}
         </ul>
     </div>
  </div>
- {% endblock %}
- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const buttons = document.querySelectorAll('.toggle-button');
 
-        buttons.forEach(button => {
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.toggle-button');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetId = button.getAttribute('data-target');
+            const description = document.getElementById(targetId);
+            
+            if (description.style.display === "none" || description.style.display === "") {
+                description.style.display = "block";
+            } else {
+                description.style.display = "none";
+            }
+        });
+    });
+});
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const moveTaskButtons = document.querySelectorAll('.move-task');
+        moveTaskButtons.forEach(button => {
             button.addEventListener('click', function() {
-                const heading = button.closest('.status-heading');
-                const targetId = heading.getAttribute('data-target');
-                const tasks = document.getElementById(targetId);
-                
-                if (tasks.style.display === "none" || tasks.style.display === "") {
-                    tasks.style.display = "block";
-                } else {
-                    tasks.style.display = "none";
-                }
+                const taskId = button.getAttribute('data-task-id');
+                const newStatus = button.getAttribute('data-new-status');
+                fetch(`{% url 'move_task' %}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({ task_id: taskId, new_status: newStatus }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Remove the task from the "To Do" column
+                        const taskElement = document.getElementById(`task-${taskId}`);
+                        taskElement.remove();
+                    }
+                })
+                .catch(error => console.log('Error:', error));
             });
         });
     });
-</script>
+    </script>
+</body>
+</html>
+{% endblock %}

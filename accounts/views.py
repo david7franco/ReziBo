@@ -2,10 +2,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .models import TextEntry
 from .forms import TextEntryForm
 from django.contrib.auth.decorators import login_required
 from .models import Task
+from django.views.decorators.http import require_POST
+import json
 
 
 class SignUpView(generic.CreateView):
@@ -33,3 +37,16 @@ def text_display(request):
 def trello_board(request):
     tasks = Task.objects.all()
     return render(request, 'registration/trello.html', {'tasks': tasks})
+
+@csrf_exempt
+@require_POST
+def move_task(request):
+    data = json.loads(request.body)
+    task_id = data.get('task_id')
+    new_status = data.get('new_status')
+    if task_id is not None and new_status is not None:
+        task = Task.objects.get(id=task_id)
+        task.status = new_status  # Update the status
+        task.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})

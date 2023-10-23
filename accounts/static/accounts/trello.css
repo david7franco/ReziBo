@@ -39,7 +39,53 @@ h1 {
 .taskborders {
     background-color: #FFF;
     border-radius: 10px; 
+
 }
 
+.desc {
+    display: none;
+}
 
+.dropbtn {
+    background-color: #b4c0c4;
+    color: white;
+    padding: 10px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+  }
 
+ .dropbtn:hover, .dropbtn:focus {
+    background-color: #b4c0c4;
+}
+  
+ .dropdown {
+    position: relative;
+    display: inline-block;
+}
+  
+ .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 0;  /* This will align it with the top of the main button */
+    left: 100%;  /* This will move it to the right side of the main button */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    white-space: nowrap;
+}
+  
+.dropdown-content button {
+    color: black;
+    padding: 8px 10px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+  }
+  
+ .dropdown-content button:hover {
+    background-color: #ddd
+}
+  
+ .dropdown:hover .dropdown-content {
+    display: block;
+}
