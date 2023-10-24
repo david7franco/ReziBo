@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{%load static%}
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}" >
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}ReziBo{% endblock %}</title>
+</head>
+<body>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>
