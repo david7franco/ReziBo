@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Profile View{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
-  Howdy meowdy {{ user.username }}!!!
+  Username: {{ user.username }}!!!
   <p><a href="{% url 'logout' %}">Log Out</a></p>
-  <a href="{% url 'profile-view' %}">Profile</a>
-  <a href="{% url 'text_entry' %}">Enter Some Text!</a>
+  First Name: {{user.first_name}}
+  Last Name: {{user.last_name}}
+  Email: {{user.email}}
   {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Log In</a>
 {% endif %}
 {% endblock %}
-

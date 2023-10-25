@@ -49,6 +49,9 @@ def trello_board(request):
 
     return render(request, 'registration/trello.html', {'tasks': tasks, 'floors': floors, 'selected_floor': selected_floor})
 
+def profile_view(request):
+    return render(request, 'registration/profile-view.html')
+
 @csrf_exempt
 @require_POST
 def move_task(request):
