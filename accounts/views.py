@@ -49,6 +49,7 @@ def trello_board(request):
 
     return render(request, 'registration/trello.html', {'tasks': tasks, 'floors': floors, 'selected_floor': selected_floor})
 
+@login_required
 def profile_view(request):
     return render(request, 'registration/profile-view.html')
 
