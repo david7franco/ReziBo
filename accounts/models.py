@@ -1,7 +1,6 @@
 from datetime import datetime
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser, Group, Permission
-from django.utils.translation import gettext as _
+from django.contrib.auth.models import User, AbstractUser
 
 # Create your models here.
 class TextEntry(models.Model):
@@ -13,7 +12,7 @@ class Task(models.Model):
     task_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
     floor = models.PositiveIntegerField()
-    assingor = models.CharField(max_length=200)
+    assingor = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField()
     status = models.IntegerField(choices=[(1, 'To Do'), (2, 'In Progress'), (3, 'On Hold'),  (4, 'Done')])
     priority = models.IntegerField(choices=[(1, 'Low'), (2, 'Medium'), (3, 'High')])
@@ -24,32 +23,17 @@ class Task(models.Model):
         return self.title
     
 class CustomUser(AbstractUser):
+    is_admin = models.BooleanField(default=False)
+    is_manager = models.BooleanField(default=False)
     room_number = models.PositiveIntegerField()
     phone_number = models.CharField(max_length=15, blank=True)
 
-    groups = models.ManyToManyField(Group, verbose_name=_('groups'), blank=True, related_name='customuser_set')
-    user_permissions = models.ManyToManyField(
-        Permission,
-        verbose_name=_('user permissions'),
-        blank=True,
-        related_name='customuser_set'
-    )
-
 class ManagerUser(CustomUser):
-    is_admin = models.BooleanField(default=True)
-    is_r_a = models.BooleanField(default=False)
-    is_resident = models.BooleanField(default=False)
     resident_assistants = models.TextField()
 
 class RaUser(CustomUser):
-    is_admin = models.BooleanField(default=False)
-    is_r_a = models.BooleanField(default=True)
-    is_resident = models.BooleanField(default=False)
     floor = models.PositiveIntegerField()
     manager = models.CharField(max_length=200)
 
 class ResidentUser(CustomUser):
-    is_admin = models.BooleanField(default=False)
-    is_r_a = models.BooleanField(default=False)
-    is_resident = models.BooleanField(default=True)
     floor = models.PositiveIntegerField()
