@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import TextEntry
+from .models import CustomUser
 from .forms import TextEntryForm
 from django.contrib.auth.decorators import login_required
 from .models import Task
@@ -51,7 +52,8 @@ def trello_board(request):
 
 @login_required
 def profile_view(request):
-    return render(request, 'registration/profile-view.html')
+    customUser = CustomUser
+    return render(request, 'registration/profile-view.html', {'user_data': customUser})
 
 @csrf_exempt
 @require_POST

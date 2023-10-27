@@ -1,16 +1,65 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <style>
+        .user-profile-container {
+            display: flex;
+        }
+        .user-card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #aaa;
+            background-color: #f9f9f9;
+        }
+        .profile-picture {
+            max-width: 150px;
+            max-height: 150px;
+        }
+        .task-card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px #aaa;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <div class="user-card">
+        <h2>{{ user_data.username }}</h2>
+        <img class="profile-picture" src="/static/gosling.png" alt="Profile Picture">
+        <p><strong>Full Name:</strong> {{ user_data.first_name }} {{ user_data.last_name }}</p>
+        <p><strong>Email:</strong> {{ user_data.email }}</p>
+        <p><strong>Role:</strong>
+            {% if user_data.is_superuser %}
+                Superuser
+            {% elif user_data.is_admin %}
+                Admin
+            {% elif user_data.is_manager %}
+                Manager
+            {% else %}
+                Regular User
+            {% endif %}
+        </p>
+        <p><strong>Additional Information:</strong></p>
+        <ul>
+            <li><strong>ID:</strong> {{ user_data.id }}</li>
+        </ul>
+    </div>
 
-{% block title %}Profile View{% endblock %}
-
-{% block content %}
-{% if user.is_authenticated %}
-  Username: {{ user.username }}!!!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
-  First Name: {{user.first_name}}
-  Last Name: {{user.last_name}}
-  Email: {{user.email}}
-  {% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Log In</a>
-{% endif %}
-{% endblock %}
+    <!-- Second card for tasks -->
+    <div class="task-card">
+        <h2>Assigned Tasks</h2>
+        <ul>
+            <li>Task 1: Description of the first task.</li>
+            <li>Task 2: Description of the second task.</li>
+            <li>Task 3: Description of the third task.</li>
+        </ul>
+    </div>
+</body>
+</html>
