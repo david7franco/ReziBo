@@ -25,8 +25,6 @@ class Task(models.Model):
         return self.title
     
 class CustomUser(AbstractUser):
-    is_admin = models.BooleanField(default=False)
-    is_manager = models.BooleanField(default=False)
     room_number = models.PositiveIntegerField()
     phone_number = models.CharField(max_length=15, blank=True)
 
@@ -39,11 +37,20 @@ class CustomUser(AbstractUser):
     )
 
 class ManagerUser(CustomUser):
+    is_admin = models.BooleanField(default=True)
+    is_r_a = models.BooleanField(default=False)
+    is_resident = models.BooleanField(default=False)
     resident_assistants = models.TextField()
 
 class RaUser(CustomUser):
+    is_admin = models.BooleanField(default=False)
+    is_r_a = models.BooleanField(default=True)
+    is_resident = models.BooleanField(default=False)
     floor = models.PositiveIntegerField()
     manager = models.CharField(max_length=200)
 
 class ResidentUser(CustomUser):
+    is_admin = models.BooleanField(default=False)
+    is_r_a = models.BooleanField(default=False)
+    is_resident = models.BooleanField(default=True)
     floor = models.PositiveIntegerField()
