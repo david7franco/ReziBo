@@ -166,12 +166,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Remove the task from the "To Do" column
                         const taskElement = document.getElementById(`task-${taskId}`);
                         taskElement.remove();
+                        location.reload();
                     }
                 })
                 .catch(error => console.log('Error:', error));
             });
+            
         });
+        
     });
+    
     </script>
 </body>
 </html>
