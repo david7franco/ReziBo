@@ -14,18 +14,18 @@
             border-radius: 5px;
             box-shadow: 0 0 5px #aaa;
             background-color: #f9f9f9;
-            width: 45%; /* Adjust the width as needed */
+            width: 45%; 
         }
         .profile-card {
-            width: 45%; /* Adjust the width as needed */
+            width: 45%; 
         }
         .profile-picture {
-            max-width: 150px;
-            max-height: 150px;
+            max-width: 130px;
+            max-height: 130px;
         }
         .task-card {
             border: 1px solid #ddd;
-            padding: 10px;
+            padding: 100px;
             margin: 10px;
             border-radius: 5px;
             box-shadow: 0 0 5px #aaa;
@@ -57,25 +57,25 @@
                 <li><strong>ID:</strong> {{ user.id }}</li>
             </ul>
         </div>
-
-        <div class="profile-card">
-            <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
-            <p><strong>Room Number:</strong> {{ user.room_number }}</p>
-        </div>
+        <div class="task-card">
+            <h2>Assigned Tasks</h2>
+            <ul>
+                {% for task in tasks %}
+                <li style="padding: 10px">
+                    <strong>Title:</strong> {{ task.title }}<br>
+                    <strong>Description:</strong> {{ task.description }}<br>
+                    <button style="float: right; margin-top: -40px;">View Task</button>
+                </li>
+                {% endfor %}
+                </ul>
+            </div>
+        
     </div>
 
-    <!-- Card for listing user's tasks -->
-<!-- Card for listing user's tasks -->
-<div class="task-card">
-    <h2>Assigned Tasks</h2>
-    <ul>
-        {% for task in tasks %}
-        <li>
-            <strong>Title:</strong> {{ task.title }}<br>
-            <strong>Description:</strong> {{ task.description }}<br>
-        </li>
-        {% endfor %}
-        </ul>
-    </div>
+<div class="profile-profile-container">
+    <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+    <p><strong>Room Number:</strong> {{ user.room_number }}</p>
+</div>
+
 </body>
 </html>
