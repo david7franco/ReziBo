@@ -53,7 +53,8 @@ def trello_board(request):
 @login_required
 def profile_view(request):
     customUser = CustomUser
-    return render(request, 'registration/profile-view.html', {'user_data': customUser})
+    tasks = Task.objects.all()
+    return render(request, 'registration/profile-view.html', {'user_data': customUser, 'tasks':tasks})
 
 @csrf_exempt
 @require_POST

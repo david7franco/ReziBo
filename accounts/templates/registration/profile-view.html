@@ -5,6 +5,7 @@
     <style>
         .user-profile-container {
             display: flex;
+            flex-wrap: wrap;
         }
         .user-card {
             border: 1px solid #ddd;
@@ -13,6 +14,10 @@
             border-radius: 5px;
             box-shadow: 0 0 5px #aaa;
             background-color: #f9f9f9;
+            width: 45%; /* Adjust the width as needed */
+        }
+        .profile-card {
+            width: 45%; /* Adjust the width as needed */
         }
         .profile-picture {
             max-width: 150px;
@@ -30,35 +35,46 @@
 </head>
 <body>
     <h1>User Profile</h1>
-    <div class="user-card">
-        <h2>{{ user_data.username }}</h2>
-        <img class="profile-picture" src="/static/gosling.png" alt="Profile Picture">
-        <p><strong>Full Name:</strong> {{ user_data.first_name }} {{ user_data.last_name }}</p>
-        <p><strong>Email:</strong> {{ user_data.email }}</p>
-        <p><strong>Role:</strong>
-            {% if user_data.is_superuser %}
-                Superuser
-            {% elif user_data.is_admin %}
-                Admin
-            {% elif user_data.is_manager %}
-                Manager
-            {% else %}
-                Regular User
-            {% endif %}
-        </p>
-        <p><strong>Additional Information:</strong></p>
-        <ul>
-            <li><strong>ID:</strong> {{ user_data.id }}</li>
-        </ul>
+    <div class="user-profile-container">
+        <div class="user-card">
+            <h2>{{ user.username }}</h2>
+            <img class="profile-picture" src="/static/gosling.png" alt="Profile Picture">
+            <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Role:</strong>
+                {% if user.is_superuser %}
+                    Superuser
+                {% elif user.is_admin %}
+                    Admin
+                {% elif user.is_manager %}
+                    Manager
+                {% else %}
+                    Regular User
+                {% endif %}
+            </p>
+            <p><strong>Additional Information:</strong></p>
+            <ul>
+                <li><strong>ID:</strong> {{ user.id }}</li>
+            </ul>
+        </div>
+
+        <div class="profile-card">
+            <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+            <p><strong>Room Number:</strong> {{ user.room_number }}</p>
+        </div>
     </div>
 
-    <!-- Second card for tasks -->
-    <div class="task-card">
-        <h2>Assigned Tasks</h2>
-        <ul>
-            <li>Task 1: Description of the first task.</li>
-            <li>Task 2: Description of the second task.</li>
-            <li>Task 3: Description of the third task.</li>
+    <!-- Card for listing user's tasks -->
+<!-- Card for listing user's tasks -->
+<div class="task-card">
+    <h2>Assigned Tasks</h2>
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <strong>Title:</strong> {{ task.title }}<br>
+            <strong>Description:</strong> {{ task.description }}<br>
+        </li>
+        {% endfor %}
         </ul>
     </div>
 </body>
