@@ -50,3 +50,7 @@ def move_task(request):
         task.save()
         return JsonResponse({'success': True})
     return JsonResponse({'success': False})
+
+
+def resident_dashboard(request):
+    return render(request, 'registration/residentDashboard.html')

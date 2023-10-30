@@ -6,11 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <title>ReziBo Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="{% static "accounts/trello.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "accounts/residentDashboard.css" %}">
 </head>
+
 <body>
 <div class="header">
-    <h1>ReziBo Dashboard</h1>
+    <h1>ReziBo Resident Dashboard</h1>
 </div>
 
 <div class="container">
@@ -24,17 +25,14 @@
             
                 {% if task.status == 1 %}
                     <div class="dropdown">
-                        <button class="dropbtn">Move to...</button>
+                        <button class="dropbtn">Created Tickets</button>
                         <div class="dropdown-content">
-                            <button class="move-task" data-task-id="{{ task.id }}" data-new-status="2">In Progress</button>
-                            <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
-                            <button class="move-task" data-task-id="{{ task.id }}" data-new-status="4">Done</button>
+
                         </div>
                     </div>                
                     <li id="task-{{ task.id }}" class="taskborders">
                         <strong>Title:</strong> {{ task.title }}<br>
                         <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
-                        <strong>Priority:</strong> <span class="priority" id="priority-{{ task.id }}">{{ task.priority }}</span><br>
                         <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
                     </li>
                 {% endif %}
@@ -52,7 +50,7 @@
             {% for task in tasks %}
                 {% if task.status == 2 %}
                 <div class="dropdown">
-                    <button class="dropbtn">Move to...</button>
+                    <button class="dropbtn">Open</button>
                     <div class="dropdown-content">
                         <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
                         <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
@@ -62,7 +60,6 @@
                     <li id="task-{{ task.id }}" class="taskborders">
                         <strong>Title:</strong> {{ task.title }}<br>
                         <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
-                        <strong>Priority:</strong> <span class="priority" id="priority-{{ task.id }}">{{ task.priority }}</span><br>
                         <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
                     </li>
                 {% endif %}
@@ -72,62 +69,8 @@
         </ul>
     </div>
 
-    <div class="column columnborders">
-        <h2 class="status-heading">
-            On Hold
-        </h2>
-        <ul id="on-hold" class="task-list">
-            {% for task in tasks %}
-                {% if task.status == 3 %}
-                <div class="dropdown">
-                    <button class="dropbtn">Move to...</button>
-                    <div class="dropdown-content">
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="2">In Progress</button>
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="4">Done</button>
-                    </div>
-                </div>
-                    <li id="task-{{ task.id }}" class="taskborders">
-                        <strong>Title:</strong> {{ task.title }}<br>
-                        <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
-                        <strong>Priority:</strong> <span class="priority" id="priority-{{ task.id }}">{{ task.priority }}</span><br>
-                        <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
-                    </li>
-                {% endif %}
-            {% empty %}
-                <li>No tasks found for this category.</li>
-            {% endfor %}
-        </ul>
-    </div>
 
-    <div class="column columnborders">
-        <h2 class="status-heading">
-            Done
-        </h2>
-        <ul id="done" class="task-list">
-            {% for task in tasks %}
-                {% if task.status == 4 %}
-                <div class="dropdown">
-                    <button class="dropbtn">Move to...</button>
-                    <div class="dropdown-content">
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="2">In Progress</button>
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
-                    </div>
-                </div>
-                    <li id="task-{{ task.id }}" class="taskborders">
-                        <strong>Title:</strong> {{ task.title }}<br>
-                        <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
-                        <strong>Priority:</strong> <span class="priority" id="priority-{{ task.id }}">{{ task.priority }}</span><br>
-                        <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
-                    </li>
-                {% endif %}
-            {% empty %}
-                <li>No tasks found for this category.</li>
-            {% endfor %}
-        </ul>
-    </div>
- </div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -170,16 +113,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Remove the task from the "To Do" column
                         const taskElement = document.getElementById(`task-${taskId}`);
                         taskElement.remove();
-                        location.reload();
                     }
                 })
                 .catch(error => console.log('Error:', error));
             });
-            
         });
-        
     });
-    
     </script>
 </body>
 </html>
