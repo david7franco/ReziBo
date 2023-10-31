@@ -9,6 +9,13 @@
     <link rel="stylesheet" type="text/css" href="{% static "accounts/trello.css" %}">
 </head>
 <body>
+
+<div class="header">
+    <h1>ReziBo Dashboard</h1>
+    <a href="{% url 'logout' %}" class="logout-button" style="float: right; padding: 10px; margin: 10px; border: 1px solid #000; border-radius: 5px; text-decoration: none; color: #000; background-color: #f2f2f2;">Logout</a>
+
+</div>
+</div>
 <div class="floor-selector">
     <form method="get">
         <label for="floor">Select Floor: </label>
@@ -21,10 +28,6 @@
         </select>
     </form>
 </div>
-<div class="header">
-    <h1>ReziBo Dashboard</h1>
-</div>
-
 <div class="container">
     <div class="column columnborders">
         <h2 class="status-heading">
