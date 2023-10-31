@@ -1,0 +1,71 @@
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #c0c0c0;
+    color: #ffffff;
+    text-align: center;
+    padding: 1em 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.column {
+    background-color: #ffffff;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+
+.columnborders {
+    border: 2px solid black;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+}
+
+.taskborders {
+    border: 1px solid black;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.status-heading {
+    border-bottom: 2px solid black;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.logout {
+    padding: 10px;
+    margin-left: auto;
+}
+
+.button {
+    text-decoration: none; 
+    display: inline-block;
+    padding: 10px 20px; 
+    background-color: #007bff; 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+
+.button:hover {
+    background-color: #0056b3; 
+}
