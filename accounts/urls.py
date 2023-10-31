@@ -1,5 +1,5 @@
 from django.urls import path
-
+from django.contrib.auth import views as auth_views
 from .views import SignUpView
 from . import views
 
@@ -11,5 +11,6 @@ urlpatterns = [
     path('move_task/', views.move_task, name='move_task'),
     path('login/', views.login_view, name='login'),
     
+    path('residentDashboard/', views.resident_dashboard, name= 'resident_dashboard'),
 
 ]

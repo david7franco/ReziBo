@@ -9,10 +9,26 @@
     <link rel="stylesheet" type="text/css" href="{% static "accounts/trello.css" %}">
 </head>
 <body>
+
 <div class="header">
     <h1>ReziBo Dashboard</h1>
 </div>
+<div class="logout">
+    <a href="{% url 'logout' %}" class="button">Sign Out</a>
+</div>
+</div>
+<div class="floor-selector">
+    <form method="get">
+        <label for="floor">Select Floor: </label>
+        <select id="floor" name="floor" onchange="this.form.submit()">
+            <option value="">All Floors</option>
+            {% for floor in floors %}
+            <option value="{{ floor }}" {% if floor == selected_floor %}selected{% endif %}>{{ floor }}</option>
 
+            {% endfor %}
+        </select>
+    </form>
+</div>
 <div class="container">
     <div class="column columnborders">
         <h2 class="status-heading">
@@ -34,6 +50,7 @@
                     <li id="task-{{ task.id }}" class="taskborders">
                         <strong>Title:</strong> {{ task.title }}<br>
                         <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
+                        <strong>Priority:</strong> <span class="priority" id="priority-{{ task.id }}">{{ task.priority }}</span><br>
                         <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
                     </li>
                 {% endif %}
@@ -61,6 +78,7 @@
                     <li id="task-{{ task.id }}" class="taskborders">
                         <strong>Title:</strong> {{ task.title }}<br>
                         <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
+                        <strong>Priority:</strong> <span class="priority" id="priority-{{ task.id }}">{{ task.priority }}</span><br>
                         <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
                     </li>
                 {% endif %}
@@ -88,6 +106,7 @@
                     <li id="task-{{ task.id }}" class="taskborders">
                         <strong>Title:</strong> {{ task.title }}<br>
                         <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
+                        <strong>Priority:</strong> <span class="priority" id="priority-{{ task.id }}">{{ task.priority }}</span><br>
                         <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
                     </li>
                 {% endif %}
@@ -115,6 +134,7 @@
                     <li id="task-{{ task.id }}" class="taskborders">
                         <strong>Title:</strong> {{ task.title }}<br>
                         <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
+                        <strong>Priority:</strong> <span class="priority" id="priority-{{ task.id }}">{{ task.priority }}</span><br>
                         <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
                     </li>
                 {% endif %}
@@ -166,12 +186,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Remove the task from the "To Do" column
                         const taskElement = document.getElementById(`task-${taskId}`);
                         taskElement.remove();
+                        location.reload();
                     }
                 })
                 .catch(error => console.log('Error:', error));
             });
+            
         });
+        
     });
+    
     </script>
 </body>
 </html>
