@@ -53,5 +53,9 @@ def move_task(request):
 
 
 def resident_dashboard(request):
+<<<<<<< HEAD
     tasks = Task.objects.all()
     return render(request, 'registration/residentDashboard.html', {'tasks': tasks})
+=======
+    return render(request, 'registration/residentDashboard.html')
+>>>>>>> 0460a9d (Feature/resident dashboard (#8))
