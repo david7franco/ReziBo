@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ReziBo Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="{% static "accounts/residentDashboard.css" %}">
-</head>
+<html>
+<link rel="stylesheet" type="text/css" href="{% static "accounts/residentDashboard.css" %}">
 
 <body>
 <div class="header">
@@ -17,17 +12,15 @@
 <div class="container">
     <div class="column columnborders">
         <h2 class="status-heading">
-            To Do
+            Open Tickets
         </h2>
         <ul id="todo-tasks" class="task-list">
-            
             {% for task in tasks %}
-            
-                {% if task.status == 1 %}
+                {% if task.status == 1 or task.status == 2 or task.status == 3 or task.status == 4 %}
                     <div class="dropdown">
                         <button class="dropbtn">Created Tickets</button>
                         <div class="dropdown-content">
-
+                            
                         </div>
                     </div>                
                     <li id="task-{{ task.id }}" class="taskborders">
@@ -44,7 +37,7 @@
 
     <div class="column columnborders">
         <h2 class="status-heading">
-            In Progress
+            Previous Tickets
         </h2>
         <ul id="in-progress" class="task-list">
             {% for task in tasks %}
