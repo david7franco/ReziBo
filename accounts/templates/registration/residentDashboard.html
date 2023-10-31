@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
 <html>
 <link rel="stylesheet" type="text/css" href="{% static "accounts/residentDashboard.css" %}">
 
@@ -62,57 +63,12 @@
         </ul>
     </div>
 
+<div class="logout">
+    <a href="{% url 'logout' %}" class="button">Sign Out</a>
+</div>
+    
 
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const buttons = document.querySelectorAll('.toggle-button');
-
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            const targetId = button.getAttribute('data-target');
-            const description = document.getElementById(targetId);
-            
-            if (description.style.display === "none" || description.style.display === "") {
-                description.style.display = "block";
-            } else {
-                description.style.display = "none";
-            }
-        });
-    });
-});
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-        const moveTaskButtons = document.querySelectorAll('.move-task');
-        moveTaskButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const taskId = button.getAttribute('data-task-id');
-                const newStatus = button.getAttribute('data-new-status');
-                fetch(`{% url 'move_task' %}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}',
-                    },
-                    body: JSON.stringify({ task_id: taskId, new_status: newStatus }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Remove the task from the "To Do" column
-                        const taskElement = document.getElementById(`task-${taskId}`);
-                        taskElement.remove();
-                    }
-                })
-                .catch(error => console.log('Error:', error));
-            });
-        });
-    });
-    </script>
 </body>
 </html>
+
 {% endblock %}

@@ -49,11 +49,23 @@ body {
     margin-bottom: 10px;
 }
 
-.toggle-button {
-    background-color: #4CAF50;
-    color: #ffffff;
-    border: none;
-    padding: 5px 10px;
+.logout {
+    padding: 10px;
+    margin-left: auto;
+}
+
+.button {
+    text-decoration: none; 
+    display: inline-block;
+    padding: 10px 20px; 
+    background-color: #007bff; 
+    color: #fff; 
+    border: none; 
     border-radius: 5px;
-    cursor: pointer;
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+
+.button:hover {
+    background-color: #0056b3; 
 }
