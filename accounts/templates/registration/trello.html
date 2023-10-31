@@ -9,6 +9,17 @@
     <link rel="stylesheet" type="text/css" href="{% static "accounts/trello.css" %}">
 </head>
 <body>
+<div class="floor-selector">
+    <form method="get">
+        <label for="floor">Select Floor: </label>
+        <select id="floor" name="floor" onchange="this.form.submit()">
+            <option value="">All Floors</option>
+            {% for floor in floors %}
+                <option value="{{ floor }}" {% if floor == selected_floor|int %}selected{% endif %}>{{ floor }}</option>
+            {% endfor %}
+        </select>
+    </form>
+</div>
 <div class="header">
     <h1>ReziBo Dashboard</h1>
 </div>
