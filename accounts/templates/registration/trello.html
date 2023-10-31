@@ -15,7 +15,8 @@
         <select id="floor" name="floor" onchange="this.form.submit()">
             <option value="">All Floors</option>
             {% for floor in floors %}
-                <option value="{{ floor }}" {% if floor == selected_floor|int %}selected{% endif %}>{{ floor }}</option>
+            <option value="{{ floor }}" {% if floor == selected_floor %}selected{% endif %}>{{ floor }}</option>
+
             {% endfor %}
         </select>
     </form>
