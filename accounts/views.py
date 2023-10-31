@@ -26,7 +26,7 @@ def login_view(request):
 
         if user is not None:
             auth_login(request, user)
-            return redirect(redirect_based_on_group(user))  # This line will now work as expected
+            return redirect(redirect_based_on_group(user)) 
         else:
             return render(request, 'registration/login.html', {'error': 'Invalid credentials'})
 
@@ -38,8 +38,8 @@ def login_view(request):
     
 def redirect_based_on_group(user):
     if not(user.is_superuser):
-        return '/'  # Direct all other users, including 'Vets' and 'Customers', to the home page
-    return '/admin'  
+        return '/registration/trello/' 
+    return '/admin/'  
 
 @login_required
 def text_entry(request):
