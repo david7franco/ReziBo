@@ -35,8 +35,19 @@ def text_display(request):
     return render(request, 'registration/text-display.html', {'entries': entries})
 
 def trello_board(request):
-    tasks = Task.objects.all()
-    return render(request, 'registration/trello.html', {'tasks': tasks})
+    
+    selected_floor = request.GET.get('floor')
+    if selected_floor:
+        selected_floor = int(selected_floor)  # Convert to integer
+        tasks = Task.objects.filter(floor=selected_floor)
+    else:
+        tasks = Task.objects.all()
+
+
+    # Assuming floors range from 1 to 10 (adjust accordingly)
+    floors = range(1, 11)
+
+    return render(request, 'registration/trello.html', {'tasks': tasks, 'floors': floors, 'selected_floor': selected_floor})
 
 @csrf_exempt
 @require_POST
