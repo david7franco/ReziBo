@@ -37,8 +37,16 @@ def login_view(request):
     
     
 def redirect_based_on_group(user):
+    '''
+    if (user.get_group() is "RA"):
+        return '/residentDashboard/'
+    elif (user.get_group() is "Resident"):
+        return '/residentDashboard/'
+    else:
+        return '/admin/'
+    '''
     if not(user.is_superuser):
-        return '/registration/trello/' 
+        return '/residentDashboard/' 
     return '/admin/'  
 
 @login_required

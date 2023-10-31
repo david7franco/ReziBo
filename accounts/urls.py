@@ -10,7 +10,6 @@ urlpatterns = [
     path('/registration/trello/', views.trello_board, name='trello_board'),
     path('move_task/', views.move_task, name='move_task'),
     path('login/', views.login_view, name='login'),
-    
     path('residentDashboard/', views.resident_dashboard, name= 'resident_dashboard'),
 
 ]
