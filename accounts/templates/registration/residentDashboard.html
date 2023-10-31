@@ -15,7 +15,6 @@
         <h2 class="status-heading">
             Open Tickets
         </h2>
-<<<<<<< HEAD
         <ul id="Open Tickets" class="task-list">
             {% for task in tasks %}
                 {% if task.status == 1 or task.status == 2 or task.status == 3 %}
@@ -25,21 +24,6 @@
                     <li id="task-{{ task.id }}" class="taskborders">
                         <strong>Title:</strong> {{ task.title }}<br>
                         <button class="dropbtn">Created Tickets</button>
-=======
-        <ul id="todo-tasks" class="task-list">
-            {% for task in tasks %}
-                {% if task.status == 1 or task.status == 2 or task.status == 3 or task.status == 4 %}
-                    <div class="dropdown">
-                        <button class="dropbtn">Created Tickets</button>
-                        <div class="dropdown-content">
-                            
-                        </div>
-                    </div>                
-                    <li id="task-{{ task.id }}" class="taskborders">
-                        <strong>Title:</strong> {{ task.title }}<br>
-                        <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
-                        <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
->>>>>>> 0460a9d (Feature/resident dashboard (#8))
                     </li>
                 {% endif %}
             {% empty %}
@@ -52,7 +36,6 @@
         <h2 class="status-heading">
             Previous Tickets
         </h2>
-<<<<<<< HEAD
         <ul id="Done" class="task-list">
             {% for task in tasks %}
                 {% if task.status == 4 %}
@@ -63,23 +46,6 @@
                         <div class="open Ticket">
                             <button class="dropbtn">Open Ticket</button>
                         </div>
-=======
-        <ul id="in-progress" class="task-list">
-            {% for task in tasks %}
-                {% if task.status == 2 %}
-                <div class="dropdown">
-                    <button class="dropbtn">Open</button>
-                    <div class="dropdown-content">
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="4">Done</button>
-                    </div>
-                </div>
-                    <li id="task-{{ task.id }}" class="taskborders">
-                        <strong>Title:</strong> {{ task.title }}<br>
-                        <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
-                        <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
->>>>>>> 0460a9d (Feature/resident dashboard (#8))
                     </li>
                 {% endif %}
             {% empty %}
