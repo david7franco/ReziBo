@@ -96,4 +96,12 @@ def move_task(request):
 
 def resident_dashboard(request):
     tasks = Task.objects.all()
-    return render(request, 'registration/residentDashboard.html', {'tasks': tasks})
+    opened_task_id = None
+    if request.method == 'POST':
+        opened_task_id = request.POST.get('task_id')
+
+    context = {
+        'tasks': tasks,
+        'opened_task_id': int(opened_task_id) if opened_task_id else None,
+    }
+    return render(request, 'registration/residentDashboard.html', context)
