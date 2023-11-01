@@ -8,6 +8,7 @@ from .models import TextEntry
 from .forms import TextEntryForm
 from django.contrib.auth.decorators import login_required
 from .models import Task
+from .forms import TicketForm
 from django.views.decorators.http import require_POST
 import json
 
@@ -105,3 +106,14 @@ def resident_dashboard(request):
         'opened_task_id': int(opened_task_id) if opened_task_id else None,
     }
     return render(request, 'registration/residentDashboard.html', context)
+
+def create_ticket(request):
+    if request.method == 'POST':
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'registration/ticket-success.html')
+    else:
+        form = TicketForm()
+    return render(request, 'registration/ticket-form.html', {'form': form})
+

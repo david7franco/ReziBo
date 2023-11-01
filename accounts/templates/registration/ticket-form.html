@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ticket Submission</title>
+</head>
+<body>
+    <h1>Ticket Submission</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+    <div>
+        <a href="{% url 'resident_dashboard' %}" class="button">Previous</a>
+    </div>
+
+    <div class="logout">
+        <a href="{% url 'logout' %}" class="button">Sign Out</a>
+    </div>
+
+</body>
+</html>
+
+{% endblock %}
