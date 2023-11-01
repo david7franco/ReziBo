@@ -10,12 +10,43 @@ from django.contrib.auth.decorators import login_required
 from .models import Task
 from .forms import TicketForm
 
+from django.contrib.auth import authenticate, login as auth_login
 
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
 
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            auth_login(request, user)
+            return redirect(redirect_based_on_group(user)) 
+        else:
+            return render(request, 'registration/login.html', {'error': 'Invalid credentials'})
+
+    elif request.user.is_authenticated:
+        return redirect(redirect_based_on_group(request.user))
+    else:
+        return render(request, 'registration/login.html')
+    
+    
+def redirect_based_on_group(user):
+    '''
+    if (user.get_group() is "RA"):
+        return '/trello/'
+    elif (user.get_group() is "Resident"):
+        return '/residentDashboard/'
+    else:
+        return '/admin/'
+    '''
+    if not(user.is_superuser):
+        return '/residentDashboard/' 
+    return '/admin/'  
 
 @login_required
 def text_entry(request):
@@ -75,3 +106,12 @@ def create_ticket(request):
     else:
         form = TicketForm()
     return render(request, 'registration/ticket-form.html', {'form': form})
+    opened_task_id = None
+    if request.method == 'POST':
+        opened_task_id = request.POST.get('task_id')
+
+    context = {
+        'tasks': tasks,
+        'opened_task_id': int(opened_task_id) if opened_task_id else None,
+    }
+    return render(request, 'registration/residentDashboard.html', context)
