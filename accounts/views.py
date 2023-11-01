@@ -9,6 +9,8 @@ from .forms import TextEntryForm
 from django.contrib.auth.decorators import login_required
 from .models import Task
 from .forms import TicketForm
+from django.views.decorators.http import require_POST
+import json
 
 from django.contrib.auth import authenticate, login as auth_login
 
@@ -95,7 +97,15 @@ def move_task(request):
 
 def resident_dashboard(request):
     tasks = Task.objects.all()
-    return render(request, 'registration/trello.html', {'tasks': tasks})
+    opened_task_id = None
+    if request.method == 'POST':
+        opened_task_id = request.POST.get('task_id')
+
+    context = {
+        'tasks': tasks,
+        'opened_task_id': int(opened_task_id) if opened_task_id else None,
+    }
+    return render(request, 'registration/residentDashboard.html', context)
 
 def create_ticket(request):
     if request.method == 'POST':
@@ -106,12 +116,4 @@ def create_ticket(request):
     else:
         form = TicketForm()
     return render(request, 'registration/ticket-form.html', {'form': form})
-    opened_task_id = None
-    if request.method == 'POST':
-        opened_task_id = request.POST.get('task_id')
 
-    context = {
-        'tasks': tasks,
-        'opened_task_id': int(opened_task_id) if opened_task_id else None,
-    }
-    return render(request, 'registration/residentDashboard.html', context)
