@@ -62,10 +62,6 @@ def text_entry(request):
 
     return render(request, 'registration/text-entry.html', {'form': form})
 
-def text_display(request):
-    entries = TextEntry.objects.all()
-    return render(request, 'registration/text-display.html', {'entries': entries})
-
 def trello_board(request):
     
     selected_floor = request.GET.get('floor')
