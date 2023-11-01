@@ -1,7 +1,6 @@
 from django import forms
 from .models import TextEntry
 from .models import Task
-from .models import Ticket
 
 class TextEntryForm(forms.ModelForm):
     class Meta:
@@ -23,6 +22,6 @@ class TaskForm(forms.ModelForm):
 
 class TicketForm(forms.ModelForm):
     class Meta:
-        model = Ticket
-        fields = ['first_name', 'last_name', 'description']
+        model = Task
+        fields = ['title', 'floor', 'description']
 

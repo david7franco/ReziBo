@@ -73,7 +73,7 @@ def create_ticket(request):
         form = TicketForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'createTicket/ticket-success.html')
+            return render(request, 'registration/ticket-success.html')
     else:
         form = TicketForm()
-    return render(request, 'createTicket/ticket-form.html', {'form': form})
+    return render(request, 'registration/ticket-form.html', {'form': form})

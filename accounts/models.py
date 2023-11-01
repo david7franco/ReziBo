@@ -16,7 +16,7 @@ class Task(models.Model):
     # assingor = models.ForeignKey(User, on_delete=models.CASCADE)
     assingor = models.CharField(max_length=200, default='Null')
     description = models.TextField()
-    status = models.IntegerField(choices=[(1, 'To Do'), (2, 'In Progress'), (3, 'On Hold'),  (4, 'Done')])
+    status = models.IntegerField(choices=[(1, 'To Do'), (2, 'In Progress'), (3, 'On Hold'),  (4, 'Done')], default=1)
     priority = models.IntegerField(choices=[(1, 'Low'), (2, 'Medium'), (3, 'High')], default=1)
     date_posted = models.DateTimeField(default=datetime.now)
     # image = models.ImageField(blank=True)
@@ -54,11 +54,3 @@ class ResidentUser(CustomUser):
     is_r_a = models.BooleanField(default=False)
     is_resident = models.BooleanField(default=True)
     floor = models.PositiveIntegerField()
-
-class Ticket(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    description = models.TextField()
-
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
