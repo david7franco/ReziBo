@@ -39,7 +39,7 @@ def login_view(request):
 def redirect_based_on_group(user):
     '''
     if (user.get_group() is "RA"):
-        return '/registration/trello/'
+        return '/trello/'
     elif (user.get_group() is "Resident"):
         return '/residentDashboard/'
     else:
