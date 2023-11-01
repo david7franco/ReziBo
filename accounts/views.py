@@ -50,6 +50,17 @@ def redirect_based_on_group(user):
         return '/residentDashboard/' 
     return '/admin/'  
 
+@login_required
+def text_entry(request):
+    if request.method == 'POST':
+        form = TextEntryForm(request.POST, user=request.user)  # Pass the user to the form
+        if form.is_valid():
+            form.save()
+            return redirect('text_display')
+    else:
+        form = TextEntryForm(user=request.user)  # Pass the user to the form
+
+    return render(request, 'registration/text-entry.html', {'form': form})
 
 def trello_board(request):
     
