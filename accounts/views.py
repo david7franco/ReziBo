@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Task
 from django.views.decorators.http import require_POST
 import json
+from .forms import TicketForm
 
 
 class SignUpView(generic.CreateView):
@@ -66,3 +67,13 @@ def move_task(request):
 def resident_dashboard(request):
     tasks = Task.objects.all()
     return render(request, 'registration/residentDashboard.html', {'tasks': tasks})
+
+def create_ticket(request):
+    if request.method == 'POST':
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'createTicket/ticket-success.html')
+    else:
+        form = TicketForm()
+    return render(request, 'createTicket/ticket-form.html', {'form': form})
