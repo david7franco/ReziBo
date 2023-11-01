@@ -52,20 +52,20 @@ body {
 .logout {
     padding: 10px;
     margin-left: auto;
+    float: right;
 }
 
 .button {
-    text-decoration: none; 
-    display: inline-block;
-    padding: 10px 20px; 
-    background-color: #007bff; 
-    color: #fff; 
-    border: none; 
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
     border-radius: 5px;
-    cursor: pointer; 
-    transition: background-color 0.3s ease; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .button:hover {
-    background-color: #0056b3; 
+    background-color: #0056b3;
 }
