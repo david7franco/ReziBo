@@ -6,58 +6,81 @@
 <link rel="stylesheet" type="text/css" href="{% static "accounts/residentDashboard.css" %}">
 
 <body>
-<div class="header">
-    <h1>ReziBo Resident Dashboard</h1>
-</div>
-
-<div class="container">
-    <div class="column columnborders">
-        <h2 class="status-heading">
-            Open Tickets
-        </h2>
-        <ul id="Open Tickets" class="task-list">
-            {% for task in tasks %}
-                {% if task.status == 1 or task.status == 2 or task.status == 3 %}
-                    <div class="dropdown">
-                        
-                    </div>                
-                    <li id="task-{{ task.id }}" class="taskborders">
-                        <strong>Title:</strong> {{ task.title }}<br>
-                        <button class="dropbtn">Created Tickets</button>
-                    </li>
-                {% endif %}
-            {% empty %}
-                <li>No tasks found for this category.</li>
-            {% endfor %}
-        </ul>
+    <div class="header">
+        <h1>ReziBo Resident Dashboard</h1>
     </div>
 
-    <div class="column columnborders">
-        <h2 class="status-heading">
-            Previous Tickets
-        </h2>
-        <ul id="Done" class="task-list">
-            {% for task in tasks %}
-                {% if task.status == 4 %}
-                <div class="dropdown">
-                </div>
-                    <li id="task-{{ task.id }}" class="taskborders">
-                        <strong>Title:</strong> {{ task.title }}<br>
-                        <div class="open Ticket">
-                            <button class="dropbtn">Open Ticket</button>
-                        </div>
-                    </li>
-                {% endif %}
-            {% empty %}
-                <li>No tasks found for this category.</li>
-            {% endfor %}
-        </ul>
+    <div class="container">
+        <div class="column columnborders">
+            <h2 class="status-heading">
+                Open Tickets
+            </h2>
+            <ul id="Open Tickets" class="task-list">
+                {% for task in tasks %}
+                    {% if task.status == 1 or task.status == 2 or task.status == 3 %}
+                        <li id="task-{{ task.id }}" class="taskborders">
+                            <strong>Title:</strong> {{ task.title }}<br>
+                            <button onclick="toggleDetails({{ task.id }})">
+                                Open Ticket Details
+                            </button>
+                            <div id="details-{{ task.id }}" style="display: none;">
+                                <strong>Description:</strong> {{ task.description }}<br>
+                                <strong>Status:</strong> {{ task.get_status_display }}<br>
+                                <strong>Priority:</strong> {{ task.get_priority_display }}<br>
+                                <strong>Date Posted:</strong> {{ task.date_posted }}<br>
+                            </div>
+                        </li>
+                    {% endif %}
+                {% empty %}
+                    <li>No tasks found for this category.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="column columnborders">
+            <h2 class="status-heading">
+                Previous Tickets
+            </h2>
+            <ul id="Done" class="task-list">
+                {% for task in tasks %}
+                    {% if task.status == 4 %}
+                        <li id="task-{{ task.id }}" class="taskborders">
+                            <strong>Title:</strong> {{ task.title }}<br>
+                            <button onclick="toggleDetails({{ task.id }})">
+                                Open Ticket Details
+                            </button>
+                            <div id="details-{{ task.id }}" style="display: none;">
+                                <strong>Description:</strong> {{ task.description }}<br>
+                                <strong>Status:</strong> {{ task.get_status_display }}<br>
+                                <strong>Priority:</strong> {{ task.get_priority_display }}<br>
+                                <strong>Date Posted:</strong> {{ task.date_posted }}<br>
+                            </div>
+                        </li>
+                    {% endif %}
+                {% empty %}
+                    <li>No tasks found for this category.</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
-<div class="logout">
-    <a href="{% url 'logout' %}" class="button">Sign Out</a>
-</div>
-    
+    <div class="logout">
+        <a href="{% url 'logout' %}" class="button">Sign Out</a>
+    </div>
+    <div class="create_ticket">
+        <a href="{% url 'create_ticket' %}" class="button">Create Ticket</a>
+    </div>
+
+<script>
+    function toggleDetails(taskId) {
+        var details = document.getElementById("details-" + taskId);
+        if (details.style.display === "none") {
+            details.style.display = "block";
+        } else {
+            details.style.display = "none";
+        }
+    }
+</script>
 
 </body>
 </html>
