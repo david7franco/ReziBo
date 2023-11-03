@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+<!-- openTicket.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatroom</title>
+</head>
+<body>
+    <div id="chat-box" style="border: 1px solid #000; height: 300px; overflow-y: scroll;">
+        <!-- Messages will be displayed here -->
+    </div>
+
+    <form id="message-form">
+        <input type="text" id="message-input" required placeholder="Type a message...">
+        <button type="submit">Send</button>
+    </form>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const messageForm = document.getElementById('message-form');
+        const messageInput = document.getElementById('message-input');
+
+        // Change this to the WebSocket URL for your chatroom
+        const roomName = 'example_room';
+        const chatSocket = new WebSocket(
+            'ws://' + window.location.host + '/ws/chat/' + roomName + '/'
+        );
+
+        chatSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            const message = data['message'];
+
+            // Display the message in the chat box
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = message;
+            chatBox.appendChild(messageDiv);
+
+            // Scroll to the bottom of the chat box
+            chatBox.scrollTop = chatBox.scrollHeight;
+        };
+
+        chatSocket.onclose = function (e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        messageForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const message = messageInput.value.trim();
+            if (message) {
+                // Send the message to the server
+                chatSocket.send(JSON.stringify({
+                    'message': message,
+                }));
+
+                // Clear the input field
+                messageInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
