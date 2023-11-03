@@ -12,7 +12,7 @@ class TextEntry(models.Model):
 
 
 class Task(models.Model):
-    TaskId = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
     floor = models.PositiveIntegerField(default=0)
     # assingor = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -30,6 +30,8 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+        
+
 
 
 class AdminUser(models.Model):
@@ -49,3 +51,8 @@ class ResidentUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     residentName = models.CharField(max_length=200)
     floor = models.PositiveIntegerField()
+
+class resident_creates_ticket(models.Model):
+    resident_creates_ticket_id = models.AutoField(primary_key=True)
+    FK_task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    FK_resident = models.ForeignKey(ResidentUser, on_delete=models.CASCADE)
