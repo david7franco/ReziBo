@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand
 from accounts.models import Task
 from accounts.models import RaUser
+from accounts.models import User
+from accounts.models import ResidentUser
 class Command(BaseCommand):
     help = "Seed the database with test data"
 
@@ -12,45 +14,34 @@ class Command(BaseCommand):
         #Task.objects.create(title="Task 4", floor=4, assingor='Jotaro Kujo', description="Sample task 4", status=4, priority=3)
         #Task.objects.create(title="Task 5", floor=5, assingor='Giorno Giovanna', description="This task contains some sample data", status=1, priority=3)
         # Task.objects.all().delete()
+
+
+        user= User.objects.create_user('franco13', 'franco13@rowan.edu', 'Totonaca13!')
+
+        user.save()
         
-        # username = "johnsmith"
-        # first_name = "John"
-        # last_name = "Smith"
-        # email = "john.smith@example.com"
-        # room_number = 101
-        # phone_number = "123-456-7890"
-        # floor = 2
-        # manager_name = "ManagerName"
-
-        # # Create a RaUser instance
-        # RaUser.objects.create(
-        #     username=username,
-        #     first_name=first_name,
-        #     last_name=last_name,
-        #     email=email,
-        #     room_number=room_number,
-        #     phone_number=phone_number,
-        #     floor=floor,
-        #     manager=manager_name,
-        # )
-
-
-
-        # Create a RaUser instance
-        RaUser.objects.create(
-        username='janesmith',
-        password='admin@123',
-        first_name='Jane',
-        last_name='Smith',
-        email='jane.smith@example.com',
-        room_number=102,
-        phone_number='321-654-9870',
+        ra_user = RaUser(
+        user=user,
         floor=1,
-        manager='ManagerName',
-        #FK_CustomUser_RaUser=custom_user  # Pass the CustomUser instance here
+        resident_assitant_name='David Franco',
+        room_number=101,
+        phone_number='123-456-7890'
         )
 
+        ra_user.save()
         
+        user= User.objects.create_user('patels13', 'patels13@rowan.edu', 'admin@123')
+
+        user.save()
+        
+        resdient_user = ResidentUser(
+        user = user,
+        residentName = "Shivang Patel",
+        floor = 1 
+        )
+
+        resdient_user.save()
+
 
         #Task.objects.create(title="Task 6", description="Sample task 1", status=1)
         self.stdout.write(self.style.SUCCESS("Successfully seeded test data."))
