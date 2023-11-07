@@ -55,4 +55,4 @@ class ResidentUser(models.Model):
 class resident_creates_ticket(models.Model):
     resident_creates_ticket_id = models.AutoField(primary_key=True)
     FK_task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    FK_resident = models.ForeignKey(ResidentUser, on_delete=models.CASCADE)
+    FK_resident = models.ForeignKey(User, on_delete=models.CASCADE)
