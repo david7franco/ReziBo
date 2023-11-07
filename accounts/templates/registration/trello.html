@@ -24,6 +24,32 @@
         </select>
     </form>
 </div>
+<div class="time-selector">
+    <!-- Month Selector -->
+    <form method="get">
+        <label for="month">Select Month: </label>
+        <select id="month" name="month" onchange="this.form.submit()">
+            <option value="">Select Month</option>
+            <!-- Loop to generate months -->
+            {% for i in months %}
+            <option value="{{ i }}" {% if request.GET.month == i|stringformat:"02d" %}selected{% endif %}>{{ i }}</option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <!-- Week Selector -->
+    <form method="get">
+        <label for="week">Select Week: </label>
+        <select id="week" name="week" onchange="this.form.submit()">
+            <option value="">Select Week</option>
+            <!-- Loop to generate weeks -->
+            {% for i in weeks %}
+            <option value="{{ i }}" {% if request.GET.week == i|stringformat:"02d" %}selected{% endif %}>{{ i }}</option>
+            {% endfor %}
+        </select>
+    </form>
+</div>
+
 <div class="container">
     <div class="column columnborders">
         <h2 class="status-heading">
