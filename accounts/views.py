@@ -69,8 +69,7 @@ def text_display(request):
 def get_start_end_dates_from_week(year, week):
     firstdayofweek = datetime.datetime.strptime(f'{year}-W{int(week )- 1}-1', "%Y-W%W-%w").date()
     lastdayofweek = firstdayofweek + datetime.timedelta(days=6.9)
-    return firstdayofweek, lastdayofweek
-
+    return firstdayofweek, lastdayofweek   
 
 def trello_board(request):
     
