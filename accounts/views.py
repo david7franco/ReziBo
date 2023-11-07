@@ -4,13 +4,15 @@ from django.views import generic
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import TextEntry
 from .forms import TextEntryForm
 from django.contrib.auth.decorators import login_required
 from .models import Task
 from .forms import TicketForm
 from django.views.decorators.http import require_POST
 import json
+
+from django.urls import reverse
+from .models import AdminUser, RaUser, ResidentUser
 
 from django.contrib.auth import authenticate, login as auth_login
 
@@ -38,17 +40,18 @@ def login_view(request):
     
     
 def redirect_based_on_group(user):
-    '''
-    if (user.get_group() is "RA"):
-        return '/trello/'
-    elif (user.get_group() is "Resident"):
-        return '/residentDashboard/'
-    else:
-        return '/admin/'
-    '''
-    if not(user.is_superuser):
-        return '/residentDashboard/' 
-    return '/admin/'  
+    try:
+        if hasattr(user, 'adminuser'):  # Checks if the user has an associated AdminUser object
+            return '/admin/'  # Use the name of your admin dashboard url
+        elif hasattr(user, 'rauser'):  # Checks if the user has an associated RaUser object
+            return '/trello/'  # Use the name of your RA dashboard url
+        elif hasattr(user, 'residentuser'):  # Checks if the user has an associated ResidentUser object
+            return '/residentDashboard/'  # Use the name of your resident dashboard url
+        else:
+            return reverse('default_dashboard')  # Fallback if the user doesn't have a related type
+    except (AdminUser.DoesNotExist, RaUser.DoesNotExist, ResidentUser.DoesNotExist):
+        # Fallback if any of the associated objects do not exist
+        return reverse('default_dashboard')  
 
 @login_required
 def text_entry(request):
