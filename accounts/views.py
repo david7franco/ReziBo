@@ -14,6 +14,7 @@ import json
 from django.urls import reverse
 from .models import AdminUser, RaUser, ResidentUser
 
+import datetime
 from django.contrib.auth import authenticate, login as auth_login
 
 class SignUpView(generic.CreateView):
@@ -53,32 +54,49 @@ def redirect_based_on_group(user):
         # Fallback if any of the associated objects do not exist
         return reverse('default_dashboard')  
 
-@login_required
-def text_entry(request):
-    if request.method == 'POST':
-        form = TextEntryForm(request.POST, user=request.user)  # Pass the user to the form
-        if form.is_valid():
-            form.save()
-            return redirect('text_display')
-    else:
-        form = TextEntryForm(user=request.user)  # Pass the user to the form
 
-    return render(request, 'registration/text-entry.html', {'form': form})
+def get_start_end_dates_from_week(year, week):
+    firstdayofweek = datetime.datetime.strptime(f'{year}-W{int(week )- 1}-1', "%Y-W%W-%w").date()
+    lastdayofweek = firstdayofweek + datetime.timedelta(days=6.9)
+    return firstdayofweek, lastdayofweek   
 
 def trello_board(request):
     
     selected_floor = request.GET.get('floor')
+    tasks = Task.objects.all()
+    
     if selected_floor:
         selected_floor = int(selected_floor)  # Convert to integer
-        tasks = Task.objects.filter(floor=selected_floor)
-    else:
-        tasks = Task.objects.all()
+        tasks = tasks.filter(floor=selected_floor)
+    
+    # New time-based filtering logic
+    week = request.GET.get('week')
+    month = request.GET.get('month')
+    year = datetime.datetime.now().year
 
+    if week:
+        start_date, end_date = get_start_end_dates_from_week(year, week)
+        tasks = tasks.filter(date_posted__gte=start_date, date_posted__lte=end_date)
+    elif month:
+        tasks = tasks.filter(date_posted__month=month)
 
     # Assuming floors range from 1 to 10 (adjust accordingly)
     floors = range(1, 11)
+    months = range(1, 13) 
+    weeks = range(1, 53)
+    # Pass all necessary context variables to the template
+    context = {
+        'tasks': tasks,
+        'floors': floors,
+        'selected_floor': selected_floor,
+        'selected_week': week,
+        'selected_month': month,
+        'months': months,
+        'weeks' : weeks
+    }
 
-    return render(request, 'registration/trello.html', {'tasks': tasks, 'floors': floors, 'selected_floor': selected_floor})
+    return render(request, 'registration/trello.html', context)
+
 
 @csrf_exempt
 @require_POST
