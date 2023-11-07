@@ -18,6 +18,7 @@ class Task(models.Model):
     # assingor = models.ForeignKey(User, on_delete=models.CASCADE)
     assingor = models.CharField(max_length=200, default="Null")
     description = models.TextField()
+    comments = models.TextField
     status = models.IntegerField(
         choices=[(1, "To Do"), (2, "In Progress"), (3, "On Hold"), (4, "Done")],
         default=1,
