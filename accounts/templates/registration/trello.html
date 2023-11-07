@@ -12,18 +12,41 @@
 <div class="header">
     <h1>ReziBo Dashboard</h1>
 </div>
-<div class="floor-selector">
-    <form method="get">
+
+
+<div class="time-selector">
+    <form method="get" id="dateForm">
+        <!-- Floor Selector -->
         <label for="floor">Select Floor: </label>
-        <select id="floor" name="floor" onchange="this.form.submit()">
+        <select id="floor" name="floor">
             <option value="">All Floors</option>
             {% for floor in floors %}
             <option value="{{ floor }}" {% if floor == selected_floor %}selected{% endif %}>{{ floor }}</option>
-
             {% endfor %}
         </select>
+
+        <!-- Month Selector -->
+        <label for="month">Select Month: </label>
+        <select id="month" name="month" onchange="updateWeeks()">
+            <option value="">Select Month</option>
+            {% for i in months %}
+            <option value="{{ i }}" {% if request.GET.month == i|stringformat:"02d" %}selected{% endif %}>{{ i }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Week Selector -->
+        <label for="week">Select Week: </label>
+        <select id="week" name="week">
+            <!-- Weeks will be added by JavaScript -->
+        </select>
+
+        <!-- Filter Button -->
+        <button type="submit">Filter</button>
     </form>
 </div>
+
+
+
 <div class="container">
     <div class="column columnborders">
         <h2 class="status-heading">
@@ -188,6 +211,58 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    
+    
+    
+   
+   </script>
+<script>
+    function getWeeksInMonth(month, year) {
+        var weeks = [],
+            firstDate = new Date(year, month, 1),
+            lastDate = new Date(year, month + 1, 0),
+            numDays = lastDate.getDate();
+    
+        var start = 1;
+        var end = 7 - firstDate.getDay();
+        while (start <= numDays) {
+            weeks.push({ start: start, end: end });
+            start = end + 1;
+            end = end + 7;
+            if (end > numDays) {
+                end = numDays;
+            }
+        }
+        return weeks;
+    }
+    
+    function updateWeeks() {
+        var monthSelect = document.getElementById('month');
+        var weekSelect = document.getElementById('week');
+        var selectedMonth = monthSelect.value - 1; // JS months are 0-indexed
+        var year = new Date().getFullYear(); // You might want to dynamically set the year too
+    
+        var weeks = getWeeksInMonth(selectedMonth, year);
+        weekSelect.innerHTML = ''; // Clear previous options
+    
+        weeks.forEach(function(week, index) {
+            var option = document.createElement('option');
+            option.value = index + 1;
+            option.text = 'Week ' + (index + 1) + ' (' + week.start + ' - ' + week.end + ')';
+            weekSelect.appendChild(option);
+        });
+    
+        if (weeks.length > 0) {
+            weekSelect.disabled = false;
+        } else {
+            weekSelect.disabled = true;
+        }
+    }
+    
+    // Initialize weeks on page load if month is already selected
+    if (document.getElementById('month').value) {
+        updateWeeks();
+    }
     </script>
 </body>
 </html>
