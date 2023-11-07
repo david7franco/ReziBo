@@ -18,7 +18,7 @@ class Task(models.Model):
     # assingor = models.ForeignKey(User, on_delete=models.CASCADE)
     assingor = models.CharField(max_length=200, default="Null")
     description = models.TextField()
-    comments = models.TextField
+    
     status = models.IntegerField(
         choices=[(1, "To Do"), (2, "In Progress"), (3, "On Hold"), (4, "Done")],
         default=1,
@@ -31,8 +31,21 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
-        
 
+class Comments(models.Model):
+    comment_id = models.AutoField(primary_key=True)
+    fk_task_comment = models.ForeignKey(Task, related_name='comments', on_delete=models.CASCADE)
+    text = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    date_posted = models.DateTimeField(default=datetime.now)
+
+
+class Annotations(models.Model):
+    annotate_id = models.AutoField(primary_key=True)
+    fk_task_annotations = models.ForeignKey(Task, related_name='annotations', on_delete=models.CASCADE)
+    annotations = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    date_posted = models.DateTimeField(default=datetime.now)
 
 
 class AdminUser(models.Model):
