@@ -23,5 +23,5 @@ class TaskForm(forms.ModelForm):
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'floor', 'description']
+        fields = ['title', 'floor', 'description', 'image', 'file']
 
