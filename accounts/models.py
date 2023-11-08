@@ -28,6 +28,7 @@ class Task(models.Model):
     )
     date_posted = models.DateTimeField(default=datetime.now)
     image = models.ImageField(null=True, blank=True)
+    file = models.FileField(null=True, blank=True)
 
     def __str__(self):
         return self.title
