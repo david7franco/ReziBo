@@ -4,6 +4,10 @@ from django.contrib.auth.models import User, AbstractUser, Group, Permission
 from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
 
+from django.utils import timezone
+from django.contrib.auth.models import User
+
+'''
 User = get_user_model()
 
 class Message(models.Model):
@@ -17,7 +21,7 @@ class Message(models.Model):
 
     class Meta:
         ordering = ('timestamp',)
-
+'''
 
 # Create your models here.
 class TextEntry(models.Model):
@@ -85,3 +89,13 @@ class resident_creates_ticket(models.Model):
     resident_creates_ticket_id = models.AutoField(primary_key=True)
     FK_task = models.ForeignKey(Task, on_delete=models.CASCADE)
     FK_resident = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class ChatMessage(models.Model):
+    task = models.ForeignKey(Task, related_name='chat_messages', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Message by {self.author.username} for Task {self.task.id}"

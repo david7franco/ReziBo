@@ -10,7 +10,8 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('residentDashboard/', views.resident_dashboard, name= 'resident_dashboard'),
     path('createTicket/', views.create_ticket, name= 'create_ticket'),
-    path('chat/<str:Open_Ticket>/', views.chat_room, name='chat_room'),
-    path('chat/<str:Open_Ticket>/messages/', views.get_messages, name='get_messages'),
+    #path('chat/', views.chat_room, name='chatroom'),
+    #path('chat/<str:Open_Ticket>/', views.chat_room, name='chat_room'),
+    #path('chat/<str:Open_Ticket>/messages/', views.get_messages, name='get_messages'),
 
 ]
