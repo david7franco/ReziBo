@@ -1,6 +1,9 @@
 from django import forms
 from .models import TextEntry
 from .models import Task
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from .models import ResidentUser
 
 class TextEntryForm(forms.ModelForm):
     class Meta:
@@ -25,3 +28,10 @@ class TicketForm(forms.ModelForm):
         model = Task
         fields = ['title', 'floor', 'description']
 
+class SignUpForm(UserCreationForm):
+    residentName = forms.CharField(max_length=200, required=True)
+    floor = forms.IntegerField(min_value=1, max_value=10, required=True)
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = UserCreationForm.Meta.fields + ('residentName', 'floor')

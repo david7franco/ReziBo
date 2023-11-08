@@ -10,6 +10,9 @@ from .models import Task
 from .forms import TicketForm
 from django.views.decorators.http import require_POST
 import json
+from .forms import SignUpForm
+from .models import ResidentUser
+from django.contrib.auth import login
 
 from django.urls import reverse
 from .models import AdminUser, RaUser, ResidentUser
@@ -21,6 +24,24 @@ class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Create ResidentUser
+            ResidentUser.objects.create(
+                user=user, 
+                residentName=form.cleaned_data.get('residentName'), 
+                floor=form.cleaned_data.get('floor')
+            )
+            login(request, user)
+            # Redirect to home page or wherever you wish
+            return redirect('/residentDashboard/')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
 
 def login_view(request):
     if request.method == "POST":
