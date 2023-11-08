@@ -26,7 +26,7 @@ class TaskForm(forms.ModelForm):
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'floor', 'description']
+        fields = ['title', 'floor', 'description', 'image', 'file']
 
 class SignUpForm(UserCreationForm):
     residentName = forms.CharField(max_length=200, required=True)
