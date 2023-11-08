@@ -145,3 +145,6 @@ def create_ticket(request):
         form = TicketForm()
     return render(request, 'registration/ticket-form.html', {'form': form})
 
+def open_ticket(request):
+    return render(request, 'registration/open-ticket.html')
+
