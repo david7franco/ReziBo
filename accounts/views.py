@@ -12,7 +12,7 @@ from .models import Task
 from .forms import TicketForm
 from django.views.decorators.http import require_POST
 import json
-
+import datetime
 from django.contrib.auth import authenticate, login as auth_login
 
 class SignUpView(generic.CreateView):
@@ -63,20 +63,52 @@ def text_entry(request):
 
     return render(request, 'registration/text-entry.html', {'form': form})
 
+def text_display(request):
+    entries = TextEntry.objects.all()
+    return render(request, 'registration/text-display.html', {'entries': entries})
+
+def get_start_end_dates_from_week(year, week):
+    firstdayofweek = datetime.datetime.strptime(f'{year}-W{int(week )- 1}-1', "%Y-W%W-%w").date()
+    lastdayofweek = firstdayofweek + datetime.timedelta(days=6.9)
+    return firstdayofweek, lastdayofweek   
+
 def trello_board(request):
     
     selected_floor = request.GET.get('floor')
+    tasks = Task.objects.all()
+    
     if selected_floor:
         selected_floor = int(selected_floor)  # Convert to integer
-        tasks = Task.objects.filter(floor=selected_floor)
-    else:
-        tasks = Task.objects.all()
+        tasks = tasks.filter(floor=selected_floor)
+    
+    # New time-based filtering logic
+    week = request.GET.get('week')
+    month = request.GET.get('month')
+    year = datetime.datetime.now().year
 
+    if week:
+        start_date, end_date = get_start_end_dates_from_week(year, week)
+        tasks = tasks.filter(date_posted__gte=start_date, date_posted__lte=end_date)
+    elif month:
+        tasks = tasks.filter(date_posted__month=month)
 
     # Assuming floors range from 1 to 10 (adjust accordingly)
     floors = range(1, 11)
+    months = range(1, 13) 
+    weeks = range(1, 53)
+    # Pass all necessary context variables to the template
+    context = {
+        'tasks': tasks,
+        'floors': floors,
+        'selected_floor': selected_floor,
+        'selected_week': week,
+        'selected_month': month,
+        'months': months,
+        'weeks' : weeks
+    }
 
-    return render(request, 'registration/trello.html', {'tasks': tasks, 'floors': floors, 'selected_floor': selected_floor})
+    return render(request, 'registration/trello.html', context)
+
 
 @login_required
 def profile_view(request):
