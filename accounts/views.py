@@ -63,16 +63,17 @@ def login_view(request):
     
 def redirect_based_on_group(user):
     try:
-        if hasattr(user, 'adminuser'):  # Checks if the user has an associated AdminUser object
-            return '/admin/'  # Use the name of your admin dashboard url
-        elif hasattr(user, 'rauser'):  # Checks if the user has an associated RaUser object
-            return '/trello/'  # Use the name of your RA dashboard url
-        elif hasattr(user, 'residentuser'):  # Checks if the user has an associated ResidentUser object
-            return '/residentDashboard/'  # Use the name of your resident dashboard url
+        if hasattr(user, 'adminuser'): 
+            return '/admin/'  
+        elif (user.is_superuser):
+            return '/admin'
+        elif hasattr(user, 'rauser'):  
+            return '/trello/'  
+        elif hasattr(user, 'residentuser'):  
+            return '/residentDashboard/'  
         else:
-            return reverse('default_dashboard')  # Fallback if the user doesn't have a related type
+            return reverse('default_dashboard')  
     except (AdminUser.DoesNotExist, RaUser.DoesNotExist, ResidentUser.DoesNotExist):
-        # Fallback if any of the associated objects do not exist
         return reverse('default_dashboard')  
 
 
