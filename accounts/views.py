@@ -4,13 +4,19 @@ from django.views import generic
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import TextEntry
 from .forms import TextEntryForm
 from django.contrib.auth.decorators import login_required
 from .models import Task
 from .forms import TicketForm
 from django.views.decorators.http import require_POST
 import json
+from .forms import SignUpForm
+from .models import ResidentUser
+from django.contrib.auth import login
+
+from django.urls import reverse
+from .models import AdminUser, RaUser, ResidentUser
+
 import datetime
 from django.contrib.auth import authenticate, login as auth_login
 
@@ -18,6 +24,24 @@ class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Create ResidentUser
+            ResidentUser.objects.create(
+                user=user, 
+                residentName=form.cleaned_data.get('residentName'), 
+                floor=form.cleaned_data.get('floor')
+            )
+            login(request, user)
+            # Redirect to home page or wherever you wish
+            return redirect('/residentDashboard/')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
 
 def login_view(request):
     if request.method == "POST":
@@ -38,33 +62,19 @@ def login_view(request):
     
     
 def redirect_based_on_group(user):
-    '''
-    if (user.get_group() is "RA"):
-        return '/trello/'
-    elif (user.get_group() is "Resident"):
-        return '/residentDashboard/'
-    else:
-        return '/admin/'
-    '''
-    if not(user.is_superuser):
-        return '/residentDashboard/' 
-    return '/admin/'  
+    try:
+        if hasattr(user, 'adminuser'):  # Checks if the user has an associated AdminUser object
+            return '/admin/'  # Use the name of your admin dashboard url
+        elif hasattr(user, 'rauser'):  # Checks if the user has an associated RaUser object
+            return '/trello/'  # Use the name of your RA dashboard url
+        elif hasattr(user, 'residentuser'):  # Checks if the user has an associated ResidentUser object
+            return '/residentDashboard/'  # Use the name of your resident dashboard url
+        else:
+            return reverse('default_dashboard')  # Fallback if the user doesn't have a related type
+    except (AdminUser.DoesNotExist, RaUser.DoesNotExist, ResidentUser.DoesNotExist):
+        # Fallback if any of the associated objects do not exist
+        return reverse('default_dashboard')  
 
-@login_required
-def text_entry(request):
-    if request.method == 'POST':
-        form = TextEntryForm(request.POST, user=request.user)  # Pass the user to the form
-        if form.is_valid():
-            form.save()
-            return redirect('text_display')
-    else:
-        form = TextEntryForm(user=request.user)  # Pass the user to the form
-
-    return render(request, 'registration/text-entry.html', {'form': form})
-
-def text_display(request):
-    entries = TextEntry.objects.all()
-    return render(request, 'registration/text-display.html', {'entries': entries})
 
 def get_start_end_dates_from_week(year, week):
     firstdayofweek = datetime.datetime.strptime(f'{year}-W{int(week )- 1}-1', "%Y-W%W-%w").date()
