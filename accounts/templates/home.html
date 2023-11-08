@@ -7,7 +7,6 @@
   Howdy meowdy {{ user.username }}!!!
   <p><a href="{% url 'logout' %}">Log Out</a></p>
   <a href="{% url 'profile-view' %}">Profile</a>
-  <a href="{% url 'text_entry' %}">Enter Some Text!</a>
   {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Log In</a>
