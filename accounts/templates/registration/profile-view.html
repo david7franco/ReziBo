@@ -44,16 +44,19 @@
             <p><strong>Email:</strong> {{ user.email }}</p>
             <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
             <p><strong>Room Number:</strong> {{ user.room_number }}</p>
+            <!--
             <p><strong>Role:</strong>
+                
                 {% if user.is_superuser %}
                     Superuser
                 {% elif user.is_admin %}
                     Admin
-                {% elif user.is_manager %}
+                {% elif user.rauser %}
                     Manager
                 {% else %}
                     Regular User
                 {% endif %}
+                -->
             </p>
             <p><strong>Additional Information:</strong></p>
             <ul>

@@ -99,3 +99,9 @@ h1 {
     right: 10px;
     margin-top: 5px;
 }
+
+.logout {
+    padding: 10px;
+    margin-left: auto;
+    float: right;
+}
