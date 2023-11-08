@@ -1,0 +1,17 @@
+<!-- task_chat.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Chat for Task: {{ task.title }}</h2>
+  <div id="chat-messages">
+    {% for message in chat_messages %}
+      <p><strong>{{ message.author.username }}:</strong> {{ message.message }} <em>{{ message.timestamp }}</em></p>
+    {% endfor %}
+  </div>
+
+  <form method="post" id="chat-form">
+    {% csrf_token %}
+    <textarea name="message" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+{% endblock %}

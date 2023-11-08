@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from .views import SignUpView
 from . import views
+from .views import task_chat
 
 urlpatterns = [
     path("signup/", views.signup, name="signup"),
@@ -14,5 +15,6 @@ urlpatterns = [
     #path('chat/', views.chat_room, name='chatroom'),
     #path('chat/<str:Open_Ticket>/', views.chat_room, name='chat_room'),
     #path('chat/<str:Open_Ticket>/messages/', views.get_messages, name='get_messages'),
+    path('task/<int:task_id>/chat/', task_chat, name='task_chat'),
 
 ]

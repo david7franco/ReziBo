@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import TextEntry
@@ -24,6 +24,9 @@ from .models import AdminUser, RaUser, ResidentUser
 import datetime
 from django.contrib.auth import authenticate, login as auth_login
 
+from django.http import JsonResponse
+from .models import ChatMessage, Task
+
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
@@ -36,6 +39,22 @@ def get_messages(request, room_name):
     messages = Message.objects.filter(room_name=room_name).values('text', 'author', 'timestamp')
     return JsonResponse(list(messages), safe=False)
 '''
+
+def task_chat(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    # Check permissions here to make sure the user has the right to view and send messages
+
+    if request.method == 'POST':
+        message_text = request.POST.get('message', '').strip()
+        if message_text:
+            ChatMessage.objects.create(task=task, author=request.user, message=message_text)
+            return JsonResponse({'status': 'success', 'message': 'Message sent.'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Message cannot be empty.'})
+
+    chat_messages = task.chat_messages.all().order_by('timestamp')
+    return render(request, 'task_chat.html', {'task': task, 'chat_messages': chat_messages})
+
 
 def signup(request):
     if request.method == 'POST':
