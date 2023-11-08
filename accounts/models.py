@@ -2,6 +2,21 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser, Group, Permission
 from django.utils.translation import gettext as _
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class Message(models.Model):
+    author = models.ForeignKey(User, related_name='messages', on_delete=models.CASCADE)
+    room_name = models.CharField(max_length=255)
+    text = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.author.username + ": " + self.text[:50]
+
+    class Meta:
+        ordering = ('timestamp',)
 
 # Create your models here.
 class TextEntry(models.Model):

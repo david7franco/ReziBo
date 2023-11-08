@@ -11,13 +11,22 @@ from .models import Task
 from .forms import TicketForm
 from django.views.decorators.http import require_POST
 import json
-
+from django.http import JsonResponse
+from django.shortcuts import render
+from .models import Message
 from django.contrib.auth import authenticate, login as auth_login
 
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
+
+def chat_room(request, room_name):
+    return render(request, 'chat.html', {'room_name': room_name})
+
+def get_messages(request, room_name):
+    messages = Message.objects.filter(room_name=room_name).values('text', 'author', 'timestamp')
+    return JsonResponse(list(messages), safe=False)
 
 def login_view(request):
     if request.method == "POST":
