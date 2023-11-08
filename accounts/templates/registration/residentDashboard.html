@@ -23,6 +23,9 @@
                             <button onclick="toggleDetails({{ task.id }})">
                                 Open Ticket Details
                             </button>
+
+                            <button onclick="window.location.href='{% url 'open_ticket' %}'">View Timeline</button>
+
                             <div id="details-{{ task.id }}" style="display: none;">
                                 <strong>Description:</strong> {{ task.description }}<br>
                                 <strong>Status:</strong> {{ task.get_status_display }}<br>
@@ -49,6 +52,9 @@
                             <button onclick="toggleDetails({{ task.id }})">
                                 Open Ticket Details
                             </button>
+
+                            <button onclick="window.location.href='{% url 'open_ticket' %}'">View Timeline</button>
+
                             <div id="details-{{ task.id }}" style="display: none;">
                                 <strong>Description:</strong> {{ task.description }}<br>
                                 <strong>Status:</strong> {{ task.get_status_display }}<br>
