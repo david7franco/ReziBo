@@ -11,5 +11,5 @@ urlpatterns = [
     path('residentDashboard/', views.resident_dashboard, name= 'resident_dashboard'),
     path('profile-view/', views.profile_view, name='profile-view'),
     path('createTicket/', views.create_ticket, name= 'create_ticket'),
-
+    path('openTicket/', views.open_ticket, name= 'open_ticket'),
 ]
