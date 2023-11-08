@@ -8,11 +8,13 @@
     <title>ReziBo Dashboard</title>
     <link rel="stylesheet" type="text/css" href="{% static "accounts/trello.css" %}">
 </head>
+
 <body>
 <div class="header">
     <h1>ReziBo Dashboard</h1>
+    <a href="{% url 'profile-view' %}" class="button"> ç
+    <img src="{% static "user.png" %}" alt="Profile Icon" id="profile-icon" style="width: 55px; height: 55px; float: right; margin-top: -50px;"> </a> 
 </div>
-
 
 <div class="time-selector">
     <form method="get" id="dateForm">

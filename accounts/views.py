@@ -4,6 +4,8 @@ from django.views import generic
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from .models import TextEntry
+from .models import RaUser
 from .forms import TextEntryForm
 from django.contrib.auth.decorators import login_required
 from .models import Task
@@ -19,7 +21,6 @@ from django.contrib.auth import login
 
 from django.urls import reverse
 from .models import AdminUser, RaUser, ResidentUser
-
 import datetime
 from django.contrib.auth import authenticate, login as auth_login
 
@@ -84,7 +85,7 @@ def redirect_based_on_group(user):
             return reverse('default_dashboard')  # Fallback if the user doesn't have a related type
     except (AdminUser.DoesNotExist, RaUser.DoesNotExist, ResidentUser.DoesNotExist):
         # Fallback if any of the associated objects do not exist
-        return reverse('default_dashboard')  
+        return reverse('default_dashboard')    
 
 
 def get_start_end_dates_from_week(year, week):
@@ -129,6 +130,12 @@ def trello_board(request):
 
     return render(request, 'registration/trello.html', context)
 
+
+@login_required
+def profile_view(request):
+    user = RaUser.objects.all()
+    tasks = Task.objects.all()
+    return render(request, 'registration/profile-view.html', {'user': user, 'tasks':tasks})
 
 @csrf_exempt
 @require_POST
