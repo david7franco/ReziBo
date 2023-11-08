@@ -27,7 +27,7 @@ class Task(models.Model):
         choices=[(1, "Low"), (2, "Medium"), (3, "High")], default=1
     )
     date_posted = models.DateTimeField(default=datetime.now)
-    # image = models.ImageField(blank=True)
+    image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.title
