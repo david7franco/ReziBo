@@ -69,6 +69,8 @@ db.sqlite3-journal
 # migrations file for django
 /migrations
 ./migrations
+migrations
+./accounts/migrations
 
 # Flask stuff:
 instance/
