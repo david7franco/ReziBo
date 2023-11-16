@@ -1,4 +1,3 @@
-/* Base styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -26,6 +25,7 @@ body {
     border-radius: 5px;
     padding: 10px;
     width: 100%;
+    margin-bottom: 10px; /* Added for spacing between columns */
 }
 
 .columnborders {
@@ -35,6 +35,7 @@ body {
 .task-list {
     list-style: none;
     padding: 0;
+    width: 100%;
 }
 
 .taskborders {
@@ -49,10 +50,11 @@ body {
     margin-bottom: 10px;
 }
 
-.logout {
-    padding: 10px;
-    margin-left: auto;
-    float: right;
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .button {
@@ -68,4 +70,15 @@ body {
 
 .button:hover {
     background-color: #0056b3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .column, .task-list, .logout, .button .create_ticket{
+        width: 100%;
+    }
 }
