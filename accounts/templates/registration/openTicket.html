@@ -4,58 +4,23 @@
 <html>
 <head>
     <title>Chatroom</title>
+    <script src="https://unpkg.com/htmx.org"></script> <!-- Include htmx -->
 </head>
 <body>
-    <div id="chat-box" style="border: 1px solid #000; height: 300px; overflow-y: scroll;">
-        <!-- Messages will be displayed here -->
+    <div id="chat-box" style="border: 1px solid #000; height: 300px; overflow-y: scroll;"
+         hx-get="/path/to/chat/messages" hx-trigger="every 5s" hx-swap="outerHTML">
+        <!-- Messages will be displayed and refreshed here -->
     </div>
 
-    <form id="message-form">
-        <input type="text" id="message-input" required placeholder="Type a message...">
+    <form id="message-form" hx-post="/path/to/send/message" hx-target="#chat-box" hx-swap="outerHTML">
+        <input type="text" id="message-input" name="message" required placeholder="Type a message...">
         <button type="submit">Send</button>
     </form>
 
     <script>
-        const chatBox = document.getElementById('chat-box');
-        const messageForm = document.getElementById('message-form');
-        const messageInput = document.getElementById('message-input');
-
-        // Change this to the WebSocket URL for your chatroom
-        const roomName = 'example_room';
-        const chatSocket = new WebSocket(
-            'ws://' + window.location.host + '/ws/chat/' + roomName + '/'
-        );
-
-        chatSocket.onmessage = function (e) {
-            const data = JSON.parse(e.data);
-            const message = data['message'];
-
-            // Display the message in the chat box
-            const messageDiv = document.createElement('div');
-            messageDiv.textContent = message;
-            chatBox.appendChild(messageDiv);
-
-            // Scroll to the bottom of the chat box
-            chatBox.scrollTop = chatBox.scrollHeight;
-        };
-
-        chatSocket.onclose = function (e) {
-            console.error('Chat socket closed unexpectedly');
-        };
-
-        messageForm.addEventListener('submit', function (event) {
+        document.getElementById('message-form').addEventListener('submit', function (event) {
             event.preventDefault();
-
-            const message = messageInput.value.trim();
-            if (message) {
-                // Send the message to the server
-                chatSocket.send(JSON.stringify({
-                    'message': message,
-                }));
-
-                // Clear the input field
-                messageInput.value = '';
-            }
+            htmx.trigger("#message-form", "submit");
         });
     </script>
 </body>
