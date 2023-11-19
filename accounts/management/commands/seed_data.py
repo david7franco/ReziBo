@@ -8,11 +8,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
     
-        Task.objects.create(title="Task 1", floor=1, assingor='Jane Doe', description="Sample task 1", status=1, priority=1)
-        Task.objects.create(title="Task 2", floor=2, assingor='John Doe', description="Sample task 2", status=2, priority=2)
-        Task.objects.create(title="Task 3", floor=3, assingor='DIO', description="Sample task 3", status=3, priority=3)
-        Task.objects.create(title="Task 4", floor=4, assingor='Jotaro Kujo', description="Sample task 4", status=4, priority=3)
-        Task.objects.create(title="Task 5", floor=5, assingor='Giorno Giovanna', description="This task contains some sample data", status=1, priority=3)
+        Task.objects.create(title="Help With Cleaning room", floor=1, assingor='Jane Doe', description="I need an RA to come clean my room", status=1, priority=1)
+        Task.objects.create(title="I need help with cleaning bathroom", floor=2, assingor='John Doe', description="Bathroom needs to be cleaned", status=2, priority=2)
+        Task.objects.create(title="Bugs in my room ", floor=3, assingor='DIO', description="Seems to be a bug infestation in my room", status=3, priority=3)
+        Task.objects.create(title="Outlet seems to be broken", floor=4, assingor='Jotaro Kujo', description="My outlet seems to be broken", status=4, priority=3)
         #Task.objects.all().delete()
 
 
@@ -25,7 +24,8 @@ class Command(BaseCommand):
         floor=1,
         ra_name='David Franco',
         room_number=101,
-        phone_number='123-456-7890'
+        phone_number='123-456-7890',
+        ra_email= 'franco13@students.rowan.edu'
         )
 
         ra_user.save()

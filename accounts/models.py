@@ -78,6 +78,7 @@ class RaUser(models.Model):
     ra_name = models.CharField(max_length=200)
     room_number = models.PositiveIntegerField()
     phone_number = models.CharField(max_length=15, blank=True)
+    ra_email = models.EmailField(default=None)
 
 
 class ResidentUser(models.Model):

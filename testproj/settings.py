@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'channels',
-    
+    'bootstrap5',
 ]
 
 # Use the ASGI application for handling HTTP and WebSocket requests

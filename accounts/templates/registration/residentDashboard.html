@@ -5,13 +5,25 @@
 <html>
 <link rel="stylesheet" type="text/css" href="{% static "accounts/residentDashboard.css" %}">
 
+<head>
+    <title> {% block title %} Login {% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+  
+
+
 <body>
     <div class="header">
-        <h1>ReziBo Resident Dashboard</h1>
+        <h1 class = "bg-secondary text-white text-center p-3" >ReziBo Resident Dashboard</h1>
+        <a href="{% url 'profile-view' %}">
+    <img src="{% static "user.png" %}" alt="Profile Icon" id="profile-icon" style="width: 55px; height: 55px; float: right; margin-top: -50px;"> </a> 
     </div>
 
-    <div class="container">
-        <div class="column columnborders">
+    <div class="d-flex flex-column align-items-center py-3">
+        <div class="bg-white border border-1 rounded p-2 w-100 column">
             <h2 class="status-heading">
                 Open Tickets
             </h2>
@@ -23,6 +35,9 @@
                             <button onclick="toggleDetails({{ task.id }})">
                                 Open Ticket Details
                             </button>
+
+                            <button onclick="window.location.href='{% url 'open_ticket' %}'">View Timeline</button>
+
                             <div id="details-{{ task.id }}" style="display: none;">
                                 <strong>Description:</strong> {{ task.description }}<br>
                                 <strong>Status:</strong> {{ task.get_status_display }}<br>
@@ -37,7 +52,7 @@
             </ul>
         </div>
 
-        <div class="column columnborders">
+        <div class="bg-white border border-1 rounded p-2 w-100 column">
             <h2 class="status-heading">
                 Previous Tickets
             </h2>
@@ -49,6 +64,9 @@
                             <button onclick="toggleDetails({{ task.id }})">
                                 Open Ticket Details
                             </button>
+
+                            <button onclick="window.location.href='{% url 'open_ticket' %}'">View Timeline</button>
+
                             <div id="details-{{ task.id }}" style="display: none;">
                                 <strong>Description:</strong> {{ task.description }}<br>
                                 <strong>Status:</strong> {{ task.get_status_display }}<br>
@@ -64,11 +82,9 @@
         </div>
     </div>
 
-    <div class="logout">
-        <a href="{% url 'logout' %}" class="button">Sign Out</a>
-    </div>
-    <div class="create_ticket">
-        <a href="{% url 'create_ticket' %}" class="button">Create Ticket</a>
+    <div class="flex-container">
+        <a href="{% url 'logout' %}" class="btn btn-primary">Sign Out</a>
+        <a href="{% url 'create_ticket' %}" class="btn btn-primary">Create Ticket</a>
     </div>
 
 <script>
