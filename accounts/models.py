@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser, Group, Permission
 from django.utils.translation import gettext as _
@@ -44,7 +45,7 @@ class Task(models.Model):
     priority = models.IntegerField(
         choices=[(1, "Low"), (2, "Medium"), (3, "High")], default=1
     )
-    date_posted = models.DateTimeField(default=datetime.now)
+    date_posted = models.DateTimeField(default=timezone.now)
     image = models.ImageField(null=True, blank=True)
     file = models.FileField(null=True, blank=True)
 
