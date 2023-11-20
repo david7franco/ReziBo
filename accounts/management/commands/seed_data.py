@@ -1,3 +1,4 @@
+import datetime
 from django.core.management.base import BaseCommand
 from accounts.models import Task
 from accounts.models import RaUser
@@ -8,10 +9,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
     
-        Task.objects.create(title="Help With Cleaning room", floor=1, assingor='Jane Doe', description="I need an RA to come clean my room", status=1, priority=1)
-        Task.objects.create(title="I need help with cleaning bathroom", floor=2, assingor='John Doe', description="Bathroom needs to be cleaned", status=2, priority=2)
-        Task.objects.create(title="Bugs in my room ", floor=3, assingor='DIO', description="Seems to be a bug infestation in my room", status=3, priority=3)
-        Task.objects.create(title="Outlet seems to be broken", floor=4, assingor='Jotaro Kujo', description="My outlet seems to be broken", status=4, priority=3)
+        Task.objects.create(title="Help With Cleaning room", floor=1, assingor='Jane Doe', description="I need an RA to come clean my room", status=1, priority=1, date_posted=datetime(2023, 6, 1))
+        Task.objects.create(title="I need help with cleaning bathroom", floor=2, assingor='John Doe', description="Bathroom needs to be cleaned", status=2, priority=2, date_posted=datetime(2023, 1, 1))
+        Task.objects.create(title="Bugs in my room ", floor=3, assingor='DIO', description="Seems to be a bug infestation in my room", status=3, priority=3, date_posted=datetime(2023, 10, 1))
+        Task.objects.create(title="Outlet seems to be broken", floor=4, assingor='Jotaro Kujo', description="My outlet seems to be broken", status=4, priority=3, date_posted=datetime(2023, 11, 1))
         #Task.objects.all().delete()
 
 
