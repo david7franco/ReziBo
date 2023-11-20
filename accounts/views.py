@@ -156,6 +156,8 @@ def trello_board(request):
     
     # New time-based filtering logic
     week = request.GET.get('week')
+    print("went through")
+    print(week)
     month = request.GET.get('month')
     year = datetime.datetime.now().year
 
