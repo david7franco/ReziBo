@@ -1,21 +1,28 @@
 {% extends 'base.html' %}
-<!-- openTicket.html -->
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Chatroom</title>
     <script src="https://unpkg.com/htmx.org"></script> <!-- Include htmx -->
+    <!-- Include any additional CSS or JS here, using {% static 'path/to/your/css/or/js' %} if needed -->
 </head>
 <body>
-    <div id="chat-box" style="border: 1px solid #000; height: 300px; overflow-y: scroll;"
-         hx-get="/path/to/chat/messages" hx-trigger="every 5s" hx-swap="outerHTML">
-        <!-- Messages will be displayed and refreshed here -->
-    </div>
+    {% block content %}
+        <div id="chat-box" style="border: 1px solid #000; height: 300px; overflow-y: scroll;"
+            hx-get="{% url 'chat_message_fetch' task.id %}" hx-trigger="every 5s" hx-swap="outerHTML">
+            <!-- Initial message -->
+            <p>This is a chatroom between an RA and Resident.</p>
+            <!-- Messages will be displayed and refreshed here -->
+        </div>
 
-    <form id="message-form" hx-post="/path/to/send/message" hx-target="#chat-box" hx-swap="outerHTML">
-        <input type="text" id="message-input" name="message" required placeholder="Type a message...">
-        <button type="submit">Send</button>
-    </form>
+        <form id="message-form" hx-post="{% url 'chat_message_send' task.id %}" hx-target="#chat-box" hx-swap="outerHTML">
+            {% csrf_token %}
+            <input type="text" id="message-input" name="message" required placeholder="Type a message...">
+            <button type="submit">Send</button>
+        </form>
+    {% endblock %}
 
     <script>
         document.getElementById('message-form').addEventListener('submit', function (event) {
