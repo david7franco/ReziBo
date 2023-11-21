@@ -48,9 +48,7 @@ def get_messages(request, room_name):
 @login_required
 def fetch_messages(request, task_id):
     task = get_object_or_404(Task, pk=task_id)
-    # Check if the user is either the RA or the Resident associated with the task
-    if not (ResidentUser.objects.filter(user=request.user, task=task).exists() or
-            RaUser.objects.filter(user=request.user, task=task).exists()):
+    if task.ra != request.user and task.resident != request.user:
         return HttpResponseForbidden("You do not have permission to view this chat.")
 
     chat_messages = task.chat_messages.all().order_by('timestamp')

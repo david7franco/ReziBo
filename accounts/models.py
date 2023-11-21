@@ -37,7 +37,8 @@ class Task(models.Model):
     floor = models.PositiveIntegerField(default=0)
     assingor = models.CharField(max_length=200, default="Null")
     description = models.TextField()
-    
+    ra = models.ForeignKey(User, related_name='ra_tasks', on_delete=models.SET_NULL, null=True, blank=True)
+    resident = models.ForeignKey(User, related_name='resident_tasks', on_delete=models.SET_NULL, null=True, blank=True)
     status = models.IntegerField(
         choices=[(1, "To Do"), (2, "In Progress"), (3, "On Hold"), (4, "Done")],
         default=1,
