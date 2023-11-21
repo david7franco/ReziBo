@@ -1,0 +1,11 @@
+<!-- chat_messages.html -->
+
+{% for message in chat_messages %}
+    <div class="chat-message">
+        <strong>{{ message.author.username }}:</strong>
+        <span>{{ message.message }}</span>
+        <div class="timestamp">{{ message.timestamp|date:"d M Y H:i" }}</div>
+    </div>
+{% empty %}
+    <p>No messages yet.</p>
+{% endfor %}

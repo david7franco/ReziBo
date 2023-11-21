@@ -5,17 +5,20 @@
 <html>
 <head>
     <title>Chatroom</title>
+    <p>Task ID: {{ task.id }}</p>
     <script src="https://unpkg.com/htmx.org"></script> <!-- Include htmx -->
     <!-- Include any additional CSS or JS here, using {% static 'path/to/your/css/or/js' %} if needed -->
 </head>
 <body>
-    {% block content %}
-        <div id="chat-box" style="border: 1px solid #000; height: 300px; overflow-y: scroll;"
-            hx-get="{% url 'chat_message_fetch' task.id %}" hx-trigger="every 5s" hx-swap="outerHTML">
-            <!-- Initial message -->
-            <p>This is a chatroom between an RA and Resident.</p>
-            <!-- Messages will be displayed and refreshed here -->
+        {% block content %}
+        {% if task %}
+        <div hx-get="{% url 'chat_message_fetch' task.id %}" hx-trigger="every 5s" hx-swap="outerHTML">
+            <!-- Chat messages here -->
+            <p>Test</p>
         </div>
+        {% else %}
+            <p>Task not found.</p>
+        {% endif %}
 
         <form id="message-form" hx-post="{% url 'chat_message_send' task.id %}" hx-target="#chat-box" hx-swap="outerHTML">
             {% csrf_token %}

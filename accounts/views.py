@@ -87,6 +87,9 @@ def task_chat(request, task_id):
     chat_messages = task.chat_messages.all().order_by('timestamp')
     return render(request, 'task_chat.html', {'task': task, 'chat_messages': chat_messages})
 
+def open_ticket(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    return render(request, 'registration/openTicket.html', {'task': task})
 
 def signup(request):
     if request.method == 'POST':
@@ -251,7 +254,4 @@ def create_ticket(request):
         form = TicketForm()
     return render(request, 'registration/ticket-form.html', {'form': form})
 
-
-def open_ticket(request):
-    return render(request, 'registration/openTicket.html')
 

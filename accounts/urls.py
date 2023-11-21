@@ -18,5 +18,5 @@ urlpatterns = [
     path('task/<int:task_id>/chat/', task_chat, name='task_chat'),
     path('chat/messages/<int:task_id>/', views.fetch_messages, name='chat_message_fetch'),
     path('chat/send/<int:task_id>/', views.send_message, name='chat_message_send'),
-    path('openTicket/', views.open_ticket, name= 'open_ticket'),
+    path('openTicket/<int:task_id>/', views.open_ticket, name='open_ticket'),
 ]
