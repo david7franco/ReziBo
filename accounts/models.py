@@ -88,12 +88,6 @@ class ResidentUser(models.Model):
     residentName = models.CharField(max_length=200)
     floor = models.PositiveIntegerField()
 
-class resident_creates_ticket(models.Model):
-    resident_creates_ticket_id = models.AutoField(primary_key=True)
-    FK_task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    FK_resident = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
 class ChatMessage(models.Model):
     task = models.ForeignKey(Task, related_name='chat_messages', on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
