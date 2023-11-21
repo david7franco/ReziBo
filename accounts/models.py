@@ -35,7 +35,6 @@ class Task(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
     floor = models.PositiveIntegerField(default=0)
-    assingor = models.CharField(max_length=200, default="Null")
     description = models.TextField()
     ra = models.ForeignKey(User, related_name='ra_tasks', on_delete=models.SET_NULL, null=True, blank=True)
     resident = models.ForeignKey(User, related_name='resident_tasks', on_delete=models.SET_NULL, null=True, blank=True)
