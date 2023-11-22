@@ -36,7 +36,7 @@
                                 Open Ticket Details
                             </button>
 
-                            <button onclick="window.location.href='{% url 'open_ticket' %}'">View Timeline</button>
+                            <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
 
                             <div id="details-{{ task.id }}" style="display: none;">
                                 <strong>Description:</strong> {{ task.description }}<br>
@@ -65,7 +65,7 @@
                                 Open Ticket Details
                             </button>
 
-                            <button onclick="window.location.href='{% url 'open_ticket' %}'">View Timeline</button>
+                            <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
 
                             <div id="details-{{ task.id }}" style="display: none;">
                                 <strong>Description:</strong> {{ task.description }}<br>

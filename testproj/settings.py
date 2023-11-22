@@ -39,8 +39,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'channels',
     'bootstrap5',
 ]
+
+# Use the ASGI application for handling HTTP and WebSocket requests
+ASGI_APPLICATION = 'testproj.asgi.application'
+
+# Configure the Channels layer with Redis as the backing store
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('localhost', 6379)],
+        },
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatroom</title>
+    <p>Task ID: {{ task.id }}</p>
+    <script src="https://unpkg.com/htmx.org"></script> <!-- Include htmx -->
+    <!-- Include any additional CSS or JS here, using {% static 'path/to/your/css/or/js' %} if needed -->
+</head>
+<body>
+        {% block content %}
+        {% if task %}
+        <div hx-get="{% url 'chat_message_fetch' task.id %}" hx-trigger="every 5s" hx-swap="outerHTML">
+            <!-- Chat messages here -->
+            <p>Test</p>
+        </div>
+        {% else %}
+            <p>Task not found.</p>
+        {% endif %}
+
+        <form id="message-form" hx-post="{% url 'chat_message_send' task.id %}" hx-target="#chat-box" hx-swap="outerHTML">
+            {% csrf_token %}
+            <input type="text" id="message-input" name="message" required placeholder="Type a message...">
+            <button type="submit">Send</button>
+        </form>
+    {% endblock %}
+
+    <script>
+        document.getElementById('message-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            htmx.trigger("#message-form", "submit");
+        });
+    </script>
+</body>
+</html>
