@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static "accounts/openTicket.css" %}">
 </head>
 <body>
-    {% block content %}
+    {% block main_content %}
         {% if task %}
             <div id="chat-box">
                 <script>fetchMessages();</script>
@@ -80,7 +80,7 @@
         {% else %}
             <p>Task not found.</p>
         {% endif %}
-    {% endblock %}
+    {% endblock main_content %}
 
         <div class="right-container">
             <h2>Work Notes</h2>
