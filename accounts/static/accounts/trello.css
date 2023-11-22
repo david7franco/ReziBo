@@ -116,7 +116,6 @@ h1 {
     display: block;
 }
 
-
 .profile-icon {
     width: 80px !important;
     height: 80px !important;
@@ -125,7 +124,6 @@ h1 {
     right: 10px;
     margin-top: 5px;
 }
-
 .logout {
     padding: 10px;
     margin-left: auto;
