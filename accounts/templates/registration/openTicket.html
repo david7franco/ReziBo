@@ -28,12 +28,13 @@
                 </script>
                 <!-- Chat messages will be loaded here -->
             </div>
+            
             <form id="message-form" method="post" action="{% url 'chat_message_send' task.id %}">
                 {% csrf_token %}
                 <input type="text" name="message" required placeholder="Type a message...">
                 <button type="submit">Send</button>
             </form>
-            
+
             <script>
                 document.getElementById('message-form').addEventListener('submit', function(event) {
                     event.preventDefault();  // Prevent the default form submission
@@ -59,6 +60,13 @@
                         console.error('Error:', error);
                     });
                 });
+            </script>
+
+            <button onclick="goBack()">Go Back</button>
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
             </script>
             <!---
             <form id="message-form" method="post" action="{% url 'chat_message_send' task.id %}">
