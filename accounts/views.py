@@ -264,3 +264,27 @@ def create_ticket(request):
     return render(request, 'registration/ticket-form.html', {'form': form})
 
 
+def post_comment(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+
+    if request.method == 'POST':
+        comment_text = request.POST.get('comment')
+        # Create a new annotation for the comment
+        annotation = Annotations.objects.create(
+            fk_task_annotations=task,
+            annotations=comment_text,
+            author=request.user  # Assuming you have user authentication
+        )
+
+        # You can customize the data you want to send back in the JsonResponse
+        response_data = {
+            'author': annotation.author.username,
+            'comment': annotation.annotations,
+            'date_posted': annotation.date_posted.strftime('%Y-%m-%d %H:%M:%S'),
+        }
+
+        return JsonResponse(response_data)
+
+    return JsonResponse({'error': 'Invalid request method'})
+
+

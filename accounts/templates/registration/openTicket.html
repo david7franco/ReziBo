@@ -5,27 +5,24 @@
 <html>
 <head>
     <title>Chatroom</title>
-    <p>Task ID: {{ task.id }}</p>
     <script src="https://unpkg.com/htmx.org"></script> <!-- Include htmx -->
     <link rel="stylesheet" type="text/css" href="{% static "accounts/openTicket.css" %}">
 </head>
 <body>
-    <div class="left-container">
+    <div class="container">
+        <div class="left-container">
             {% if task %}
             <div hx-get="{% url 'chat_message_fetch' task.id %}" hx-trigger="every 5s" hx-swap="outerHTML">
-                
-                <p>Test</p>
+                <h2>Chat</h2>
             </div>
             {% else %}
                 <p>Task not found.</p>
             {% endif %}
-
             <form id="message-form" hx-post="{% url 'chat_message_send' task.id %}" hx-target="#chat-box" hx-swap="outerHTML">
                 {% csrf_token %}
                 <input type="text" id="message-input" name="message" required placeholder="Type a message...">
                 <button type="submit">Send</button>
             </form>
-
             <script>
                 document.getElementById('message-form').addEventListener('submit', function (event) {
                     event.preventDefault();
@@ -45,7 +42,22 @@
                     <li>No work notes available.</li>
                 {% endfor %}
             </ul>
+        
+            <!-- Write a comment section -->
+            <h3>Write a Comment</h3>
+            <form id="comment-form" hx-post="{% url 'post_comment' task.id %}" hx-target="#comment-list" hx-swap="outerHTML" hx-trigger="submit">
+                {% csrf_token %}
+                <textarea id="comment-input" name="comment" required placeholder="Write a comment..."></textarea>
+                <button type="submit">Submit Comment</button>
+            </form>
+        
+            <!-- Comment list -->
+            <div id="comment-list">
+                <!-- Display comments here -->
+            </div>
+        </div>
     </div>
+    
 </body>
 </html>
 {% endblock %}
