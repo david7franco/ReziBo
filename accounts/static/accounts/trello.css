@@ -116,7 +116,6 @@ h1 {
     display: block;
 }
 
-
 .profile-icon {
     width: 80px !important;
     height: 80px !important;
@@ -125,9 +124,31 @@ h1 {
     right: 10px;
     margin-top: 5px;
 }
-
 .logout {
-    padding: 10px;
     margin-left: auto;
     float: right;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: sans-serif;
+
+}
+.logout:hover {
+    text-decoration: none;
+    background-color: #0056b3;
+}
+
+.logout a.btn {
+    color: white;
+    text-decoration: none;
+}
+.logout a.btn:hover {
+    color: white;
+    text-decoration: none;
+    background-color: #0056b3;
 }
