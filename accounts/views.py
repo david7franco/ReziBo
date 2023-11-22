@@ -30,7 +30,7 @@ from .models import ChatMessage, Task
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-from .models import Task, ChatMessage, ResidentUser, RaUser
+from .models import Task, ChatMessage, ResidentUser, RaUser, Annotations
 from django.template.loader import render_to_string
 
 class SignUpView(generic.CreateView):
@@ -90,8 +90,15 @@ def task_chat(request, task_id):
     return render(request, 'task_chat.html', {'task': task, 'chat_messages': chat_messages})
 
 def open_ticket(request, task_id):
-    task = get_object_or_404(Task, pk=task_id)
-    return render(request, 'registration/openTicket.html', {'task': task})
+    task = get_object_or_404(Task, id=task_id)
+    annotations = Annotations.objects.filter(fk_task_annotations=task)
+
+    context = {
+        'task': task,
+        'annotations': annotations,
+    }
+
+    return render(request, 'registration/openTicket.html', context)
 
 def signup(request):
     if request.method == 'POST':

@@ -93,3 +93,4 @@ class ChatMessage(models.Model):
 
     def __str__(self):
         return f"Message by {self.author.username} for Task {self.task.id}"
+    
