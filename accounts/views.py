@@ -225,12 +225,13 @@ def trello_board(request):
 @login_required
 def profile_view(request):
     user = request.user
-    tasks = Task.objects.all()
 
     if hasattr(user, 'rauser'):  
-        return render(request, 'registration/profile-view-rauser.html', {'user': user, 'tasks':tasks})
+        ra_tasks = Task.objects.filter(ra=user.id)
+        return render(request, 'registration/profile-view-rauser.html', {'user': user, 'tasks':ra_tasks})
     else:
-        return render(request, 'registration/profile-view.html', {'user': user, 'tasks':tasks})
+        resident_tasks = Task.objects.filter(resident=user.id)
+        return render(request, 'registration/profile-view.html', {'user': user, 'tasks':resident_tasks})
 
 @csrf_exempt
 @require_POST
