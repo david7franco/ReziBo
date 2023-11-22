@@ -18,11 +18,19 @@
  li {
     margin-bottom: 10px;
 }
+
 .header {
-    background-color: #f8f9fa; 
-    padding: 10px 0; 
+    color: #ffffff;
+    padding: 1em 0;
+    background: linear-gradient(to right, #53c3e9, #92dfdf);
+    text-align: center;
+    border-bottom: 2px solid #B0C4DE; 
+    border-radius: 15px; 
+    padding: 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.status-heading {
     text-align: center; 
-    border-bottom: 1px solid #e1e4e8; /* Faint line at the bottom */
 }
 
 h1 {

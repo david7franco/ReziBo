@@ -13,13 +13,18 @@
     {% bootstrap_javascript %}
 </head>
   
-
-
 <body>
     <div class="header">
-        <h1 class = "bg-secondary text-white text-center p-3" >ReziBo Resident Dashboard</h1>
-        <a href="{% url 'profile-view' %}">
-    <img src="{% static "user.png" %}" alt="Profile Icon" id="profile-icon" style="width: 55px; height: 55px; float: right; margin-top: -50px;"> </a> 
+        <div class="row align-items-center">
+            <div class="col">
+                <h1 class="text-center">ReziBo Resident Dashboard</h1>
+            </div>
+            <div class="col-auto">
+                <a href="{% url 'profile-view' %}">
+                    <img src="{% static "user.png" %}" alt="Profile Icon" class="img-fluid" style="width: 55px; height: 55px;">
+                </a> 
+            </div>
+        </div>
     </div>
 
     <div class="d-flex flex-column align-items-center py-3">
@@ -32,12 +37,8 @@
                     {% if task.status == 1 or task.status == 2 or task.status == 3 %}
                         <li id="task-{{ task.id }}" class="taskborders">
                             <strong>Title:</strong> {{ task.title }}<br>
-                            <button onclick="toggleDetails({{ task.id }})">
-                                Open Ticket Details
-                            </button>
-
-                            <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
-
+                            <button class="open-ticket-btn" onclick="toggleDetails({{ task.id }})">Open Ticket Details</button>
+                            <button class="view-timeline-btn" onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
                             <div id="details-{{ task.id }}" style="display: none;">
                                 <strong>Description:</strong> {{ task.description }}<br>
                                 <strong>Status:</strong> {{ task.get_status_display }}<br>
@@ -61,12 +62,8 @@
                     {% if task.status == 4 %}
                         <li id="task-{{ task.id }}" class="taskborders">
                             <strong>Title:</strong> {{ task.title }}<br>
-                            <button onclick="toggleDetails({{ task.id }})">
-                                Open Ticket Details
-                            </button>
-
-                            <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
-
+                            <button class="open-ticket-btn" onclick="toggleDetails({{ task.id }})">Open Ticket Details</button>
+                            <button class="view-timeline-btn" onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
                             <div id="details-{{ task.id }}" style="display: none;">
                                 <strong>Description:</strong> {{ task.description }}<br>
                                 <strong>Status:</strong> {{ task.get_status_display }}<br>
