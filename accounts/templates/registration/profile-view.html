@@ -34,35 +34,32 @@
     </style>
 </head>
 <body>
-    {% for user in user %}
     <h1>User Profile</h1>
     <div class="user-profile-container">
         <div class="user-card">
             <h2>{{ user.username }}</h2>
             <img class="profile-picture" src="/static/gosling.png" alt="Profile Picture">
-            <p><strong>Full Name:</strong> {{ user.ra_name }} {{ user.last_name }}</p>
-            <p><strong>Email:</strong> {{ user.ra_email }}</p>
-            <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
-            <p><strong>Room Number:</strong> {{ user.room_number }}</p>
-            <!--
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Full Name:</strong> {{ user.residentuser.residentName }}</p>
+            <p><strong>Floor:</strong> {{ user.residentuser.floor }}</p>
+            <p><strong>Last Login:</strong> {{ user.last_login }}</p>
+            <p><strong>Date Registered:</strong> {{ user.date_joined }}</p>
+            
             <p><strong>Role:</strong>
                 
                 {% if user.is_superuser %}
                     Superuser
-                {% elif user.is_admin %}
-                    Admin
-                {% elif user.rauser %}
-                    Manager
+                {% elif user.is_staff %}
+                    Staff
                 {% else %}
                     Regular User
                 {% endif %}
-                -->
+                
             </p>
             <p><strong>Additional Information:</strong></p>
             <ul>
                 <li><strong>ID:</strong> {{ user.id }}</li>
             </ul>
-            {% endfor %}
         </div>
         <div class="task-card">
             <h2>Assigned Tasks</h2>

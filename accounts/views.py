@@ -224,7 +224,7 @@ def trello_board(request):
 
 @login_required
 def profile_view(request):
-    user = RaUser.objects.all()
+    user = request.user
     tasks = Task.objects.all()
     return render(request, 'registration/profile-view.html', {'user': user, 'tasks':tasks})
 
