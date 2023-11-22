@@ -1,5 +1,4 @@
 <!-- chat_messages.html -->
-
 {% for message in chat_messages %}
     <div class="chat-message">
         <strong>{{ message.author.username }}:</strong>
@@ -8,12 +7,13 @@
     </div>
 {% endfor %}
 {% block content %}
+    <!--
     <button onclick="goBack()">Go Back</button>
-
     <script>
         function goBack() {
             window.history.back();
         }
     </script>
+    -->
 {% endblock %}     
 

@@ -9,27 +9,78 @@
     <link rel="stylesheet" type="text/css" href="{% static "accounts/openTicket.css" %}">
 </head>
 <body>
-    <div class="container">
-        <div class="left-container">
-            {% if task %}
-            <div hx-get="{% url 'chat_message_fetch' task.id %}" hx-trigger="every 5s" hx-swap="outerHTML">
-                <h2>Chat</h2>
+    {% block content %}
+        {% if task %}
+            <div id="chat-box">
+                <script>fetchMessages();</script>
+                <title>Loaded Messages</title>
+                <script>
+                    function fetchMessages() {
+                        fetch('{% url "chat_message_fetch" task.id %}')
+                            .then(response => response.text())
+                            .then(html => {
+                                document.getElementById('chat-box').innerHTML = html;
+                            })
+                            .catch(error => console.error('Error fetching messages:', error));
+                    }
+                
+                    // Fetch messages when the page loads and periodically
+                    fetchMessages();
+                    setInterval(fetchMessages, 5000);
+                </script>
+                <!-- Chat messages will be loaded here -->
             </div>
-            {% else %}
-                <p>Task not found.</p>
-            {% endif %}
-            <form id="message-form" hx-post="{% url 'chat_message_send' task.id %}" hx-target="#chat-box" hx-swap="outerHTML">
+            
+            <form id="message-form" method="post" action="{% url 'chat_message_send' task.id %}">
                 {% csrf_token %}
                 <input type="text" id="message-input" name="message" required placeholder="Type a message...">
                 <button type="submit">Send</button>
             </form>
+
             <script>
-                document.getElementById('message-form').addEventListener('submit', function (event) {
-                    event.preventDefault();
-                    htmx.trigger("#message-form", "submit");
+                document.getElementById('message-form').addEventListener('submit', function(event) {
+                    event.preventDefault();  // Prevent the default form submission
+        
+                    var formData = new FormData(this);
+                    formData.append('csrfmiddlewaretoken', '{{ csrf_token }}'); // Append CSRF token
+        
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            console.log('Message sent!');
+                            // You can clear the input field or display a success message
+                        } else {
+                            console.error('Error:', data.message);
+                            // Display error message to the user
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
                 });
             </script>
-        </div>
+
+            <button onclick="goBack()">Go Back</button>
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
+            <!---
+            <form id="message-form" method="post" action="{% url 'chat_message_send' task.id %}">
+                {% csrf_token %}
+                <input type="text" name="message" required placeholder="Type a message...">
+                <button type="submit">Send</button>
+            </form>
+            -->
+        {% else %}
+            <p>Task not found.</p>
+        {% endif %}
+    {% endblock %}
 
         <div class="right-container">
             <h2>Work Notes</h2>

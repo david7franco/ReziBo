@@ -68,7 +68,7 @@ def send_message(request, task_id):
         if message_text:
             ChatMessage.objects.create(task=task, author=request.user, message=message_text)
             chat_messages = task.chat_messages.all().order_by('timestamp')
-            html = render_to_string('chat_messages.html', {'chat_messages': chat_messages})
+            html = render_to_string('chat_messages.html', {'chat_messages': chat_messages, })
             return HttpResponse(html)
         else:
             return JsonResponse({'status': 'error', 'message': 'Message cannot be empty.'})
