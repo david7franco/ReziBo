@@ -227,10 +227,10 @@ def profile_view(request):
     user = request.user
 
     if hasattr(user, 'rauser'):  
-        ra_tasks = Task.objects.filter(ra=user.id)
+        ra_tasks = Task.objects.filter(ra=user.rauser.id)
         return render(request, 'registration/profile-view-rauser.html', {'user': user, 'tasks':ra_tasks})
     else:
-        resident_tasks = Task.objects.filter(resident=user.id)
+        resident_tasks = Task.objects.filter(resident=user.residentuser.id)
         return render(request, 'registration/profile-view.html', {'user': user, 'tasks':resident_tasks})
 
 @csrf_exempt

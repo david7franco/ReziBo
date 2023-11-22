@@ -39,7 +39,6 @@
         <div class="user-card">
             <h2>{{ user.username }}</h2>
             <img class="profile-picture" src="/static/gosling.png" alt="Profile Picture">
-            <p><strong>Email:</strong> {{ user.email }}</p>
             <p><strong>Full Name:</strong> {{ user.residentuser.residentName }}</p>
             <p><strong>Floor:</strong> {{ user.residentuser.floor }}</p>
             <p><strong>Last Login:</strong> {{ user.last_login }}</p>
@@ -68,7 +67,7 @@
                 <li style="padding: 10px">
                     <strong>Title:</strong> {{ task.title }}<br>
                     <strong>Description:</strong> {{ task.description }}<br>
-                    <button style="float: right; margin-top: -40px;">View Task</button>
+                    <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
                 </li>
                 {% endfor %}
                 </ul>
