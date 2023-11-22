@@ -6,19 +6,20 @@ body {
 }
 
 .header {
-    background-color: #c0c0c0;
     color: #ffffff;
-    text-align: center;
     padding: 1em 0;
+    background: linear-gradient(to right, #53c3e9, #92dfdf);
+    text-align: center;
+    border-bottom: 2px solid #B0C4DE; /* Soft border at the bottom */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px; /* Optional: Adds some spacing inside the header */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for depth */
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+.row-align-items-center {
+    background-color: #D6E4F0; /* A softer, lighter blue */
+    color: #333333; /* Darker text for contrast */
 }
-
 .column {
     background-color: #ffffff;
     border: 1px solid black;
@@ -81,4 +82,33 @@ body {
     .column, .task-list, .logout, .button .create_ticket{
         width: 100%;
     }
+}
+
+.open-ticket-btn {
+    background-color: #a5d2f7; /* Soft blue */
+    color: rgb(0, 0, 0);
+    padding: 4px 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.open-ticket-btn:hover {
+    background-color: #5B9BD5; /* A bit darker on hover */
+}
+
+/* Style for 'View Timeline' button */
+.view-timeline-btn {
+    background-color: #a5d2f7; /* Slightly darker blue */
+    color: rgb(0, 0, 0);
+    padding: 4px 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.view-timeline-btn:hover {
+    background-color: #a0b6f7; /* Even darker on hover */
 }

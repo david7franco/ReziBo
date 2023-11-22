@@ -176,12 +176,24 @@ def get_start_end_dates_from_week(year, month, week):
 @login_required
 def trello_board(request):
   
-   selected_floor = request.GET.get('floor')
+   selected_floor = request.GET.get('floor', None)
+   
+   if selected_floor is None:
+    try:
+        ra_user = RaUser.objects.get(user=request.user)
+        if not selected_floor:  # Set default floor only if it's not already set by GET request
+            selected_floor = ra_user.floor  # Use RA's floor
+    except RaUser.DoesNotExist:
+        pass  # The user is not an RA, or RAUser entry does not exist
+
+   #ok tbh idky i need this here but it works so im not questioning the code. -David
    tasks = Task.objects.all()
-  
+
    if selected_floor:
        selected_floor = int(selected_floor)  # Convert to integer
        tasks = tasks.filter(floor=selected_floor)
+   else:
+       tasks = Task.objects.all()
   
    # New time-based filtering logic
    week = request.GET.get('week')
@@ -191,7 +203,6 @@ def trello_board(request):
 
    year = datetime.datetime.now().year
 
-
    if week:
        week = int(week)  # Convert week to integer
        month = int(month)
@@ -200,7 +211,6 @@ def trello_board(request):
    elif month:
        tasks = tasks.filter(date_posted__month=month)
    print(tasks.query)  # This will print the raw SQL query
-
 
    # Assuming floors range from 1 to 10 (adjust accordingly)
    floors = range(1, 11)
@@ -216,8 +226,6 @@ def trello_board(request):
        'months': months,
        'weeks' : weeks
    }
-
-
    return render(request, 'registration/trello.html', context)
 
 
