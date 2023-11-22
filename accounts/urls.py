@@ -11,6 +11,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('residentDashboard/', views.resident_dashboard, name= 'resident_dashboard'),
     path('profile-view/', views.profile_view, name='profile-view'),
+    path('profile-view-rauser/', views.profile_view, name='profile-view-rauser'),
     path('createTicket/', views.create_ticket, name= 'create_ticket'),
     #path('chat/', views.chat_room, name='chatroom'),
     #path('chat/<str:Open_Ticket>/', views.chat_room, name='chat_room'),
