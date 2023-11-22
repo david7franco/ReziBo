@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Resident User Profile</title>
+    <title>RA User Profile</title>
     <style>
         .user-profile-container {
             display: flex;
@@ -39,14 +39,14 @@
         <div class="user-card">
             <h2>{{ user.username }}</h2>
             <img class="profile-picture" src="/static/gosling.png" alt="Profile Picture">
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Full Name:</strong> {{ user.residentuser.residentName }}</p>
-            <p><strong>Floor:</strong> {{ user.residentuser.floor }}</p>
+            <p><strong>Email:</strong> {{ user.ra_user.ra_email }}</p>
+            <p><strong>Full Name:</strong> {{ user.rauser.ra_name }}</p>
+            <p><strong>Phone Number:</strong> {{ user.rauser.phone_number }}</p>
+            <p><strong>Floor:</strong> {{ user.rauser.floor }}</p>
             <p><strong>Last Login:</strong> {{ user.last_login }}</p>
             <p><strong>Date Registered:</strong> {{ user.date_joined }}</p>
             
             <p><strong>Role:</strong>
-                
                 {% if user.is_superuser %}
                     Superuser
                 {% elif user.is_staff %}
@@ -54,8 +54,8 @@
                 {% else %}
                     Regular User
                 {% endif %}
-                
             </p>
+
             <p><strong>Additional Information:</strong></p>
             <ul>
                 <li><strong>ID:</strong> {{ user.id }}</li>
@@ -73,11 +73,10 @@
                 {% endfor %}
                 </ul>
             </div>
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit">Logout</button>
-            </form>
-            
+        <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
     </div>
 
 </body>
