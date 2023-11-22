@@ -231,7 +231,7 @@ def move_task(request):
 
 @login_required
 def resident_dashboard(request):
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(resident=request.user.residentuser)
     opened_task_id = None
     if request.method == 'POST':
         opened_task_id = request.POST.get('task_id')
