@@ -31,6 +31,7 @@ from .models import ChatMessage, Task
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from .models import Task, ChatMessage, ResidentUser, RaUser
+from django.template.loader import render_to_string
 
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
@@ -48,24 +49,27 @@ def get_messages(request, room_name):
 @login_required
 def fetch_messages(request, task_id):
     task = get_object_or_404(Task, pk=task_id)
-    if task.ra != request.user and task.resident != request.user:
-        return HttpResponseForbidden("You do not have permission to view this chat.")
-
     chat_messages = task.chat_messages.all().order_by('timestamp')
     return render(request, 'chat_messages.html', {'chat_messages': chat_messages})
+
+'''
+def fetch_messages(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    
+    chat_messages = task.chat_messages.all().order_by('timestamp')
+    return render(request, 'chat_messages.html', {'chat_messages': chat_messages})
+'''
 
 @login_required
 def send_message(request, task_id):
     task = get_object_or_404(Task, pk=task_id)
-    if not (ResidentUser.objects.filter(user=request.user, task=task).exists() or
-            RaUser.objects.filter(user=request.user, task=task).exists()):
-        return HttpResponseForbidden("You are not authorized to send messages in this chat.")
-
     if request.method == 'POST':
         message_text = request.POST.get('message', '').strip()
         if message_text:
             ChatMessage.objects.create(task=task, author=request.user, message=message_text)
-            return JsonResponse({'status': 'success', 'message': 'Message sent.'})
+            chat_messages = task.chat_messages.all().order_by('timestamp')
+            html = render_to_string('chat_messages.html', {'chat_messages': chat_messages})
+            return HttpResponse(html)
         else:
             return JsonResponse({'status': 'error', 'message': 'Message cannot be empty.'})
     return HttpResponse(status=405)  # Method Not Allowed
