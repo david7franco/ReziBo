@@ -83,7 +83,8 @@ class Annotations(models.Model):
     annotations = models.TextField()
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     date_posted = models.DateTimeField(default=datetime.now)
-    
+
+
 class ChatMessage(models.Model):
     task = models.ForeignKey(Task, related_name='chat_messages', on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
