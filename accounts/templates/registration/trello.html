@@ -14,7 +14,7 @@
     <h1>ReziBo RA Dashboard</h1>
     <div class="header-left">
         {% if user.is_authenticated %}
-            <span>Welcome, {{ user.first_name|default:user.username }}</span>
+            <span>Welcome, {{ user.rauser.ra_name }}</span>
         {% endif %}
     </div>
     <a href="{% url 'profile-view' %}" class="button">
@@ -170,8 +170,8 @@
     </div>
  </div>
 
- <div class="logout">
-    <a href="{% url 'logout' %}" class="btn btn-primary">Sign Out</a>
+<div class= 'logout'>
+    <a href="{% url 'logout' %}" class="btn btn-primary">Sign Out</a> 
 </div>
 
 <script>

@@ -181,7 +181,7 @@ def trello_board(request):
 
    #ok tbh idky i need this here but it works so im not questioning the code. -David
    tasks = Task.objects.all()
-
+   
    if selected_floor:
        selected_floor = int(selected_floor)  # Convert to integer
        tasks = tasks.filter(floor=selected_floor)
