@@ -72,6 +72,7 @@
                         <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
                         <strong>Priority:</strong> <span class="priority" id="priority-{{ task.id }}">{{ task.priority }}</span><br>
                         <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
+                        <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
                     </li>
                 {% endif %}
             {% empty %}
@@ -100,6 +101,7 @@
                         <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
                         <strong>Priority:</strong> <span class="priority" id="priority-{{ task.id }}">{{ task.priority }}</span><br>
                         <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
+                        <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
                     </li>
                 {% endif %}
             {% empty %}
@@ -127,6 +129,7 @@
                         <strong>Title:</strong> {{ task.title }}<br>
                         <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
                         <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
+                        <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
                     </li>
                 {% endif %}
             {% empty %}
@@ -154,6 +157,7 @@
                         <strong>Title:</strong> {{ task.title }}<br>
                         <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
                         <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
+                        <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
                     </li>
                 {% endif %}
             {% empty %}
@@ -217,10 +221,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    
-    
-    
-   
    </script>
 <script>
     function getWeeksInMonth(month, year) {

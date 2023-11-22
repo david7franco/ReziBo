@@ -6,6 +6,14 @@
         <span>{{ message.message }}</span>
         <div class="timestamp">{{ message.timestamp|date:"d M Y H:i" }}</div>
     </div>
-{% empty %}
-    <p>No messages yet.</p>
 {% endfor %}
+{% block content %}
+    <button onclick="goBack()">Go Back</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+{% endblock %}     
+
