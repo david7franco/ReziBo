@@ -28,6 +28,27 @@ class TicketForm(forms.ModelForm):
         model = Task
         fields = ['title', 'floor', 'description', 'image', 'file']
 
+
+class SignUpForm(UserCreationForm):
+    residentName = forms.CharField(
+        max_length=200, 
+        required=True, 
+        widget=forms.TextInput(attrs={'class': 'form-control'}) # Add Bootstrap class here
+    )
+    floor = forms.IntegerField(
+        min_value=1, 
+        max_value=10, 
+        required=True, 
+        widget=forms.NumberInput(attrs={'class': 'form-control'}) # Add Bootstrap class here
+    )
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = UserCreationForm.Meta.fields + ('residentName', 'floor')
+
+
+
+'''
 class SignUpForm(UserCreationForm):
     residentName = forms.CharField(max_length=200, required=True)
     floor = forms.IntegerField(min_value=1, max_value=10, required=True)
@@ -35,3 +56,4 @@ class SignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
         fields = UserCreationForm.Meta.fields + ('residentName', 'floor')
+'''
