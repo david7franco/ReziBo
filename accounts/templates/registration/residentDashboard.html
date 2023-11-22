@@ -18,6 +18,9 @@
         <div class="row align-items-center">
             <div class="col">
                 <h1 class="text-center">ReziBo Resident Dashboard</h1>
+            {% if user.is_authenticated %}
+                <span>Welcome, {{ user.residentuser.residentName }}</span>
+            {% endif %}
             </div>
             <div class="col-auto">
                 <a href="{% url 'profile-view' %}">
