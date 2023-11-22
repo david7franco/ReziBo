@@ -56,7 +56,7 @@ class Command(BaseCommand):
         
         ra_user3 = RaUser(
         user=user,
-        floor=2,
+        floor=3,
         ra_name='Sadia Orpi',
         room_number=101,
         phone_number='123-456-7890',
