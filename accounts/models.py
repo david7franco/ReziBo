@@ -90,6 +90,7 @@ class ChatMessage(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now)
+    for_ras_only = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Message by {self.author.username} for Task {self.task.id}"
