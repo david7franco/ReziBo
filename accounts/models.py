@@ -31,6 +31,8 @@ class TextEntry(models.Model):
 class AdminUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     admin_name = models.TextField()
+    image = models.ImageField(null=True, blank=True)
+
 
 
 class RaUser(models.Model):
@@ -40,12 +42,16 @@ class RaUser(models.Model):
     room_number = models.PositiveIntegerField()
     phone_number = models.CharField(max_length=15, blank=True)
     ra_email = models.EmailField(default=None)
+    image = models.ImageField(null=True, upload_to='media/accounts/static')
+
 
 
 class ResidentUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     residentName = models.CharField(max_length=200)
     floor = models.PositiveIntegerField()
+    image = models.ImageField(null=True, upload_to='media/accounts/static')
+
 
 
 class Task(models.Model):
