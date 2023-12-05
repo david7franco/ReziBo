@@ -10,10 +10,6 @@
 <body>
     <h2>Edit Profile</h2>
 
-    {% if user.residentuser.image %}
-        <img class="profile-picture" src="{{ user.rauser.image.url }}" alt="Profile Picture">
-    {% endif %}
-
     <form method="post" enctype="multipart/form-data" action="{% url 'edit_profile_ra' %}">
         {% csrf_token %}
         {{ form.as_p }}
