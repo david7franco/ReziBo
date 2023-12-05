@@ -34,11 +34,24 @@
     </style>
 </head>
 <body>
+    {% load static %}
     <h1>Resident User Profile</h1>
     <div class="user-profile-container">
         <div class="user-card">
             <h2>{{ user.username }}</h2>
-            <img class="profile-picture" src="/static/gosling.png" alt="Profile Picture">
+
+            <h2>Edit Profile</h2>
+
+        {% if user.residentuser.image %}
+            <img class="profile-picture" src="{{ user.residentuser.image.url }}" alt="Profile Picture">
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" action="{% url 'edit_profile' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save Changes</button>
+        </form>
+            
             <p><strong>Full Name:</strong> {{ user.residentuser.residentName }}</p>
             <p><strong>Floor:</strong> {{ user.residentuser.floor }}</p>
             <p><strong>Last Login:</strong> {{ user.last_login }}</p>
