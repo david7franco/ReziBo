@@ -124,7 +124,8 @@ def task_chat(request, task_id):
 
 def open_ticket(request, task_id):
     task = get_object_or_404(Task, pk=task_id)
-    return render(request, 'registration/openTicket.html', {'task': task})
+    is_ra = hasattr(request.user, 'rauser')
+    return render(request, 'registration/openTicket.html', {'task': task, 'is_ra': is_ra })
 
 def signup(request):
     if request.method == 'POST':
