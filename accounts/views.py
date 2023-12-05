@@ -300,7 +300,9 @@ def create_ticket(request):
         if form.is_valid():
             # Create an instance of the ticket but don't save it yet
             new_ticket = form.save(commit=False)
-
+            print(RaUser.objects.filter(floor=request.user.residentuser.floor))
+            rau = RaUser.objects.filter(floor=request.user.residentuser.floor)[0]
+            new_ticket.ra = rau
             # Set the floor attribute from the resident's floor
             new_ticket.floor = request.user.residentuser.floor
             new_ticket.resident = request.user.residentuser
