@@ -33,6 +33,9 @@ from django.shortcuts import render, get_object_or_404
 from .models import Task, ChatMessage, ResidentUser, RaUser
 from django.template.loader import render_to_string
 
+from .forms import UserForm
+
+
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
@@ -49,7 +52,12 @@ def get_messages(request, room_name):
 @login_required
 def fetch_messages(request, task_id):
     task = get_object_or_404(Task, pk=task_id)
-    chat_messages = task.chat_messages.all().order_by('timestamp')
+    
+    if hasattr(request.user, 'rauser'): 
+        chat_messages = task.chat_messages.all().order_by('timestamp')
+    else:
+        chat_messages = task.chat_messages.filter(for_ras_only=False).order_by('timestamp')
+
     return render(request, 'chat_messages.html', {'chat_messages': chat_messages})
 
 '''
@@ -63,31 +71,56 @@ def fetch_messages(request, task_id):
 @login_required
 def send_message(request, task_id):
     task = get_object_or_404(Task, pk=task_id)
+    is_ra = hasattr(request.user, 'rauser')
     if request.method == 'POST':
         message_text = request.POST.get('message', '').strip()
+        for_ras_only = 'ra_only' in request.POST and is_ra
+
         if message_text:
-            ChatMessage.objects.create(task=task, author=request.user, message=message_text)
-            chat_messages = task.chat_messages.all().order_by('timestamp')
+            ChatMessage.objects.create(
+                task=task,
+                author=request.user,
+                message=message_text,
+                for_ras_only=for_ras_only
+            )
+
+            if is_ra:
+                chat_messages = task.chat_messages.all().order_by('timestamp')
+            else:
+                chat_messages = task.chat_messages.filter(for_ras_only=False).order_by('timestamp')
+
             html = render_to_string('chat_messages.html', {'chat_messages': chat_messages, })
             return HttpResponse(html)
         else:
             return JsonResponse({'status': 'error', 'message': 'Message cannot be empty.'})
-    return HttpResponse(status=405)  # Method Not Allowed
+    return HttpResponse(status=405)
 
 def task_chat(request, task_id):
     task = get_object_or_404(Task, pk=task_id)
-    # Check permissions here to make sure the user has the right to view and send messages
 
     if request.method == 'POST':
         message_text = request.POST.get('message', '').strip()
+        for_ras_only = 'ra_only' in request.POST
+
         if message_text:
-            ChatMessage.objects.create(task=task, author=request.user, message=message_text)
+            ChatMessage.objects.create(
+                task=task, 
+                author=request.user, 
+                message=message_text,
+                for_ras_only=for_ras_only 
+            )
             return JsonResponse({'status': 'success', 'message': 'Message sent.'})
         else:
             return JsonResponse({'status': 'error', 'message': 'Message cannot be empty.'})
 
     chat_messages = task.chat_messages.all().order_by('timestamp')
-    return render(request, 'task_chat.html', {'task': task, 'chat_messages': chat_messages})
+    is_ra = hasattr(request.user, 'rauser')
+    return render(request, 'task_chat.html', {
+        'task': task, 
+        'chat_messages': chat_messages,
+        'is_ra': is_ra 
+    })
+
 
 def open_ticket(request, task_id):
     task = get_object_or_404(Task, pk=task_id)
@@ -258,15 +291,63 @@ def resident_dashboard(request):
         'opened_task_id': int(opened_task_id) if opened_task_id else None,
     }
     return render(request, 'registration/residentDashboard.html', context)
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def create_ticket(request):
     if request.method == 'POST':
-        form = TicketForm(request.POST)
+        form = TicketForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Create an instance of the ticket but don't save it yet
+            new_ticket = form.save(commit=False)
+            print(RaUser.objects.filter(floor=request.user.residentuser.floor))
+            rau = RaUser.objects.filter(floor=request.user.residentuser.floor)[0]
+            new_ticket.ra = rau
+            # Set the floor attribute from the resident's floor
+            new_ticket.floor = request.user.residentuser.floor
+            new_ticket.resident = request.user.residentuser
+            # Now save the ticket to the database
+            new_ticket.save()
+
+            return render(request, 'registration/ticket-success.html')
+    else:
+        form = TicketForm()
+
+    return render(request, 'registration/ticket-form.html', {'form': form})
+
+def edit_ticket(request, task_id):
+    # retrieve the given instance of the task
+    task = get_object_or_404(Task, id=task_id)
+    if request.method == 'POST':
+        form = TicketForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
             return render(request, 'registration/ticket-success.html')
     else:
-        form = TicketForm()
-    return render(request, 'registration/ticket-form.html', {'form': form})
+        form = TicketForm(instance=task)
+    return render(request, 'registration/ticket-form.html', {'form': form, 'task': task})
 
 
+def edit_profile(request):
+    resident_user = request.user.residentuser
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES, instance=resident_user)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserForm(instance=resident_user)
+
+    return render(request, 'registration/edit-profile.html', {'form': form, 'resident_user': resident_user})
+
+def edit_profile_ra(request):
+    ra_user = request.user
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES, instance=ra_user.rauser)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserForm(instance=ra_user)
+
+    return render(request, 'registration/edit-profile-ra.html', {'form': form, 'rauser': ra_user})
