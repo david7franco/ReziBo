@@ -56,6 +56,7 @@
                         <h2 class="card-title">Your Open Tasks</h2>
                         <ul>
                             {% for task in tasks %}
+                            
                             <li style="padding: 10px">
                                 <strong>Title:</strong> {{ task.title }}<br>
                                 <strong>Description:</strong> {{ task.description }}<br>
@@ -63,6 +64,8 @@
                                 <strong>Date Posted:</strong> {{ task.date_posted }}<br>
                                 <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
                             </li>
+                            {% empty %}
+                                <p>You have no open tickets, press "Create Ticket" to create a ticket!</p>
                             {% endfor %}
                         </ul>
                     </div>
