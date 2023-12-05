@@ -258,15 +258,27 @@ def resident_dashboard(request):
         'opened_task_id': int(opened_task_id) if opened_task_id else None,
     }
     return render(request, 'registration/residentDashboard.html', context)
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def create_ticket(request):
     if request.method == 'POST':
-        form = TicketForm(request.POST)
+        form = TicketForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            # Create an instance of the ticket but don't save it yet
+            new_ticket = form.save(commit=False)
+
+            # Set the floor attribute from the resident's floor
+            new_ticket.floor = request.user.residentuser.floor
+            new_ticket.resident = request.user.residentuser
+            # Now save the ticket to the database
+            new_ticket.save()
+
             return render(request, 'registration/ticket-success.html')
     else:
         form = TicketForm()
+
     return render(request, 'registration/ticket-form.html', {'form': form})
+
 
 

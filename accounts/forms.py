@@ -26,7 +26,7 @@ class TaskForm(forms.ModelForm):
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'floor', 'description', 'image', 'file']
+        fields = ['title', 'priority', 'description', 'image', 'file']
 
 
 class SignUpForm(UserCreationForm):
