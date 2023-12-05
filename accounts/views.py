@@ -135,7 +135,10 @@ def signup(request):
             ResidentUser.objects.create(
                 user=user, 
                 residentName=form.cleaned_data.get('residentName'), 
-                floor=form.cleaned_data.get('floor')
+                floor=form.cleaned_data.get('floor'),
+                resident_email=form.cleaned_data.get('resident_email'),
+                phone_number=form.cleaned_data.get('phone_number'),
+                room_number=form.cleaned_data.get('room_number')
             )
             login(request, user)
             # Redirect to home page or wherever you wish

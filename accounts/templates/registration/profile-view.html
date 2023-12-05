@@ -41,11 +41,9 @@
                         <p><strong>Floor:</strong> {{ user.residentuser.floor }}</p>
                         <p><strong>Additional Information:</strong></p>
                         <ul>
-                            <!-- Write your comments here
-                            <li><p><strong>Email:</strong> {{ user.residentuser.email }}</p></li>
-                            <li><p><strong>Room Number:</strong> {{ user.room_number }}</p></li>
-                            <li><p><strong>Phone Number:</strong> {{ user.phone_number }}</p></li> --> 
-                            <li><strong>ID:</strong> {{ user.id }}</li>
+                            <li><p><strong>Email:</strong> {{ user.residentuser.resident_email }}</p></li>
+                            <li><p><strong>Room Number:</strong> {{user.residentuser.room_number }}</p></li>
+                            <li><p><strong>Phone Number:</strong> {{user.residentuser.phone_number }}</p></li>
                             <li><p><strong>Last Login:</strong> {{ user.last_login }}</p></li>
                             <li><p><strong>Date Registered:</strong> {{ user.date_joined }}</p></li>
                         </ul>
@@ -58,6 +56,7 @@
                         <h2 class="card-title">Your Open Tasks</h2>
                         <ul>
                             {% for task in tasks %}
+                            
                             <li style="padding: 10px">
                                 <strong>Title:</strong> {{ task.title }}<br>
                                 <strong>Description:</strong> {{ task.description }}<br>
@@ -65,6 +64,8 @@
                                 <strong>Date Posted:</strong> {{ task.date_posted }}<br>
                                 <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
                             </li>
+                            {% empty %}
+                                <p>You have no open tickets, press "Create Ticket" to create a ticket!</p>
                             {% endfor %}
                         </ul>
                     </div>

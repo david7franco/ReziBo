@@ -50,6 +50,9 @@ class ResidentUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     residentName = models.CharField(max_length=200)
     floor = models.PositiveIntegerField()
+    resident_email = models.EmailField(default=None, max_length=254)
+    phone_number = models.CharField(max_length=15, blank=True)
+    room_number = models.PositiveIntegerField(default = 0)
     image = models.ImageField(null=True, upload_to='media/accounts/static')
 
 
