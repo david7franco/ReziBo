@@ -76,7 +76,10 @@ class Command(BaseCommand):
         resdient_user = ResidentUser(
         user = user,
         residentName = "Shivang Patel",
-        floor = 1 
+        floor = 1, 
+        room_number=102,
+        phone_number='856-092-4953',
+        resident_email= 'patels13@students.rowan.edu'
         )
 
         resdient_user.save()
@@ -89,7 +92,10 @@ class Command(BaseCommand):
         resdient_user2 = ResidentUser(
         user = user,
         residentName = "Shivam Patel",
-        floor = 1 
+        floor = 2, 
+        room_number=202,
+        phone_number='856-523-5346',
+        resident_email= 'patels47@students.rowan.edu'
         )
 
         resdient_user2.save()
@@ -102,7 +108,10 @@ class Command(BaseCommand):
         resdient_user3 = ResidentUser(
         user = user,
         residentName = "Samuel Costantino",
-        floor = 1 
+        floor = 3,
+        room_number=305,
+        phone_number='856-234-5252',
+        resident_email= 'costan42@students.rowan.edu'
         )
 
         resdient_user3.save()    
