@@ -1,96 +1,81 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
     <title>Resident User Profile</title>
-    <style>
-        .user-profile-container {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .user-card {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px #aaa;
-            background-color: #f9f9f9;
-            width: 45%; 
-        }
-        .profile-card {
-            width: 45%; 
-        }
-        .profile-picture {
-            max-width: 130px;
-            max-height: 130px;
-        }
-        .task-card {
-            border: 1px solid #ddd;
-            padding: 100px;
-            margin: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px #aaa;
-            background-color: #f9f9f9;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static "accounts/profile-view.css" %}">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 </head>
 <body>
-    {% load static %}
-    <h1>Resident User Profile</h1>
-    <div class="user-profile-container">
-        <div class="user-card">
-            <h2>{{ user.username }}</h2>
 
-            <h2>Edit Profile</h2>
-
-        {% if user.residentuser.image %}
-            <img class="profile-picture" src="{{ user.residentuser.image.url }}" alt="Profile Picture">
-        {% endif %}
-
-        <form method="post" enctype="multipart/form-data" action="{% url 'edit_profile' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Save Changes</button>
-        </form>
-            
-            <p><strong>Full Name:</strong> {{ user.residentuser.residentName }}</p>
-            <p><strong>Floor:</strong> {{ user.residentuser.floor }}</p>
-            <p><strong>Last Login:</strong> {{ user.last_login }}</p>
-            <p><strong>Date Registered:</strong> {{ user.date_joined }}</p>
-            
-            <p><strong>Role:</strong>
-                
-                {% if user.is_superuser %}
-                    Superuser
-                {% elif user.is_staff %}
-                    Staff
-                {% else %}
-                    Regular User
-                {% endif %}
-                
-            </p>
-            <p><strong>Additional Information:</strong></p>
-            <ul>
-                <li><strong>ID:</strong> {{ user.id }}</li>
-            </ul>
-        </div>
-        <div class="task-card">
-            <h2>Your open Tasks</h2>
-            <ul>
-                {% for task in tasks %}
-                <li style="padding: 10px">
-                    <strong>Title:</strong> {{ task.title }}<br>
-                    <strong>Description:</strong> {{ task.description }}<br>
-                    <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
-                </li>
-                {% endfor %}
-                </ul>
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom blue-gradient-background">
+        <h1>Resident User Profile</h1>
+    </header>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Username: {{ user.username }}</h2>
+                        {% if user.residentuser.image %}
+                            <img class="img-fluid" id="customImageSize" src="{{ user.residentuser.image.url }}" alt="Profile Picture">
+                        {% endif %}
+                        <form method="post" enctype="multipart/form-data" action="{% url 'edit_profile' %}">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Edit Picture</button>
+                        </form>
+                        <p><strong>Full Name:</strong> {{ user.residentuser.residentName }}</p>
+                        <p><strong>Role:</strong>
+                            {% if user.is_superuser %}
+                                Superuser
+                            {% elif user.is_staff %}
+                                Staff
+                            {% else %}
+                                Regular User
+                            {% endif %}  
+                        </p>
+                        <p><strong>Floor:</strong> {{ user.residentuser.floor }}</p>
+                        <p><strong>Additional Information:</strong></p>
+                        <ul>
+                            <!-- Write your comments here
+                            <li><p><strong>Email:</strong> {{ user.residentuser.email }}</p></li>
+                            <li><p><strong>Room Number:</strong> {{ user.room_number }}</p></li>
+                            <li><p><strong>Phone Number:</strong> {{ user.phone_number }}</p></li> --> 
+                            <li><strong>ID:</strong> {{ user.id }}</li>
+                            <li><p><strong>Last Login:</strong> {{ user.last_login }}</p></li>
+                            <li><p><strong>Date Registered:</strong> {{ user.date_joined }}</p></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit">Logout</button>
-            </form>
-            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Your Open Tasks</h2>
+                        <ul>
+                            {% for task in tasks %}
+                            <li style="padding: 10px">
+                                <strong>Title:</strong> {{ task.title }}<br>
+                                <strong>Description:</strong> {{ task.description }}<br>
+                                <strong>Priority:</strong> {{ task.priority }}<br>
+                                <strong>Date Posted:</strong> {{ task.date_posted }}<br>
+                                <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-container">
+            <a href="{% url 'logout' %}" class="btn btn-primary">Sign Out</a>
+            <a href="{% url 'create_ticket' %}" class="btn btn-primary">Create Ticket</a>
+        </div>
     </div>
 
 </body>
-</html>
+</html>{% csrf_token %}

@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
     <link rel="stylesheet" type="text/css" href="{% static "accounts/ticketform.css" %}">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 <body>
     <h1>Ticket Submission</h1>
     <form method="post">
