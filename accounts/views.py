@@ -33,6 +33,9 @@ from django.shortcuts import render, get_object_or_404
 from .models import Task, ChatMessage, ResidentUser, RaUser
 from django.template.loader import render_to_string
 
+from .forms import UserForm
+
+
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
@@ -258,15 +261,26 @@ def resident_dashboard(request):
         'opened_task_id': int(opened_task_id) if opened_task_id else None,
     }
     return render(request, 'registration/residentDashboard.html', context)
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def create_ticket(request):
     if request.method == 'POST':
-        form = TicketForm(request.POST)
+        form = TicketForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            # Create an instance of the ticket but don't save it yet
+            new_ticket = form.save(commit=False)
+
+            # Set the floor attribute from the resident's floor
+            new_ticket.floor = request.user.residentuser.floor
+            new_ticket.resident = request.user.residentuser
+            # Now save the ticket to the database
+            new_ticket.save()
+
             return render(request, 'registration/ticket-success.html')
     else:
         form = TicketForm()
+
     return render(request, 'registration/ticket-form.html', {'form': form})
 
 def edit_ticket(request, task_id):
@@ -280,3 +294,28 @@ def edit_ticket(request, task_id):
     else:
         form = TicketForm(instance=task)
     return render(request, 'registration/ticket-form.html', {'form': form, 'task': task})
+
+
+def edit_profile(request):
+    resident_user = request.user.residentuser
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES, instance=resident_user)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserForm(instance=resident_user)
+
+    return render(request, 'registration/edit-profile.html', {'form': form, 'resident_user': resident_user})
+
+def edit_profile_ra(request):
+    ra_user = request.user
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES, instance=ra_user.rauser)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserForm(instance=ra_user)
+
+    return render(request, 'registration/edit-profile-ra.html', {'form': form, 'rauser': ra_user})
