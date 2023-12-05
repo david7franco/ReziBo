@@ -59,6 +59,7 @@
                             {% for task in tasks %}
                             <li style="padding: 10px">
                                 <strong>Title:</strong> {{ task.title }}<br>
+                                <strong>Resident:</strong> {{ task.resident.residentName }}<br>
                                 <strong>Description:</strong> {{ task.description }}<br>
                                 <strong>Priority:</strong> {{ task.priority }}<br>
                                 <strong>Date Posted:</strong> {{ task.date_posted }}<br>
