@@ -3,6 +3,11 @@ from django.contrib.auth import views as auth_views
 from .views import SignUpView
 from . import views
 from .views import task_chat
+from .views import edit_profile
+from .views import edit_profile_ra
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path("signup/", views.signup, name="signup"),
@@ -20,4 +25,9 @@ urlpatterns = [
     path('chat/messages/<int:task_id>/', views.fetch_messages, name='chat_message_fetch'),
     path('chat/send/<int:task_id>/', views.send_message, name='chat_message_send'),
     path('openTicket/<int:task_id>/', views.open_ticket, name='open_ticket'),
+    path('edit_profile/', edit_profile, name='edit_profile'),
+    path('edit_profile_ra/', edit_profile_ra, name='edit_profile_ra')
+
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

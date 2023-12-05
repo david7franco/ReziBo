@@ -38,7 +38,16 @@
     <div class="user-profile-container">
         <div class="user-card">
             <h2>{{ user.username }}</h2>
-            <img class="profile-picture" src="/static/gosling.png" alt="Profile Picture">
+            {% if user.residentuser.image %}
+            <img class="profile-picture" src="{{ user.rauser.image.url }}" alt="Profile Picture">
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data" action="{% url 'edit_profile_ra' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save Changes</button>
+            </form>
+            <img class="profile-picture" src="{{ user.rauser.image.url }}" alt="Profile Picture">
             <p><strong>Email:</strong> {{ user.rauser.ra_email }}</p>
             <p><strong>Room Number:</strong> {{ user.rauser.room_number }}</p>
             <p><strong>Full Name:</strong> {{ user.rauser.ra_name }}</p>
