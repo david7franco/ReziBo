@@ -1,64 +1,118 @@
+/* accounts/ticketform.css */
+
 body {
-    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+    font-family: 'Arial', sans-serif; 
 }
 
 .header {
+    text-align: center;    
+    color: #000000; 
+    margin-top: 20px;
+    margin-bottom: 40px; 
+    font-size: 2.5rem; 
+}
+
+.blue-gradient-background {
     color: #ffffff;
     padding: 1em 0;
     background: linear-gradient(to right, #53c3e9, #92dfdf);
     text-align: center;
-    border-bottom: 2px solid #B0C4DE;
-    border-radius: 15px;
-    padding: 20px;
+    border-bottom: 2px solid #B0C4DE; /* Soft border at the bottom */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px; /* Optional: Adds some spacing inside the header */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for depth */
+}
+
+
+.container {
+    max-width: 400px;
+    padding: 15px;
+    margin: auto;
+    margin-top: 50px;
+    background-color: white;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
 form {
-    margin: 20px;
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin-top: 20px; /* Styling for the form and its elements */
 }
 
-button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
+form textarea {
+    /* Adjust the height and other styles as needed */
+    height: 100px; /* Set your desired height */
+    resize: none; /* Prevent resizing */
+    vertical-align: top;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Error message styling */
+.error {
+    color: red;
+    margin-bottom: 15px;
+}
+
+/* Button styling */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
     cursor: pointer;
 }
 
-button:hover {
+button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-a.button {
-    display: inline-block;
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    margin: 10px;
-}
-
-a.button:hover {
-    background-color: #0056b3;
-}
-
-.logout {
-    text-align: right;
-}
-
-/* Responsive design */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    form {
-        margin: 10px;
+    .container {
+        margin-top: 20px;
         padding: 10px;
     }
+}
+
+.container h2 {
+    text-align: center;
+}
+
+/* Additional styling for ticket submission */
+.header {
+    text-align: center;
+    color: #000000;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+}
+
+.navigation,
+.logout {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.navigation a,
+.logout a {
+    display: block;
+    margin-top: 10px;
 }
