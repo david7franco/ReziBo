@@ -42,6 +42,7 @@
                             <strong>Title:</strong> {{ task.title }}<br>
                             <button class="open-ticket-btn" onclick="toggleDetails({{ task.id }})">Open Ticket Details</button>
                             <button class="view-timeline-btn" onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
+                            <button class="edit-ticket-btn" onclick="window.location.href='{% url 'edit_ticket' task.id %}'">Edit Ticket</button>
                             <div id="details-{{ task.id }}" style="display: none;">
                                 <strong>Description:</strong> {{ task.description }}<br>
                                 <strong>Status:</strong> {{ task.get_status_display }}<br>

@@ -112,3 +112,18 @@ body {
 .view-timeline-btn:hover {
     background-color: #a0b6f7; /* Even darker on hover */
 }
+
+/* Style for 'Edit Ticket button */
+.edit-ticket-btn {
+    background-color: #a5d2f7; /* Slightly darker blue */
+    color: rgb(0, 0, 0);
+    padding: 4px 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-ticket-btn:hover {
+    background-color: #a0b6f7; /* Even darker on hover */
+}
