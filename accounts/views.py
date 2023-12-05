@@ -33,6 +33,9 @@ from django.shortcuts import render, get_object_or_404
 from .models import Task, ChatMessage, ResidentUser, RaUser
 from django.template.loader import render_to_string
 
+from .forms import UserForm
+
+
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
@@ -282,3 +285,26 @@ def create_ticket(request):
 
 
 
+def edit_profile(request):
+    resident_user = request.user.residentuser
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES, instance=resident_user)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserForm(instance=resident_user)
+
+    return render(request, 'registration/edit-profile.html', {'form': form, 'resident_user': resident_user})
+
+def edit_profile_ra(request):
+    ra_user = request.user
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES, instance=ra_user.rauser)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserForm(instance=ra_user)
+
+    return render(request, 'registration/edit-profile-ra.html', {'form': form, 'rauser': ra_user})
