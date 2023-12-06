@@ -57,3 +57,10 @@ body {
 .btn-sm {
     font-size: 0.875rem; /* Adjust the font size as needed */
 }
+
+.subheading {
+    text-align: center;
+    color: #333; /* Adjust the color as needed */
+    background-color: #f2f2f2;
+    margin-bottom: 20px; /* Add margin as needed */
+}
