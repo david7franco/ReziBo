@@ -18,8 +18,8 @@ body {
     text-align: center;
     border-bottom: 2px solid #B0C4DE; /* Soft border at the bottom */
     border-radius: 15px; /* Rounded corners */
-    padding: 20px; /* Optional: Adds some spacing inside the header */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for depth */
+    padding: 20px; /* Adds some spacing inside the header */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .container {
@@ -27,9 +27,9 @@ body {
     padding: 15px;
     margin: auto;
     margin-top: 50px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .button-custom-blue {
@@ -55,12 +55,41 @@ body {
 
 /* Style for the buttons */
 .btn-sm {
-    font-size: 0.875rem; /* Adjust the font size as needed */
+    font-size: 0.875rem;
 }
 
 .subheading {
     text-align: center;
-    color: #333; /* Adjust the color as needed */
-    background-color: #f2f2f2;
-    margin-bottom: 20px; /* Add margin as needed */
+    color: #141414;
+    margin-bottom: 20px;
 }
+
+#customImageSize {
+    max-width: 525px; /* Adjust this value as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.chat-message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.ra-only {
+    background-color: #ffffcc; /* Pale yellow background for RA messages */
+    border: 1px solid #cccccc; /* Light gray border */
+}
+
+.not-for-ras {
+    background-color: #f4f4f4; /* Light gray background for non-RA messages */
+    border: 1px solid #cccccc; /* Light gray border */
+}
+
+
+
+
+
+
+
+
+
