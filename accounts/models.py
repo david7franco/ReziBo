@@ -72,9 +72,9 @@ class Task(models.Model):
         choices=[(1, "Low"), (2, "Medium"), (3, "High")], default=1
     )
     date_posted = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(null=True, blank=True)
-    file = models.FileField(null=True, blank=True)
     task_deadline = models.DateField(default=timezone.now)
+    image = models.ImageField(null=True, blank=True, upload_to='media/accounts/static')
+    file = models.FileField(null=True, blank=True, upload_to='media/accounts/static')
 
     def __str__(self):
         return self.title
@@ -85,6 +85,7 @@ class Comments(models.Model):
     text = models.TextField()
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     date_posted = models.DateTimeField(default=datetime.now)
+
 
 
 class Annotations(models.Model):

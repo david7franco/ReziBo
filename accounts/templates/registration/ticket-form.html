@@ -17,7 +17,7 @@
         <h1>Create Ticket</h1>
     </header>
 
-    <form method="post" class="container">
+    <form method="post" class="container" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="submit-button">Submit</button>

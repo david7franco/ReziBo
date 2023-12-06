@@ -37,11 +37,12 @@ class DateInput(forms.DateInput):
 
 class TicketForm(forms.ModelForm):     
     task_deadline = forms.DateField(label='Date Deadline', required=False, widget=DateInput)
-    image = forms.ImageField(required=False)
     class Meta:
         model = Task
+        image = forms.ImageField(required=False)
+        file = forms.FileField(required=False)
         fields = ['title', 'priority', 'description', 'task_deadline', 'image', 'file']
-
+        
 
 class SignUpForm(UserCreationForm):
     residentName = forms.CharField(
