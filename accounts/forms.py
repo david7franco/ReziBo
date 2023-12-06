@@ -33,6 +33,8 @@ class TaskForm(forms.ModelForm):
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Task
+        image = forms.ImageField(required=False)
+        file = forms.FileField(required=False)
         fields = ['title', 'priority', 'description', 'image', 'file']
 
 
