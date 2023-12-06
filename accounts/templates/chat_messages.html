@@ -1,10 +1,18 @@
 <!-- chat_messages.html -->
 {% for message in chat_messages %}
-    <div class="chat-message">
-        <strong>{{ message.author.username }}:</strong>
-        <span>{{ message.message }}</span>
-        <div class="timestamp">{{ message.timestamp|date:"d M Y H:i" }}</div>
-    </div>
+    {% if message.for_ras_only %}
+        <div class="chat-message ra-only">
+            <strong>{{ message.author.username }}:</strong>
+            <span>[work note] {{ message.message }}</span>
+            <div class="timestamp">{{ message.timestamp|date:"d M Y H:i" }}</div>
+        </div>
+    {% else %}
+        <div class="chat-message not-for-ras">
+            <strong>{{ message.author.username }}:</strong>
+            <span>{{ message.message }}</span>
+            <div class="timestamp">{{ message.timestamp|date:"d M Y H:i" }}</div>
+        </div>
+    {% endif %}
 {% endfor %}
 {% block content %}
 {% endblock %}     

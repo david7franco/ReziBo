@@ -1,15 +1,95 @@
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif; 
 }
 
-.vertical-line {
-    width: 2px; /* Adjust the width as needed */
-    background-color: black;
-    height: 100%; /* Set a height to make the line visible */
-    position: absolute; /* Position the line absolutely within the body */
+.header h1 {
+    text-align: center;    
+    color: #000000; 
+    margin-top: 20px;
+    margin-bottom: 40px; 
+    font-size: 2.5rem; 
 }
+
+.blue-gradient-background {
+    color: #ffffff;
+    padding: 1em 0;
+    background: linear-gradient(to right, #53c3e9, #92dfdf);
+    text-align: center;
+    border-bottom: 2px solid #B0C4DE; /* Soft border at the bottom */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px; /* Adds some spacing inside the header */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    max-width: 400px;
+    padding: 15px;
+    margin: auto;
+    margin-top: 50px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.button-custom-blue {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3; /* Darker border on hover */
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Style for the buttons */
+.btn-sm {
+    font-size: 0.875rem;
+}
+
+.subheading {
+    text-align: center;
+    color: #141414;
+    margin-bottom: 20px;
+}
+
+#customImageSize {
+    max-width: 525px; /* Adjust this value as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.chat-message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.ra-only {
+    background-color: #ffffcc; /* Pale yellow background for RA messages */
+    border: 1px solid #cccccc; /* Light gray border */
+}
+
+.not-for-ras {
+    background-color: #f4f4f4; /* Light gray background for non-RA messages */
+    border: 1px solid #cccccc; /* Light gray border */
+}
+
+
+
+
+
+
+
+
+
