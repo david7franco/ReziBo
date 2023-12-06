@@ -6,7 +6,7 @@ from .models import RaUser
 from .models import ResidentUser
 from .models import User
 from django.core.validators import RegexValidator
-
+from django.contrib.admin.widgets import AdminDateWidget
 class UserForm(forms.ModelForm):
     class Meta:
         model = ResidentUser
@@ -24,16 +24,23 @@ class TextEntryForm(forms.ModelForm):
             self.fields['user'].initial = user
             self.fields['user'].widget = forms.HiddenInput()
 
-
+'''
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['title', 'description', 'status']
+'''
 
-class TicketForm(forms.ModelForm):
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
+class TicketForm(forms.ModelForm):     
+    task_deadline = forms.DateField(label='Date Deadline', required=False, widget=DateInput)
+    image = forms.ImageField(required=False)
     class Meta:
         model = Task
-        fields = ['title', 'priority', 'description', 'image', 'file']
+        fields = ['title', 'priority', 'description', 'task_deadline', 'image', 'file']
 
 
 class SignUpForm(UserCreationForm):

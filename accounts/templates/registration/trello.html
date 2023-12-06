@@ -7,22 +7,53 @@
     <meta charset="UTF-8">
     <title>ReziBo Dashboard</title>
     <link rel="stylesheet" type="text/css" href="{% static "accounts/trello.css" %}">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 </head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url("{% static 'proj_pic.jpg' %}"); 
+        background-size: cover; 
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+</style>
 
 <body>
-<div class="header">
-    <h1>ReziBo RA Dashboard</h1>
-    <div class="header-left">
-        {% if user.is_authenticated %}
-            <span>Welcome, {{ user.rauser.ra_name }}</span>
-        {% endif %}
-    </div>
-    <a href="{% url 'profile-view' %}" class="button">
-    <img src="{% static "user.png" %}" alt="Profile Icon" id="profile-icon" style="width: 55px; height: 55px; float: right; margin-top: -50px;"> </a> 
-</div>
-
-<div class="time-selector">
-    <form method="get" id="dateForm">
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ReziBo RA Dashboard</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {% if user.is_authenticated %}
+                    <span class="navbar-text">
+                        Welcome, {{ user.rauser.ra_name }}
+                    </span>
+                {% endif %}
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile-view' %}">
+                            <span class="navbar-text">
+                                View Profile
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <span class="navbar-text">
+                                Logout
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!-- Time Selector Form -->
+<div class="col-auto">
+    <form method="get" id="dateForm" class="form-inline">
         <!-- Floor Selector -->
         <label for="floor">Select Floor: </label>
         <select id="floor" name="floor">
@@ -48,149 +79,179 @@
         </select>
 
         <!-- Filter Button -->
-        <button type="submit">Filter</button>
+        <button type="submit" class="btn btn-primary">Filter</button>
     </form>
 </div>
+<!-- Main container-->
+<div class="container-fluid">
+    <div class="row">
+        <!-- To Do Column -->
+        <div class="col-md-3">
+            <h2>To Do</h2>
+            <div class="list-group">
+                <ul id="to-do" class="task-list">
+                    {% for task in tasks %}
+                        {% if task.status == 1 %}
+                            <div class="dropdown">
+                                <button class="dropbtn">Move to...</button>
+                                <div class="dropdown-content">
+                                    <button class="move-task" data-task-id="{{ task.id }}" data-new-status="2">In Progress</button>
+                                    <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
+                                    <button class="move-task" data-task-id="{{ task.id }}" data-new-status="4">Done</button>
+                                </div>
+                            </div>                
+                            <li id="task-{{ task.id }}" class="taskborders">
+                                <strong>Title:</strong> {{ task.title }}<br>
+                                <div class="task-details" id="details-{{ task.id }}" style="display: none;">
+                                    <strong>Description:</strong> <span class="desc">{{ task.description }}</span><br>
+                                    <strong>Resdient:</strong> <span class="resdient">{{ task.resident.residentName }}</span><br>
+                                    <strong>Room Number:</strong> <span class="floor_num">{{ task.resident.room_number}}</span><br>
+                                    <strong>Priority:</strong> <span class="priority">{{ task.priority }}</span><br>
+                                    <strong>Deadline:</strong> <span class="deadline">{{ task.task_deadline }}</span><br>
+                                </div>
+                                <button class="toggle-button" data-target="details-{{ task.id }}">Toggle</button>
+                                <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
+                            </li>
+                        {% endif %}
+                    {% empty %}
+                        <li>No tasks found for this category.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
 
-<div class="container">
-    <div class="column columnborders">
-        <h2 class="status-heading">
-            To Do
-        </h2>
-        <ul id="todo-tasks" class="task-list">
-            
-            {% for task in tasks %}
-            
-                {% if task.status == 1 %}
+        <div class="col-md-3">
+            <h2 class="status-heading">
+                In Progress
+            </h2>
+            <div class="list-group">
+                <ul id="in-progress" class="task-list">
+                    {% for task in tasks %}
+                        {% if task.status == 2 %}
+                        <div class="dropdown">
+                            <button class="dropbtn">Move to...</button>
+                            <div class="dropdown-content">
+                                <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
+                                <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
+                                <button class="move-task" data-task-id="{{ task.id }}" data-new-status="4">Done</button>
+                            </div>
+                        </div>
+                        <li id="task-{{ task.id }}" class="taskborders">
+                            <strong>Title:</strong> {{ task.title }}<br>
+                            <div class="task-details" id="details-{{ task.id }}" style="display: none;">
+                                <strong>Description:</strong> <span class="desc">{{ task.description }}</span><br>
+                                <strong>Resdient:</strong> <span class="resdient">{{ task.resident.residentName }}</span><br>
+                                <strong>Room Number:</strong> <span class="floor_num">{{ task.resident.room_number}}</span><br>
+                                <strong>Priority:</strong> <span class="priority">{{ task.priority }}</span><br>
+                                <strong>Deadline:</strong> <span class="deadline">{{ task.task_deadline }}</span><br>
+                            </div>
+                            <button class="toggle-button" data-target="details-{{ task.id }}">Toggle</button>
+                            <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
+                        </li>
+                        {% endif %}
+                    {% empty %}
+                        <li>No tasks found for this category.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <h2 class="status-heading">
+                On Hold
+            </h2>
+            <div class="list-group">
+                <ul id="on-hold" class="task-list">
+                {% for task in tasks %}
+                    {% if task.status == 3 %}
                     <div class="dropdown">
                         <button class="dropbtn">Move to...</button>
                         <div class="dropdown-content">
+                            <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
                             <button class="move-task" data-task-id="{{ task.id }}" data-new-status="2">In Progress</button>
-                            <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
                             <button class="move-task" data-task-id="{{ task.id }}" data-new-status="4">Done</button>
                         </div>
-                    </div>                
-                    <li id="task-{{ task.id }}" class="taskborders">
-                        <strong>Title:</strong> {{ task.title }}<br>
-                        <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
-                        <strong>Priority:</strong> <span class="priority" id="priority-{{ task.id }}">{{ task.priority }}</span><br>
-                        <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
-                        <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
-                    </li>
-                {% endif %}
-            {% empty %}
-                <li>No tasks found for this category.</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="column columnborders">
-        <h2 class="status-heading">
-            In Progress
-        </h2>
-        <ul id="in-progress" class="task-list">
-            {% for task in tasks %}
-                {% if task.status == 2 %}
-                <div class="dropdown">
-                    <button class="dropbtn">Move to...</button>
-                    <div class="dropdown-content">
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="4">Done</button>
                     </div>
-                </div>
                     <li id="task-{{ task.id }}" class="taskborders">
                         <strong>Title:</strong> {{ task.title }}<br>
-                        <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
-                        <strong>Priority:</strong> <span class="priority" id="priority-{{ task.id }}">{{ task.priority }}</span><br>
-                        <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
+                        <div class="task-details" id="details-{{ task.id }}" style="display: none;">
+                            <strong>Description:</strong> <span class="desc">{{ task.description }}</span><br>
+                            <strong>Resdient:</strong> <span class="resdient">{{ task.resident.residentName }}</span><br>
+                            <strong>Room Number:</strong> <span class="floor_num">{{ task.resident.room_number}}</span><br>
+                            <strong>Priority:</strong> <span class="priority">{{ task.priority }}</span><br>
+                            <strong>Deadline:</strong> <span class="deadline">{{ task.task_deadline }}</span><br>
+                        </div>
+                        <button class="toggle-button" data-target="details-{{ task.id }}">Toggle</button>
                         <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
                     </li>
-                {% endif %}
-            {% empty %}
-                <li>No tasks found for this category.</li>
-            {% endfor %}
-        </ul>
+                    {% endif %}
+                {% empty %}
+                    <li>No tasks found for this category.</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="list-group">
+                <h2 class="status-heading">
+                    Done
+                </h2>
+            </div>
+            <div class="list-group">
+                <ul id="done" class="task-list">
+                    {% for task in tasks %}
+                        {% if task.status == 4 %}
+                        <div class="dropdown">
+                            <button class="dropbtn">Move to...</button>
+                            <div class="dropdown-content">
+                                <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
+                                <button class="move-task" data-task-id="{{ task.id }}" data-new-status="2">In Progress</button>
+                                <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
+                            </div>
+                        </div>
+                        <li id="task-{{ task.id }}" class="taskborders">
+                            <strong>Title:</strong> {{ task.title }}<br>
+                            <div class="task-details" id="details-{{ task.id }}" style="display: none;">
+                                <strong>Description:</strong> <span class="desc">{{ task.description }}</span><br>
+                                <strong>Resdient:</strong> <span class="resdient">{{ task.resident.residentName }}</span><br>
+                                <strong>Room Number:</strong> <span class="floor_num">{{ task.resident.room_number}}</span><br>
+                                <strong>Priority:</strong> <span class="priority">{{ task.priority }}</span><br>
+                                <strong>Deadline:</strong> <span class="deadline">{{ task.task_deadline }}</span><br>
+                            </div>
+                            <button class="toggle-button" data-target="details-{{ task.id }}">Toggle</button>
+                            <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
+                        </li>
+                        {% endif %}
+                    {% empty %}
+                        <li>No tasks found for this category.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="column columnborders">
-        <h2 class="status-heading">
-            On Hold
-        </h2>
-        <ul id="on-hold" class="task-list">
-            {% for task in tasks %}
-                {% if task.status == 3 %}
-                <div class="dropdown">
-                    <button class="dropbtn">Move to...</button>
-                    <div class="dropdown-content">
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="2">In Progress</button>
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="4">Done</button>
-                    </div>
-                </div>
-                    <li id="task-{{ task.id }}" class="taskborders">
-                        <strong>Title:</strong> {{ task.title }}<br>
-                        <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
-                        <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
-                        <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
-                    </li>
-                {% endif %}
-            {% empty %}
-                <li>No tasks found for this category.</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="column columnborders">
-        <h2 class="status-heading">
-            Done
-        </h2>
-        <ul id="done" class="task-list">
-            {% for task in tasks %}
-                {% if task.status == 4 %}
-                <div class="dropdown">
-                    <button class="dropbtn">Move to...</button>
-                    <div class="dropdown-content">
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="1">To Do</button>
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="2">In Progress</button>
-                        <button class="move-task" data-task-id="{{ task.id }}" data-new-status="3">On Hold</button>
-                    </div>
-                </div>
-                    <li id="task-{{ task.id }}" class="taskborders">
-                        <strong>Title:</strong> {{ task.title }}<br>
-                        <strong>Description:</strong> <span class="desc" id="desc-{{ task.id }}">{{ task.description }}</span><br>
-                        <button class="toggle-button" data-target="desc-{{ task.id }}">Toggle</button>
-                        <button onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
-                    </li>
-                {% endif %}
-            {% empty %}
-                <li>No tasks found for this category.</li>
-            {% endfor %}
-        </ul>
-    </div>
- </div>
-
-<div class= 'logout'>
-    <a href="{% url 'logout' %}" class="btn btn-primary">Sign Out</a> 
+<div class="container-fluid">
+    <a href="{% url 'logout' %}" class="btn btn-primary">Sign Out</a>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const buttons = document.querySelectorAll('.toggle-button');
-
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            const targetId = button.getAttribute('data-target');
-            const description = document.getElementById(targetId);
-            
-            if (description.style.display === "none" || description.style.display === "") {
-                description.style.display = "block";
-            } else {
-                description.style.display = "none";
-            }
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+    
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = button.getAttribute('data-target');
+                const detailsDiv = document.getElementById(targetId);
+                
+                if (detailsDiv.style.display === "none" || detailsDiv.style.display === "") {
+                    detailsDiv.style.display = "block";
+                } else {
+                    detailsDiv.style.display = "none";
+                }
+            });
         });
     });
-});
 </script>
 
 <script>
