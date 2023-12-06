@@ -31,3 +31,29 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.button-custom-blue {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3; /* Darker border on hover */
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Style for the buttons */
+.btn-sm {
+    font-size: 0.875rem; /* Adjust the font size as needed */
+}

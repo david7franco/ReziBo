@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block content %}
 <!DOCTYPE html>
 <html> 
     <link rel="stylesheet" type="text/css" href="{% static "accounts/openticket.css" %}">   
@@ -13,9 +13,9 @@
 </head>
 <body>
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom blue-gradient-background">
-        <h1 class="header">Ticket Details</h1>
+        <h1 class="header">Ticket Details: {{ task.title }}</h1>
     </header>
-    {% block content %}
+
         {% if task %}
             <div class="container">
                 <div id="chat-box">
@@ -88,6 +88,10 @@
         {% else %}
             <p>Task not found.</p>
         {% endif %}
+        <div class="button-container">
+            <a href="{% url 'logout' %}" class="btn btn-primary">Sign Out</a>
+            <a href="{% url 'create_ticket' %}" class="btn btn-primary">Create Another Ticket </a>
+        </div>
     {% endblock %}
 
     <script>
@@ -104,5 +108,6 @@
         fetchMessages();
         setInterval(fetchMessages, 5000);
     </script>
+    
 </body>
 </html>
