@@ -12,23 +12,47 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 </head>
-  
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+</style>
 <body>
-    <div class="header">
-        <div class="row align-items-center">
-            <div class="col">
-                <h1 class="text-center">ReziBo Resident Dashboard</h1>
-            {% if user.is_authenticated %}
-                <span>Welcome, {{ user.residentuser.residentName }}</span>
-            {% endif %}
-            </div>
-            <div class="col-auto">
-                <a href="{% url 'profile-view' %}">
-                    <img src="{% static "user.png" %}" alt="Profile Icon" class="img-fluid" style="width: 55px; height: 55px;">
-                </a> 
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"> ReziBo Resident Dashboard</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {% if user.is_authenticated %}
+                    <span class="navbar-text">
+                        Welcome, {{ user.residentuser.residentName }}
+                    </span>
+                {% endif %}
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile-view' %}">
+                            <span class="navbar-text">
+                                View Profile
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create_ticket' %}">
+                            <span class="navbar-text">
+                                Create Ticket
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <span class="navbar-text">
+                                Logout
+                            </span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
+    </nav>
 
     <div class="d-flex flex-column align-items-center py-3">
         <div class="bg-white border border-1 rounded p-2 w-100 column">
@@ -47,6 +71,7 @@
                                 <strong>Description:</strong> {{ task.description }}<br>
                                 <strong>Status:</strong> {{ task.get_status_display }}<br>
                                 <strong>Priority:</strong> {{ task.get_priority_display }}<br>
+                                <strong>Deadline:</strong> {{ task.task_deadline}}<br>
                                 <strong>Date Posted:</strong> {{ task.date_posted }}<br>
                             </div>
                         </li>

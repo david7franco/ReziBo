@@ -29,14 +29,8 @@
                             <button type="submit">Edit Picture</button>
                         </form>
                         <p><strong>Full Name:</strong> {{ user.rauser.ra_name }}</p>
-                        <p><strong>Role:</strong>
-                            {% if user.is_superuser %}
-                                Superuser
-                            {% elif user.is_staff %}
-                                Staff
-                            {% else %}
-                                Regular User
-                            {% endif %}  
+                        <p><strong>Role:</strong> Staff
+  
                         </p>
                         <p><strong>Additional Information:</strong></p>
                         <ul>
