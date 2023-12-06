@@ -1,15 +1,33 @@
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif; 
 }
 
-.vertical-line {
-    width: 2px; /* Adjust the width as needed */
-    background-color: black;
-    height: 100%; /* Set a height to make the line visible */
-    position: absolute; /* Position the line absolutely within the body */
+.header h1 {
+    text-align: center;    
+    color: #000000; 
+    margin-top: 20px;
+    margin-bottom: 40px; 
+    font-size: 2.5rem; 
+}
+
+.blue-gradient-background {
+    color: #ffffff;
+    padding: 1em 0;
+    background: linear-gradient(to right, #53c3e9, #92dfdf);
+    text-align: center;
+    border-bottom: 2px solid #B0C4DE; /* Soft border at the bottom */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px; /* Optional: Adds some spacing inside the header */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for depth */
+}
+
+.container {
+    max-width: 400px;
+    padding: 15px;
+    margin: auto;
+    margin-top: 50px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
