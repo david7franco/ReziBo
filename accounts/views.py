@@ -18,23 +18,19 @@ from django.shortcuts import render
 from .forms import SignUpForm
 from .models import ResidentUser
 from django.contrib.auth import login
-
 from django.urls import reverse
 from .models import AdminUser, RaUser, ResidentUser
 import datetime
 from django.utils import timezone
 from django.contrib.auth import authenticate, login as auth_login
-
-from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
+from django.http import JsonResponse, HttpResponse
 from .models import ChatMessage, Task
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from .models import Task, ChatMessage, ResidentUser, RaUser
 from django.template.loader import render_to_string
-
 from .forms import UserForm
-
+from django.contrib.auth.decorators import login_required
 
 class SignUpView(generic.CreateView):
     form_class = UserCreationForm
@@ -294,8 +290,10 @@ def resident_dashboard(request):
         'tasks': tasks,
         'opened_task_id': int(opened_task_id) if opened_task_id else None,
     }
+    if request.headers.get('HX-Request'):   
+        html = render_to_string('registration/task_list.html', context, request)
+        return HttpResponse(html)
     return render(request, 'registration/residentDashboard.html', context)
-from django.contrib.auth.decorators import login_required
 
 @login_required
 def create_ticket(request):
