@@ -11,6 +11,7 @@
     {% load bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    <script src="https://unpkg.com/htmx.org"></script>
 </head>
 <style>
     body {
@@ -54,60 +55,10 @@
         </div>
     </nav>
 
-    <div class="d-flex flex-column align-items-center py-3">
-        <div class="bg-white border border-1 rounded p-2 w-100 column">
-            <h2 class="status-heading">
-                Open Tickets
-            </h2>
-            <ul id="Open Tickets" class="task-list">
-                {% for task in tasks %}
-                    {% if task.status == 1 or task.status == 2 or task.status == 3 %}
-                        <li id="task-{{ task.id }}" class="taskborders">
-                            <strong>Title:</strong> {{ task.title }}<br>
-                            <button class="open-ticket-btn" onclick="toggleDetails({{ task.id }})">Open Ticket Details</button>
-                            <button class="view-timeline-btn" onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
-                            <button class="edit-ticket-btn" onclick="window.location.href='{% url 'edit_ticket' task.id %}'">Edit Ticket</button>
-                            <div id="details-{{ task.id }}" style="display: none;">
-                                <strong>Description:</strong> {{ task.description }}<br>
-                                <strong>Status:</strong> {{ task.get_status_display }}<br>
-                                <strong>Priority:</strong> {{ task.get_priority_display }}<br>
-                                <strong>Deadline:</strong> {{ task.task_deadline}}<br>
-                                <strong>Date Posted:</strong> {{ task.date_posted }}<br>
-                            </div>
-                        </li>
-                    {% endif %}
-                {% empty %}
-                    <li>No tasks found for this category.</li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class="bg-white border border-1 rounded p-2 w-100 column">
-            <h2 class="status-heading">
-                Previous Tickets
-            </h2>
-            <ul id="Done" class="task-list">
-                {% for task in tasks %}
-                    {% if task.status == 4 %}
-                        <li id="task-{{ task.id }}" class="taskborders">
-                            <strong>Title:</strong> {{ task.title }}<br>
-                            <button class="open-ticket-btn" onclick="toggleDetails({{ task.id }})">Open Ticket Details</button>
-                            <button class="view-timeline-btn" onclick="window.location.href='{% url 'open_ticket' task.id %}'">View Timeline</button>
-                            <div id="details-{{ task.id }}" style="display: none;">
-                                <strong>Description:</strong> {{ task.description }}<br>
-                                <strong>Status:</strong> {{ task.get_status_display }}<br>
-                                <strong>Priority:</strong> {{ task.get_priority_display }}<br>
-                                <strong>Date Posted:</strong> {{ task.date_posted }}<br>
-                            </div>
-                        </li>
-                    {% endif %}
-                {% empty %}
-                    <li>No tasks found for this category.</li>
-                {% endfor %}
-            </ul>
-        </div>
+    <div class="d-flex flex-column py-3">  
+        {% include 'registration/task_list.html' %}
     </div>
-
+    
     <div class="flex-container">
         <a href="{% url 'logout' %}" class="btn btn-primary">Sign Out</a>
         <a href="{% url 'create_ticket' %}" class="btn btn-primary">Create Ticket</a>

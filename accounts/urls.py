@@ -8,7 +8,6 @@ from .views import edit_profile_ra
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
     path("signup/", views.signup, name="signup"),
     path('trello/', views.trello_board, name='trello_board'),
@@ -28,7 +27,7 @@ urlpatterns = [
     path('editTicket/<int:task_id>/', views.edit_ticket, name='edit_ticket'),
     path('edit_profile/', edit_profile, name='edit_profile'),
     path('edit_profile_ra/', edit_profile_ra, name='edit_profile_ra'),
-
-]
+    path('task_list/', views.resident_dashboard, name='task_list'),
+    ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
