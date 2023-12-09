@@ -339,6 +339,7 @@ def edit_profile(request):
         form = UserForm(request.POST, request.FILES, instance=resident_user)
         if form.is_valid():
             form.save()
+            return redirect('profile-view')
     else:
         form = UserForm(instance=resident_user)
 

@@ -53,7 +53,7 @@ class ResidentUser(models.Model):
     resident_email = models.EmailField(default=None, max_length=254)
     phone_number = models.CharField(max_length=15, blank=True)
     room_number = models.PositiveIntegerField(default = 0)
-    image = models.ImageField(null=True, upload_to='media/accounts/static')
+    image = models.ImageField(null=True, blank=True, upload_to='media/accounts/static')
 
 
 

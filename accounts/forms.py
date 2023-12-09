@@ -7,10 +7,11 @@ from .models import ResidentUser
 from .models import User
 from django.core.validators import RegexValidator
 from django.contrib.admin.widgets import AdminDateWidget
+
 class UserForm(forms.ModelForm):
     class Meta:
         model = ResidentUser
-        fields = ['image']
+        fields = ['image', 'residentName', 'resident_email', 'phone_number']
 
 class TextEntryForm(forms.ModelForm):
     class Meta:
