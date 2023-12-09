@@ -323,7 +323,7 @@ def edit_ticket(request, task_id):
     # retrieve the given instance of the task
     task = get_object_or_404(Task, id=task_id)
     if request.method == 'POST':
-        form = TicketForm(request.POST, instance=task)
+        form = TicketForm(request.POST, request.FILES, instance=task)
         if form.is_valid():
             form.save()
             return render(request, 'registration/ticket-success.html')
