@@ -40,8 +40,6 @@ class TicketForm(forms.ModelForm):
     task_deadline = forms.DateField(label='Date Deadline', required=False, widget=DateInput)
     class Meta:
         model = Task
-        image = forms.ImageField(required=False)
-        file = forms.FileField(required=False)
         fields = ['title', 'priority', 'description', 'task_deadline', 'image', 'file']
         
 
