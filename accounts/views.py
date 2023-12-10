@@ -154,7 +154,7 @@ def login_view(request):
             auth_login(request, user)
             return redirect(redirect_based_on_group(user)) 
         else:
-            return render(request, 'registration/login.html', {'error': 'Invalid credentials'})
+            return render(request, 'registration/login.html', {'error': 'Invalid Username or Password'})
 
     elif request.user.is_authenticated:
         return redirect(redirect_based_on_group(request.user))
