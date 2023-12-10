@@ -35,19 +35,30 @@ label {
     font-weight: bold;
 }
 
-/* Button styling */
-button[type="submit"] {
-    width: 100%;
-    padding: 10px;
+.button-custom-blue {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #9dc6f2;
+    color: #fff;
     border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
+.button:hover {
+    background-color: #81b3e9;
+    border-color: #0056b3; /* Darker border on hover */
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Style for the buttons */
+.btn-sm {
+    font-size: 0.875rem;
 }
 
 /* Additional styling for ticket submission */
