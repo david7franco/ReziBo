@@ -1,23 +1,28 @@
 <!-- edit_profile.html -->
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
+    <title>Edit Resident Profile</title>
+    <link rel="stylesheet" type="text/css" href="{% static "accounts/edit-profile.css" %}">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 </head>
 <body>
-    <h2>Edit Profile</h2>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom blue-gradient-background">
+            <h1>Edit User Profile</h1>
+        </header>
 
-
-    <form method="post" enctype="multipart/form-data" action="{% url 'edit_profile' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save Changes</button>
-    </form>
-
-    <a href="{% url 'profile-view' %}">Back to Profile</a>
-
+        <div class="d-flex justify-content-center align-items-center">
+            <form class="form-container" method="post" enctype="multipart/form-data" action="{% url 'edit_profile' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary mr-2">Save Changes</button>
+                <a href="{% url 'profile-view' %}" class="btn btn-secondary">Back to Profile</a>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

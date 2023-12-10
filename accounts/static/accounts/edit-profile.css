@@ -1,0 +1,98 @@
+/* edit-profile.css */
+
+body {
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif; 
+}
+
+.header {
+    text-align: center;    
+    color: #000000; 
+    margin-top: 20px;
+    margin-bottom: 40px; 
+    font-size: 2.5rem; 
+}
+
+.blue-gradient-background {
+    color: #ffffff;
+    padding: 1em 0;
+    background: linear-gradient(to right, #53c3e9, #92dfdf);
+    text-align: center;
+    border-bottom: 2px solid #B0C4DE; /* Soft border at the bottom */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px; /* Optional: Adds some spacing inside the header */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for depth */
+}
+
+.container {
+    max-width: 400px;
+    padding: 15px;
+    margin: auto;
+    margin-top: 50px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.button-custom-blue {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-custom-blue:hover {
+    background-color: #0056b3;
+}
+
+.button-secondary {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-secondary:hover {
+    background-color: #5a6268;
+}
