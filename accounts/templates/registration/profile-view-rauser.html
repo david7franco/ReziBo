@@ -58,7 +58,7 @@
                         <form method="post" enctype="multipart/form-data" action="{% url 'edit_profile_ra' %}">
                             {% csrf_token %}
                             {{ form.as_p }}
-                        <button type="submit">Edit Profile</button>
+                        <button type="submit">Edit Picture</button>
                         </form>
                         <p><strong>Full Name:</strong> {{ user.rauser.ra_name }}</p>
                         <p><strong>Role:</strong> Staff
