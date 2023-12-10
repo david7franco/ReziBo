@@ -1,0 +1,86 @@
+/* edit-profile.css */
+
+body {
+    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif; 
+}
+
+.header {
+    text-align: center;    
+    color: #000000; 
+    margin-top: 20px;
+    margin-bottom: 40px; 
+    font-size: 2.5rem; 
+}
+
+.blue-gradient-background {
+    color: #ffffff;
+    padding: 1em 0;
+    background: linear-gradient(to right, #53c3e9, #92dfdf);
+    text-align: center;
+    border-bottom: 2px solid #B0C4DE; /* Soft border at the bottom */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px; /* Optional: Adds some spacing inside the header */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for depth */
+}
+
+.container {
+    max-width: 500px !important;
+    padding: 20px;
+    margin: auto;
+    margin-top: 50px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.form-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-container input,
+.form-container textarea,
+.form-container select {
+    width: 100% !important;
+    padding: 8px; 
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.button-custom-blue {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-custom-blue:hover {
+    background-color: #0056b3;
+}
+
+.button-secondary {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-secondary:hover {
+    background-color: #5a6268;
+}
