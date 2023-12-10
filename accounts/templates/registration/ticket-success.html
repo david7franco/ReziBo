@@ -4,17 +4,28 @@
 
 <!DOCTYPE html>
 <html>
+    <link rel="stylesheet" type="text/css" href="{% static "accounts/ticket-success.css" %}">
 <head>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <title>Success</title>
 </head>
 <body>
-    <h1>Successfully Created</h1>
-    <p>Your ticket has been submitted successfully.</p>
-    <a href="{% url 'create_ticket' %}">Submit Another Ticket</a>
-    <div>
-        <a href="{% url 'resident_dashboard' %}" class="button">View Your Tickets</a>
-    </div>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom blue-gradient-background">
+            <h1>Success!</h1>
+        </header>
+        <h2>Your ticket has been submitted.</h2>
+        
+        <div class="button-container">
+            <a href="{% url 'logout' %}" class="btn btn-primary">Sign Out</a>
+            <a href="{% url 'resident_dashboard' %}" class="btn btn-primary">View Your Tickets</a>
+        </div>
+
+    <div> 
 </body>
 </html>
 
 {% endblock %}
+
