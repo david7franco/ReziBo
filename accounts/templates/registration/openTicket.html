@@ -39,6 +39,7 @@
                     <!-- Chat messages will be loaded here -->
                 </div>
                 
+                <strong>Deadline:</strong> {{ task.task_deadline}}<br>
                 {% if task.image %}
                     <img class="img-fluid" id="customImageSize" src="{{ task.image.url }}" alt="Profile Picture">
                 {% endif %}
