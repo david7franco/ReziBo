@@ -72,7 +72,7 @@ class Task(models.Model):
         choices=[(1, "Low"), (2, "Medium"), (3, "High")], default=1
     )
     date_posted = models.DateTimeField(default=timezone.now)
-    task_deadline = models.DateField(default=timezone.now)
+    task_deadline = models.DateField(null= True, blank=True, default=timezone.now)
     image = models.ImageField(null=True, blank=True, upload_to='media/accounts/static')
     file = models.FileField(null=True, blank=True, upload_to='media/accounts/static')
 
