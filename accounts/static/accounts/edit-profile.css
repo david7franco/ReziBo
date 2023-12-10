@@ -25,8 +25,8 @@ body {
 }
 
 .container {
-    max-width: 400px;
-    padding: 15px;
+    max-width: 500px !important;
+    padding: 20px;
     margin: auto;
     margin-top: 50px;
     background-color: rgb(255, 255, 255);
@@ -37,34 +37,22 @@ body {
 .form-container {
     max-width: 500px;
     margin: 0 auto;
-}
-
-.form-group {
     margin-bottom: 20px;
 }
 
-.form-group label {
+.form-container label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 12px;
+.form-container input,
+.form-container textarea,
+.form-container select {
+    width: 100% !important;
+    padding: 8px; 
     box-sizing: border-box;
-}
-
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    box-sizing: border-box;
-}
-
-.form-group select {
-    width: 100%;
-    padding: 12px;
-    box-sizing: border-box;
+    margin-bottom: 10px;
 }
 
 .button-custom-blue {
