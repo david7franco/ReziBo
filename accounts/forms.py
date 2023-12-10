@@ -13,6 +13,11 @@ class UserForm(forms.ModelForm):
         model = ResidentUser
         fields = ['image', 'residentName', 'resident_email', 'phone_number']
 
+class UserFormRA(forms.ModelForm):
+    class Meta:
+        model = RaUser
+        fields = ['image']
+
 class TextEntryForm(forms.ModelForm):
     class Meta:
         model = TextEntry

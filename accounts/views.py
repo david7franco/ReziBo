@@ -30,6 +30,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Task, ChatMessage, ResidentUser, RaUser
 from django.template.loader import render_to_string
 from .forms import UserForm
+from .forms import UserFormRA
 from django.contrib.auth.decorators import login_required
 
 class SignUpView(generic.CreateView):
@@ -347,7 +348,7 @@ def edit_profile_ra(request):
     ra_user = request.user
 
     if request.method == 'POST':
-        form = UserForm(request.POST, request.FILES, instance=ra_user.rauser)
+        form = UserFormRA(request.POST, request.FILES, instance=ra_user.rauser)
         if form.is_valid():
             form.save()
     else:

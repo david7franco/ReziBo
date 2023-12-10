@@ -8,12 +8,44 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 </head>
+
+
 <body>
-
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom blue-gradient-background">
-        <h1>RA User Profile</h1>
-    </header>
-
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"> RA User Profile</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {% if user.is_authenticated %}
+                    <span class="navbar-text">
+                        Welcome, {{ user.rauser.ra_name }}
+                    </span>
+                {% endif %}
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create_ticket' %}">
+                            <span class="navbar-text">
+                                Create Ticket
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'trello_board' %}">
+                            <span class="navbar-text">
+                                View Dashboard
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <span class="navbar-text">
+                                Logout
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -26,7 +58,7 @@
                         <form method="post" enctype="multipart/form-data" action="{% url 'edit_profile_ra' %}">
                             {% csrf_token %}
                             {{ form.as_p }}
-                            <button type="submit">Edit Picture</button>
+                        <button type="submit">Edit Profile</button>
                         </form>
                         <p><strong>Full Name:</strong> {{ user.rauser.ra_name }}</p>
                         <p><strong>Role:</strong> Staff
