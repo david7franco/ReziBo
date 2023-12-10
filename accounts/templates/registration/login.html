@@ -16,9 +16,8 @@
 <div class = "container">
 
   <h2>ReziBo Login</h2>
-
-      {% if form.errors %}
-        <p class="error">Invalid username or password. Please try again.</p>
+      {% if error %}
+      <p class="error">{{ error }}</p>
       {% endif %}
 
       <form method="post">
