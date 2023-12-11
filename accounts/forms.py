@@ -50,6 +50,7 @@ class TicketForm(forms.ModelForm):
 
 class SignUpForm(UserCreationForm):
     residentName = forms.CharField(
+        label= 'Resident Name',
         max_length=200, 
         required=True, 
         widget=forms.TextInput(attrs={'class': 'form-control'}) # Add Bootstrap class here
