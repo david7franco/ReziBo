@@ -22,13 +22,6 @@
                 {% endif %}
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'create_ticket' %}">
-                            <span class="navbar-text">
-                                Create Ticket
-                            </span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'trello_board' %}">
                             <span class="navbar-text">
                                 View Dashboard
@@ -99,7 +92,6 @@
         </div>
         <div class="flex-container">
             <a href="{% url 'logout' %}" class="btn btn-primary">Sign Out</a>
-            <a href="{% url 'create_ticket' %}" class="btn btn-primary">Create Ticket</a>
             <a href="{% url 'trello_board' %}" class="btn btn-primary">View Dashboard</a>
         </div>
     </div>
