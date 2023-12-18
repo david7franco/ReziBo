@@ -13,7 +13,6 @@ from .forms import TicketForm
 from django.views.decorators.http import require_POST
 import json
 from django.http import JsonResponse
-from django.shortcuts import render
 #from .models import Message
 from .forms import SignUpForm
 from .models import ResidentUser
