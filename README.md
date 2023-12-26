@@ -1,18 +1,23 @@
-Getting Started
+#ReziBo Task Manager Web Application
+This Task Manager Web Application is a comprehensive project developed using the Django framework. It enables efficient task management, providing users with a user-friendly interface to organize, assign, and track tasks effectively.
 
-First clone the repository from Github and switch to the new directory:
+Features:
+Task Assignment- Users can assign tasks to themselves or other team members, specifying details such as priority, due dates, and descriptions.
+User Authentication- Secure login and authentication system ensuring data privacy and access control.
+Task Prioritization- Ability to set task priorities, aiding in efficient task management and completion.
+Due Date Tracking- Clear visibility of task deadlines to help users manage their workload effectively.
 
-$ git clone git@github.com/USERNAME/{{ project_name }}.git
-$ cd {{ project_name }}
+How to Use
+Clone the Repository:
+$ git clone https://github.com/yourusername/TeamSeniorProject.git
 
-Activate the virtualenv for your project.
+Install Dependencies:
+$cd TeamSeniorProject
+$pip install -r requirements.txt
 
-Install project dependencies:
+Run the Application:
+$python manage.py runserver
+$Access the application through your web browser at http://localhost:8000.
 
-$ pip install -r requirements.txt
-Then simply apply the migrations:
-
-$ python manage.py migrate
-You can now run the development server:
-
-$ python manage.py runserver
+Contributing
+We welcome contributions! Feel free to fork this repository, make changes, and create a pull request for review.
