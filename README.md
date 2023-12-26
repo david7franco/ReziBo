@@ -1,6 +1,7 @@
 # ReziBo Task Manager Web Application
 This Task Manager Web Application is a comprehensive project developed using the Django framework. It enables efficient task management, providing users with a user-friendly interface to organize, assign, and track tasks effectively.
 
+Made using: Python3.6, and latest version of Django (v5.0)
 ## How to Use:
 
 Clone the Repository:
@@ -14,7 +15,7 @@ $ pip install -r requirements.txt
 ```
 Run the Application:
 ```
-$python manage.py runserver
+$ python3 manage.py runserver
 ```
 Access the application through your web browser at http://localhost:8000.
 
