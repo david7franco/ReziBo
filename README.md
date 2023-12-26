@@ -5,7 +5,7 @@ This Task Manager Web Application is a comprehensive project developed using the
 
 Clone the Repository:
 ```
-git clone https://github.com/yourusername/TeamSeniorProject.git
+git clone https://github.com/yourusername/ReziBo.git
 ```
 
 Install Dependencies:
