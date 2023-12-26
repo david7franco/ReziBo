@@ -10,7 +10,6 @@ git clone https://github.com/yourusername/ReziBo.git
 
 Install Dependencies:
 ```
-$ cd TeamSeniorProject
 $ pip install -r requirements.txt
 ```
 Run the Application:
